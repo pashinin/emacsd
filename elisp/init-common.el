@@ -210,5 +210,90 @@
     (delete-trailing-whitespace)))
 (add-hook 'before-save-hook 'unix-newlines-no-spaces)
 
+
+
+
+
+;;
+;; code borrowed from http://emacs-fu.blogspot.com/2010/01/duplicating-lines-and-commenting-them.html
+;;(defun djcb-duplicate-line (&optional commentfirst)
+;;  "comment line at point; if COMMENTFIRST is non-nil, comment the
+;;original"
+;;  (interactive)
+;;  (beginning-of-line)
+;;  (push-mark)
+;;  (end-of-line)
+;;  (let ((str (buffer-substring (region-beginning) (region-end))))
+;;    (when commentfirst
+;;      (comment-region (region-beginning) (region-end)))
+;;    ;;(insert-string
+;;    (insert
+;;     (concat (if (= 0 (forward-line 1)) "" "\n") str "\n"))
+;;    (forward-line -1)))
+;;
+;;;; duplicate a line
+;;(global-set-key (kbd "C-c y") 'djcb-duplicate-line)
+
+;; duplicate a line and comment the first
+;;(global-set-key (kbd "C-c c")(lambda()(interactive)(djcb-duplicate-line t)))
+
+;; Mark whole line
+(defun mark-line (&optional arg)
+  "Marks a line"
+  (interactive "p")
+  (beginning-of-line)
+  (push-mark (point) nil t)
+  (end-of-line))
+
+(global-set-key (kbd "C-c l") 'mark-line)
+
+
+(defun move-text-internal (arg)
+  (cond
+   ((and mark-active transient-mark-mode)
+    (if (> (point) (mark))
+        (exchange-point-and-mark))
+    (let ((column (current-column))
+          (text (delete-and-extract-region (point) (mark))))
+      (forward-line arg)
+      (move-to-column column t)
+      (set-mark (point))
+      (insert text)
+      (exchange-point-and-mark)
+      (setq deactivate-mark nil)
+      ))
+   (t
+    (let ((column (current-column)))
+      (beginning-of-line)
+      (when (or (> arg 0) (not (bobp)))
+        (forward-line)
+        (when (or (< arg 0) (not (eobp)))
+          (transpose-lines arg)
+          ;;(forward-line -2)     ;; fix it -1 (down) or -2 (up)
+
+          )
+        )
+      (forward-line -1)
+      (move-to-column column t)))))
+
+(defun move-text-down (arg)
+  "Move region (transient-mark-mode active) or current line
+  arg lines down."
+  (interactive "*p")
+  (move-text-internal arg))
+
+(defun move-text-up (arg)
+  "Move region (transient-mark-mode active) or current line
+  arg lines up."
+  (interactive "*p")
+  (move-text-internal (- arg))
+  (if (not (and mark-active transient-mark-mode))
+      (forward-line -1)
+    )
+  )
+
+(global-set-key (kbd "M-<up>") 'move-text-up)
+(global-set-key (kbd "M-<down>") 'move-text-down)
+
 (provide 'init-common)
 ;;; init-common.el ends here
