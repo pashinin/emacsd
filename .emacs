@@ -75,7 +75,7 @@
 
 (setq load-path (cons "~/.emacs.d" load-path))
 (setq load-path (cons "~/.emacs.d/elisp" load-path))
-(setq bbdb-file "~/bbdb")    ; "~/.bbdb"
+;;(setq bbdb-file "~/bbdb")    ; "~/.bbdb"
 
 (require 'init-variables)      ;; my emacs extensions paths,
 
@@ -89,8 +89,9 @@
   (when (and (require 'init-gpg nil 'noerror) internet-ok)
     (require 'init-irc)
     ;;(require 'init-mail)
-    (require 'init-bbdb))
+    )
   (require 'init-windows-buffers)    ;; ido, helm...
+  (require 'init-bbdb)
 
   (require 'init-auto-insert)
 

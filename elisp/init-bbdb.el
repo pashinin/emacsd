@@ -7,20 +7,34 @@
 ;;(require 'init-variables)
 ;;(require 'bbdb-autoloads)
 ;;(load "bbdb-autoloads.el")
-(setq bbdb-file "~/bbdb")    ; "~/.bbdb"
+(setq bbdb-file "~/.bbdb/bbdb")    ; "~/.bbdb"
 (require 'bbdb)
 (require 'bbdb-com)
 ;;(unless (file-exists-p bbdb-file)  ; create if not exists?
 ;;  (write-region "" nil bbdb-file))
 
 (bbdb-initialize)
-(setq bbdb-file "~/bbdb")    ; "~/.bbdb"
+
+;; mklink "where" "what"
+;; mklink C:\bin\bbdb C:\bin\.bbdb\bbdb
+
+;;(if (eq system-type 'windows-nt)
+;;    (let ((f "C:/bin/bbdb")
+;;          (f2 "C:/bin/bbdb-my/bbdb"))
+;;      (if (and (not (file-exists-p f))
+;;               (file-exists-p f2))
+;;          (shell-command-to-string "mklink C:\\bin\\bbdb C:\\bin\bbdb-my\\bbdb")
+;;        )))
+
+
+;;(setq bbdb-file "~/bbdb")    ; "~/.bbdb"
+;;(setq bbdb-file "~/.bbdb/bbdb")
 ;;(bbdb-initialize 'gnus 'message)
 
 ;;(add-to-list 'file-coding-system-alist (cons "\\.bbdb"  'utf-8))
 
-(setq bbdb-use-pop-up nil)    ; See the BBDB only when I ask
-(setq bbdb-canonicalize-redundant-nets-p t)  ; Ignore subnets
+;;(setq bbdb-use-pop-up nil)    ; See the BBDB only when I ask
+;;(setq bbdb-canonicalize-redundant-nets-p t)  ; Ignore subnets
 
 ;; If you don't live in Northern America, you should disable the syntax
 ;; check for telephone numbers by saying
