@@ -13,22 +13,11 @@
 
 (require 'server)
 
-(defun query-emacs-stop-loading ()
-  "If server running - give a warning."
-  ;;(interactive "sEnter friend's name: ")
-  ;;(message "Name: %s")
-  (if (y-or-n-p "Server started.  Continue loading? ")
-	  (progn
-		;; code to do something here
-		)
-	(progn
-	  ;; code if user answered no.
-	  )))
-
-(when (and (server-running-p)
-           (window-system))
-	  ;;(kill-emacs)
-	  )
+;; maybe on GNU/Linux:
+;;(when (and (server-running-p)
+;;           (window-system))
+;;	  ;;(kill-emacs)
+;;	  )
 
 ;; error: The directory `~/.emacs.d/server' is unsafe
 ;; 1. Create dir "~/.emacs.d/server"
