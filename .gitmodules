@@ -1,0 +1,6 @@
+[submodule "elisp/extensions/workgroups2"]
+	path = elisp/extensions/workgroups2
+	url = git@github.com:pashinin/workgroups2.git
+[submodule "elisp/extensions/capture"]
+	path = elisp/extensions/capture
+	url = git@github.com:pashinin/capture.el.git
