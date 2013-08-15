@@ -5,6 +5,12 @@
 (require 'init-dired-z)
 (require 'init-os-misc)
 
+(defun my-magic-python (filename)
+  "Do some magic with Python file FILENAME."
+  ;; run python shell with current file
+  (python-shell-send-buffer t)
+  )
+
 (defun my-magic-cpp (filename)
   "Do some magic with C/C++ file FILENAME."
   (interactive)
@@ -105,12 +111,15 @@ It's not finished and never will be."
       (my-tex-run-tex)
       ))
 
-  ;; C++
-  (when (eq major-mode 'c++-mode)
-    (let ((f (buffer-file-name)))
-      (my-magic-cpp f)
+  (let ((f (buffer-file-name)))
+    ;; C++
+    (when (eq major-mode 'c++-mode)
+      (my-magic-cpp f))
+
+    ;; Python
+    (when (eq major-mode 'python-mode)
+        (my-magic-python f))
     ))
-  )
 
 (global-set-key (kbd "<f5>") 'my-magic-f5)
 
