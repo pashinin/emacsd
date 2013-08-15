@@ -1,0 +1,29 @@
+\documentclass[a4paper, oneside, openany, 14pt]{article}
+
+\begin{document}
+\section{\LaTeX}
+\subsection{Formulas}
+
+With numeration:
+
+\begin{equation}
+  a^2 + b^2 = 1
+\end{equation}
+
+No numeration:
+
+\[1+1=2\]
+
+\subsection{Images}
+
+Use this code to insert an image:
+
+\begin{verbatim}
+\begin{figure}
+  \includegraphics[keepaspectratio=true, width=16cm]{polet_obl.png}
+  \caption{Image caption
+    \label{fig:polet_obl}}
+\end{figure}
+\end{verbatim}
+
+\end{document}

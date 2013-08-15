@@ -1,0 +1,19 @@
+[Desktop Entry]
+Name=Emacs-small
+GenericName=Text Editor
+Comment=Edit text
+MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
+Exec=/usr/local/bin/emacsclient -c -a "" %F
+Icon=emacs
+Type=Application
+Terminal=false
+Categories=Development;TextEditor;
+StartupWMClass=Emacs
+Actions=New
+
+[Desktop Action New]
+Name=New Frame
+Exec=/usr/bin/emacsclient -c -a "" -F "((fullscreen . maximized))" -e "(run-with-timer 0.1 nil 'my-load-workspaces)" -d ":0" %F
+Type=Application
+Terminal=false
+StartupWMClass=Emacs

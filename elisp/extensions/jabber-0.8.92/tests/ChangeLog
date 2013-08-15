@@ -1,0 +1,4 @@
+2012-02-03  Magnus Henoch  <magnus@poki-sona.local>
+
+	* jabberd.el (jabberd-handle): Update for new namespace handling.
+
