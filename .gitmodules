@@ -4,3 +4,6 @@
 [submodule "elisp/extensions/capture"]
 	path = elisp/extensions/capture
 	url = git@github.com:pashinin/capture.el.git
+[submodule "elisp/extensions/emacs-jabber"]
+	path = elisp/extensions/emacs-jabber
+	url = git://git.code.sf.net/p/emacs-jabber/git
