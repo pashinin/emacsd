@@ -57,7 +57,7 @@
 ;;(run-with-idle-timer 0.1 nil 'frame-workgroups)
 ;;(add-hook 'after-make-frame-functions 'load-workgroups-if-needed)
 
-(setq wg-display-nowg nil)
+(setq wg-display-nowg nil)  ; if no workgroups - display nothing
 
 (defun set-my-frame-title (frame)
   "Set FRAME title format."
