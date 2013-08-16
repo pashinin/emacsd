@@ -1,4 +1,4 @@
-;;; init-dired-marks --- description
+;;; init-dired-marks --- Mark files by type and extension
 ;;; Commentary:
 ;;; Code:
 
