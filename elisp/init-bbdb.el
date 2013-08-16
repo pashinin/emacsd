@@ -5,9 +5,7 @@
 ;;; Code:
 
 ;;(require 'init-variables)
-;;(require 'bbdb-autoloads)
-;;(load "bbdb-autoloads.el")
-(setq bbdb-file "~/.bbdb/bbdb")    ; "~/.bbdb"
+(setq bbdb-file "~/.bbdb/bbdb")
 (require 'bbdb)
 (require 'bbdb-com)
 ;;(unless (file-exists-p bbdb-file)  ; create if not exists?
