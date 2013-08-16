@@ -16,6 +16,47 @@
                                         ; "package-load-list" variable
   )
 
+;; auto install Melpa packages
+(defvar my-packages
+  '(ack-and-a-half ac-js2 ack apache-mode async auto-compile auto-complete auctex
+                   bash-completion bm bookmark+ buffer-move bbdb
+                   color-theme ctags crontab-mode color-theme-sanityinc-solarized
+                   dired-details dired-details+
+                   emms expand-region
+                   frame-cmds frame-fns flycheck flymake
+                   gitignore-mode
+                   helm helm-git helm-projectile
+                   image-dired+ ipython
+                   jedi js3-mode
+                   magit magithub markdown-mode markdown-mode+ multi-term multiple-cursors
+                   nginx-mode
+                   openwith org
+                   pymacs pysmell pyvirtualenv paredit projectile pony-mode
+                   s skewer-mode smart-tab smart-tabs-mode
+                   volatile-highlights
+                   web-mode wrap-region windsize
+                   yaml-mode yari yasnippet
+                   zencoding-mode zenburn-theme)
+  "A list of packages to ensure are installed at launch.")
+
+(defun prelude-packages-installed-p ()
+  (loop for p in my-packages
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
+
+(unless (prelude-packages-installed-p)
+  ;; check for new packages (package versions)
+  (message "%s" "Refreshing package database...")
+  (package-refresh-contents)
+  (message "%s" " done.")
+  ;; install the missing packages
+  (dolist (p my-packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
+
+
+
+
 ;; el-get
 (when (> emacs-major-version 23)
   (add-to-list 'load-path "~/.emacs.d/el-get/el-get")

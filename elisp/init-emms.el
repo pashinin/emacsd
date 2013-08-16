@@ -4,6 +4,9 @@
 ;; Manual - http://www.gnu.org/software/emms/manual/
 ;;; Code:
 
+(unless (file-exists-p "~/.emacs.d/emms")
+  (make-directory "~/.emacs.d/emms"))
+
 (require 'emms-setup)
 (require 'emms-player-mpg321-remote)
 (require 'emms-player-mpd)

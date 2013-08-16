@@ -7,7 +7,6 @@
 (global-set-key (kbd "<s-pause>") 'my-restart-emacs)
 
 (require 'init-common-windows)     ; change some variables for fucking Windows
-(require 'init-packages)
 (require 'init-colorscheme)
 ;;--------------------------------------------------------------------
 ;; Common

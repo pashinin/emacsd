@@ -78,6 +78,7 @@
 ;;(setq bbdb-file "~/bbdb")    ; "~/.bbdb"
 
 (require 'init-variables)      ;; my emacs extensions paths,
+(require 'init-packages)
 
 ;;(if (not (eq system-type 'windows-nt))
 (require 'init-server)         ;; start Emacs as a server
