@@ -80,7 +80,6 @@
 (require 'init-variables)      ;; my emacs extensions paths,
 (require 'init-packages)
 
-;;(if (not (eq system-type 'windows-nt))
 (require 'init-server)         ;; start Emacs as a server
 (require 'init-common)         ;; basic params and colors
 

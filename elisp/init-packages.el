@@ -70,8 +70,8 @@
     (el-get 'sync)))  ;; hangs if no internet
 
 ;; auto-install - Automates the installation of Emacs Lisp files and packages
-(when (require 'auto-install nil 'noerror)
-  (setq auto-install-directory "~/.emacs.d/auto-install/"))
+;;(when (require 'auto-install nil 'noerror)
+;;  (setq auto-install-directory "~/.emacs.d/auto-install/"))
 
 ;; Load auto-compile extension (compile all changed .el files)
 (when (require 'auto-compile nil 'noerror)

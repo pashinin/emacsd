@@ -3,11 +3,18 @@
 ;;; Code:
 
 (require 'init-variables)
+
+;; Save history of minibuffer commands
+(require 'savehist)
+(setq savehist-file (concat my-emacs-files-dir "savehist"))  ; before activating mode
+(savehist-mode 1)
+
 (require 'init-os-misc)
 (global-set-key (kbd "<s-pause>") 'my-restart-emacs)
 
 (require 'init-common-windows)     ; change some variables for fucking Windows
 (require 'init-colorscheme)
+
 ;;--------------------------------------------------------------------
 ;; Common
 (menu-bar-mode 0)              ; Hide menu: File, Edit, Options...
@@ -15,15 +22,9 @@
 (scroll-bar-mode -1)           ; hide scrollbars
 (setq-default fill-column 72)  ; 80-char margin
 
-
 (if (require 'wrap-region nil 'noerror)
     ;;(add-hook 'ruby-mode-hook 'wrap-region-mode)   ; for specific mode
     (wrap-region-global-mode t))                     ; for all buffers
-
-;; Save history of minibuffer commands
-(require 'savehist)
-(setq savehist-file (concat my-emacs-files-dir "savehist"))  ; before activating mode
-(savehist-mode 1)
 
 ;; move cursor from buffer to buffer - super + arrows
 (require 'windmove)
@@ -40,7 +41,7 @@
 (require 'linum)
 (setq linum-format "%4d")
 (global-linum-mode 0)
-;;(global-linum-mode 1)
+;;;(global-linum-mode 1)
 
 ;; some settings
 (setq inhibit-startup-message t)        ; Prevent the startup message
@@ -49,11 +50,11 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)   ;; "y", "n" instead of "yes", "no"
 
-(when (require 'multiple-cursors nil 'noerror)
-  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
+;(when (require 'multiple-cursors nil 'noerror)
+;  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+;  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+;  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+;  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
 
 ;; Rectangular region and multiple cursors
 (global-set-key (kbd "s-SPC") 'set-rectangular-region-anchor)
@@ -119,18 +120,18 @@
 
 ;; ack - search in your sources
 ;; full-ack - better color support
-(autoload 'ack-same "full-ack" nil t)
-(autoload 'ack "full-ack" nil t)
-(autoload 'ack-find-same-file "full-ack" nil t)
-(autoload 'ack-find-file "full-ack" nil t)
-(setq ack-executable (executable-find "ack-grep"))
+;(autoload 'ack-same "full-ack" nil t)
+;(autoload 'ack "full-ack" nil t)
+;(autoload 'ack-find-same-file "full-ack" nil t)
+;(autoload 'ack-find-file "full-ack" nil t)
+;(setq ack-executable (executable-find "ack-grep"))
 
 
 ;; Make buffer names unique
 (require 'uniquify)
-(setq
- uniquify-buffer-name-style 'post-forward     ;; filename:dirname
- uniquify-separator ":")
+;(setq
+; uniquify-buffer-name-style 'post-forward     ;; filename:dirname
+; uniquify-separator ":")
 
 ;; http://www.gnu.org/software/emacs/manual/html_node/emacs/Backup-Copying.html
 (setq make-backup-files nil)  ;; nil - do not make backup garbage files (file.txt~)
