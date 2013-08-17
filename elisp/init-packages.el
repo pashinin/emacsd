@@ -23,7 +23,7 @@
                    color-theme ctags crontab-mode color-theme-sanityinc-solarized
                    dired-details dired-details+
                    emms expand-region
-                   frame-cmds frame-fns flycheck flymake
+                   frame-cmds frame-fns flycheck flymake full-ack
                    gitignore-mode
                    helm helm-git helm-projectile
                    image-dired+ ipython
