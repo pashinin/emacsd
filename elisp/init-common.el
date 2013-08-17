@@ -120,18 +120,18 @@
 
 ;; ack - search in your sources
 ;; full-ack - better color support
-;(autoload 'ack-same "full-ack" nil t)
-;(autoload 'ack "full-ack" nil t)
-;(autoload 'ack-find-same-file "full-ack" nil t)
-;(autoload 'ack-find-file "full-ack" nil t)
-;(setq ack-executable (executable-find "ack-grep"))
+(autoload 'ack-same "full-ack" nil t)
+(autoload 'ack "full-ack" nil t)
+(autoload 'ack-find-same-file "full-ack" nil t)
+(autoload 'ack-find-file "full-ack" nil t)
+(setq ack-executable (executable-find "ack-grep"))
 
 
 ;; Make buffer names unique
 (require 'uniquify)
-;(setq
-; uniquify-buffer-name-style 'post-forward     ;; filename:dirname
-; uniquify-separator ":")
+(setq
+ uniquify-buffer-name-style 'post-forward     ;; filename:dirname
+ uniquify-separator ":")
 
 ;; http://www.gnu.org/software/emacs/manual/html_node/emacs/Backup-Copying.html
 (setq make-backup-files nil)  ;; nil - do not make backup garbage files (file.txt~)
@@ -180,7 +180,7 @@
 				(when (stringp method)
 				  (member method '("su" "sudo"))))))))
 
-;; keys for russian layout (C-s == C-)
+;; keys for russian layout (C-s == C-ы)
 (global-set-key (kbd "C-п") (lookup-key global-map (kbd "C-g")))
 (global-set-key (kbd "C-ч C-ы") (lookup-key global-map (kbd "C-x C-s")))
 (global-set-key (kbd "C-ч C-с") (lookup-key global-map (kbd "C-x C-c")))
