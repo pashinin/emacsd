@@ -1,4 +1,4 @@
-;;; init-server  --- description
+;;; init-server  --- Use Emacs as a server
 ;;; Commentary:
 ;;; Code:
 
