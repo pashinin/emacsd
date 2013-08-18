@@ -18,11 +18,11 @@
 ;; windows shell has a bug (when using Magit "stash apply stash@{0}"):
 ;; it destroys brackets "{", "}" - so need to escape them
 ;; https://github.com/magit/magit/issues/522
-(if (eq system-type 'windows-nt)
-    (defadvice magit-run-git (before magit-run-git-win-curly-braces (&rest args) activate)
-      "Escape {} on Windows"
-      (setcar (nthcdr 2 args)
-              (replace-regexp-in-string "{\\([0-9]+\\)}" "\\\\{\\1\\\\}" (elt args 2)))))
+;;(if (eq system-type 'windows-nt)
+;;    (defadvice magit-run-git (before magit-run-git-win-curly-braces (&rest args) activate)
+;;      "Escape {} on Windows"
+;;      (setcar (nthcdr 2 args)
+;;              (replace-regexp-in-string "{\\([0-9]+\\)}" "\\\\{\\1\\\\}" (elt args 2)))))
 
 ;;(defun my-magit-rebase-mode ()
 ;;  ""
