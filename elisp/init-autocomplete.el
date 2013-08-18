@@ -14,30 +14,26 @@
 (require 'auto-complete-config nil t)
 ;;(add-to-list 'ac-dictionary-directories (concat epy-install-dir "elpa-to-submit/auto-complete/dict/"))
 (setq ac-dwim t)
+;;(setq ac-dwim nil)
 (setq ac-comphist-file (concat my-emacs-files-dir "ac-comphist.dat"))
 
 (setq ac-auto-start t)
 ;;(setq ac-auto-start 4)  ; number of chars after to complete
-;;(setq ac-auto-show-menu t)
-;;(setq ac-auto-show-menu 0.8)  ; Show 0.8 second later
 
-;; TAB
-;;(custom-set-variables
-;; '(ac-trigger-key "TAB")
-;; '(ac-auto-start nil)
-;; '(ac-use-menu-map t))
+;; Show AC 0.5 second later
+(setq ac-auto-show-menu 0.5)
+(setq ac-delay 0.5)
 
+(setq ac-source-yasnippet nil)
 (ac-config-default)
 
-;; custom keybindings to use tab, enter and up and down arrows
-;;(define-key ac-complete-mode-map "\t" 'ac-expand)
-;;(define-key ac-complete-mode-map "\t" 'ac-expand)
-;;(define-key ac-complete-mode-map "\r" 'ac-complete)
-;;(define-key ac-complete-mode-map "\M-n" 'ac-next)
-;;(define-key ac-complete-mode-map "\M-p" 'ac-previous)
-;;(define-key ac-mode-map (kbd "C-TAB") 'auto-complete)
-;;(define-key ac-mode-map (kbd "C-TAB") 'auto-expand)
-;;(global-set-key "\M-/" 'auto-complete)
+;; resetting ac-sources
+;;(setq-default ac-sources '(
+;;                           ac-source-yasnippet
+;;                           ac-source-abbrev
+;;                           ac-source-dictionary
+;;                           ac-source-words-in-same-mode-buffers
+;;                           ))
 
 ;; Disabling Yasnippet completion
 ;;(defun epy-snips-from-table (table)
@@ -58,8 +54,8 @@
 ;;     (lambda (kk vv) (push (epy-snips-from-table vv) candidates)) yas/tables)
 ;;    (apply 'append candidates))
 ;;  )
-;;
-;;;;(setq ac-ignores (concatenate 'list ac-ignores (epy-get-all-snips)))
+
+;;(setq ac-ignores (concatenate 'list ac-ignores (epy-get-all-snips)))
 ;;
 ;;;; ropemacs Integration with auto-completion
 ;;(defun ac-ropemacs-candidates ()

@@ -113,10 +113,10 @@
   (require 'init-flycheck)
   (require 'init-smarttabs)
   (require 'init-autocomplete)
-  (require 'init-yasnippet) ; after smarttabs! Or smarttabs eats TAB key
+  (require 'init-yasnippet)
 
   (require 'init-tex nil 'noerror)  ;; loading tex.el before can reset TeX-PDF-mode setting
-  (require 'auto-complete-yasnippet)
+  ;;(require 'auto-complete-yasnippet)
   (require 'init-capture nil 'noerror)
   (require 'init-f5)
   (require 'init-workgroups nil 'noerror)

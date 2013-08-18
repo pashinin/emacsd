@@ -6,15 +6,18 @@
 ;;; Code:
 
 (require 'yasnippet)
-(yas-global-mode 1)
 
-(defun epy-django-snippets ()
-  "Load django snippets."
+(defun load-my-snippets ()
+  "Load my snippets."
   (interactive)
-  (yas-load-directory "~/.emacs.d/snippets/django"))
+  (with-temp-message ""
+    (yas-load-directory "~/.emacs.d/snippets/django")
+    (yas-load-directory "~/.emacs.d/snippets/other")))
 
 (setq yas-prompt-functions '(yas/dropdown-prompt yas/ido-prompt yas/x-prompt))
 (setq yas-wrap-around-region 'cua)
+(run-with-timer 1 nil 'load-my-snippets)
+(yas-global-mode 1)
 
 (provide 'init-yasnippet)
 ;;; init-yasnippet.el ends here
