@@ -28,7 +28,7 @@
                    helm helm-git helm-projectile
                    image-dired+ ipython
                    jedi js3-mode
-                   magit magithub markdown-mode markdown-mode+ multi-term multiple-cursors
+                   magit markdown-mode markdown-mode+ multi-term multiple-cursors
                    nginx-mode
                    openwith org
                    pymacs pysmell pyvirtualenv paredit projectile pony-mode
