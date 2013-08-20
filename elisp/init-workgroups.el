@@ -9,13 +9,11 @@
 ;; Some settings:
 (setq wg-prefix-key (kbd "C-c z")
       wg-restore-associated-buffers nil
-      wg-use-default-session-file nil
+      wg-use-default-session-file (eq system-type 'windows-nt)  ; turn off for "emacs --daemon"
       wg-default-session-file (concat my-emacs-files-dir "workgroups")
       wg-use-faces t
       wg-morph-on nil)             ; animation off
 
-(if (eq system-type 'windows-nt)
-    (setq wg-use-default-session-file t))  ; turn off for "emacs --daemon"
 ;; (wg-reload-session)
 
 (setq
