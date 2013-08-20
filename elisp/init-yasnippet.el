@@ -13,6 +13,7 @@
   (with-temp-message ""
     (yas-load-directory "~/.emacs.d/snippets/django")
     (yas-load-directory "~/.emacs.d/snippets/other")))
+;; (load-my-snippets)
 
 (setq yas-prompt-functions '(yas/dropdown-prompt yas/ido-prompt yas/x-prompt))
 (setq yas-wrap-around-region 'cua)
