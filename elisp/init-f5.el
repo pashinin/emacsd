@@ -48,48 +48,6 @@
                        ))
       )))
 
-(defcustom var-libreoffice-exe nil
-  "Explicitly point to LibreOffice executable."
-  :group 'my-vars)
-
-(defun libreoffice-exec ()
-  "Return a full path to LibreOffice executable."
-  (interactive)
-  (if var-libreoffice-exe
-      var-libreoffice-exe
-    (let (files res)
-      (if (eq system-type 'windows-nt)
-          (progn
-            (setq files (list
-                         "C:/Program Files (x86)/LibreOffice 4/program/soffice.exe"
-                         "C:/Program Files (x86)/LibreOffice 4.0/program/soffice.exe"))
-            (dolist (element files res)
-              (if (file-exists-p element)
-                  (setq res element))))
-        "libreoffice"))))
-
-;; doesn't work on windows
-(defun libreoffice-convert (filename format)
-  "Convert fucking doc FILENAME to FORMAT."
-  (interactive)
-  (message "converting")
-  (let (office cmd)
-    (setq office (libreoffice-exec))
-
-    (setq cmd (concat (shell-quote-argument office)
-                      " --headless"
-                      " --invisible"
-                      " --convert-to " format
-                      " "
-                      ;;" --outdir D:/"
-                      (shell-quote-argument filename)
-                      ;;filename
-                      ))
-    (message (shell-command-to-string cmd))
-    ;;(message cmd)
-    ;;(kill-ring-save cmd)
-  ))
-
 (defun my-magic-rc-file (filename)
   "Compile .rc resource FILENAME to .res on Windows."
   (interactive)
