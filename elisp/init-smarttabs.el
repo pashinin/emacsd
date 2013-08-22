@@ -19,11 +19,6 @@
 
 (setq-default indent-tabs-mode nil)  ; spaces are better
 (setq-default tab-width 4)
-(setq-default c-indent-tabs-mode t     ; Pressing TAB should cause indentation
-              c-indent-level 4         ; A TAB is equivilent to four spaces
-              c-argdecl-indent 0       ; Do not indent argument decl's extra
-              c-tab-always-indent t
-              backward-delete-function nil)
 
 (defun my-smarttabs-spaces-autoinednt ()
   "Make current mode use spaces for indentation and indent on RET.
@@ -75,14 +70,14 @@ Used in hooks."
 ;; C++
 (require 'cc-vars)
 (require 'cc-mode)
-;; styles: cc-mode, BSD, Ellemtel, linux
-;;(if (string-match path (buffer-file-name))
-;;                                 (c-set-style "linux"))
-;;(smart-tabs-advice  c-indent-line    c-basic-offset)
-;;(smart-tabs-advice  c-indent-region  c-basic-offset)
-(setq-default c-default-style "cc-mode"
-              c-basic-offset 4
-              backward-delete-function nil) ; DO NOT expand tabs when deleting
+
+(setq-default c-indent-tabs-mode t     ; Pressing TAB should cause indentation
+              c-indent-level 4         ; A TAB is equivilent to four spaces
+              c-argdecl-indent 0       ; Do not indent argument decl's extra
+              c-tab-always-indent t
+              backward-delete-function nil
+              c-default-style "cc-mode"
+              c-basic-offset 4)
 
 (defconst my-c-lineup-maximum-indent 30)
 
@@ -92,21 +87,21 @@ Used in hooks."
 (defun my-c-mode-hook ()
   "Set some C style params."
   (interactive)
-  (c-set-style "my-c-style")
-  ;;;;(c-set-style "linux")
+  (c-set-style "my-c-style")  ; cc-mode, BSD, Ellemtel, linux
+  ;;(if (string-match path (buffer-file-name))
+  ;;                                 (c-set-style "linux"))
   (c-set-offset 'substatement-open '0) ; brackets should be at same indentation level as the statements they open
-  (c-set-offset 'case-label '+)       ; indent case labels by c-indent-level, too
+  (c-set-offset 'case-label '+)        ; indent case labels by c-indent-level, too
 
   (c-set-offset 'inline-open '+)
   (c-set-offset 'block-open '+)
   (c-set-offset 'brace-list-open '+)   ; all "opens" should be indented by the c-indent-level
   (setq c-basic-offset 4)
-  ;;;;(c-set-offset 'substatement-open 0) ; do not tab for cycles
   (define-key c-mode-base-map "/" 'self-insert-command)  ;; do not break tabs when comment
   (define-key c-mode-base-map "*" 'self-insert-command)
   (local-set-key (kbd "RET") 'newline-and-indent)
   (c-set-offset 'arglist-intro '+)
-  (c-toggle-auto-state 1)
+  (c-toggle-auto-newline 1)
   )
 
 (add-hook 'c-mode-hook        'my-smarttabs-spaces-autoinednt)
