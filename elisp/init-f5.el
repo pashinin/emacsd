@@ -23,7 +23,9 @@
       (setq gcc "g++ -mwindows ")
       ;;(shell-command (concat gcc f " -o " base ".exe"))
       ;;(compile (concat gcc filename " -o " base ".exe -DCURL_STATICLIB"))
-      (compile (concat gcc filename " -o " base ".exe"
+      ;; TODO:
+      ;; if have .res file (resources) - add it to the end
+      (compile (concat gcc filename " -o " base ".exe my.res"
                        ;;" -lcurl -lwsock32 -lidn -lwldap32"
                        ;;" -lssh2 -lrtmp -lcrypto -lz -lws2_32 -lwinmm -lssl"
                        ;;" -lboost_filesystem -lboost_system"
@@ -74,6 +76,16 @@
     ;;(kill-ring-save cmd)
   ))
 
+(defun my-magic-rc-file (filename)
+  "Compile .rc resource FILENAME to .res on Windows."
+  (interactive)
+  (let (base cmd)
+    (setq base (file-name-base filename))
+    (setq cmd (concat "windres \"" filename "\" -O coff -o "
+                      (concat base ".res")))
+    (message (shell-command-to-string cmd))
+    ))
+
 (defun my-magic-f5 ()
   "Do magic.
 It's not finished and never will be."
@@ -96,6 +108,7 @@ It's not finished and never will be."
                      (string= ext "c")) (my-magic-cpp f))
                 ((string= ext "iso")    (mount-iso f))
                 ((is-archive-ext f)     (message "archive"))
+                ((string= ext "rc")    (my-magic-rc-file f))
                 ((or (string= ext "doc")
                      (string= ext "docx"))
                  (libreoffice-convert f "odt"))
