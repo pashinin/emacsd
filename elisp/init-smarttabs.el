@@ -4,6 +4,7 @@
 ;;; Code:
 
 (require 'smart-tab)
+(require 'smart-tabs-mode)
 (global-smart-tab-mode 1)
 ;;(autoload 'smart-tabs-mode "smart-tabs-mode"
 ;;  "Intelligently indent with tabs, align with spaces!")
@@ -18,6 +19,11 @@
 
 (setq-default indent-tabs-mode nil)  ; spaces are better
 (setq-default tab-width 4)
+(setq-default c-indent-tabs-mode t     ; Pressing TAB should cause indentation
+              c-indent-level 4         ; A TAB is equivilent to four spaces
+              c-argdecl-indent 0       ; Do not indent argument decl's extra
+              c-tab-always-indent t
+              backward-delete-function nil)
 
 (defun my-smarttabs-spaces-autoinednt ()
   "Make current mode use spaces for indentation and indent on RET.
@@ -40,18 +46,7 @@ Used in hooks."
   )
 
 
-
-;;; smart-tabs
 ;;(require 'smart-tab)
-;; for python
-;(smart-tabs-advice python-indent-line-function python-indent)
-;;(smart-tabs-advice python-indent-line python-indent)
-;;(smart-tabs-advice python-indent-region python-indent)
-;;(smart-tabs-advice python-indent- python-indent)
-
-;; http://stackoverflow.com/questions/6679625/how-to-make-emacs-python-mode-generate-tabs-for-indent
-
-;;(smart-tabs-advice python-indent-line-1 python-indent)
 
 ;; Note that it might be preferable to delay calling smart-tabs-advice
 ;; until after the major mode is loaded and evaluated:
@@ -80,7 +75,7 @@ Used in hooks."
 ;; C++
 (require 'cc-vars)
 (require 'cc-mode)
-;; styles: cc-mode, BSD, Ellemtel
+;; styles: cc-mode, BSD, Ellemtel, linux
 ;;(if (string-match path (buffer-file-name))
 ;;                                 (c-set-style "linux"))
 ;;(smart-tabs-advice  c-indent-line    c-basic-offset)
@@ -89,27 +84,35 @@ Used in hooks."
               c-basic-offset 4
               backward-delete-function nil) ; DO NOT expand tabs when deleting
 
+(defconst my-c-lineup-maximum-indent 30)
+
+;; If a statement continues on the next line, indent the continuation by 4
+(c-add-style "my-c-style" '((c-continued-statement-offset 4)))
+
 (defun my-c-mode-hook ()
   "Set some C style params."
   (interactive)
   (c-set-style "my-c-style")
+  ;;;;(c-set-style "linux")
   (c-set-offset 'substatement-open '0) ; brackets should be at same indentation level as the statements they open
+  (c-set-offset 'case-label '+)       ; indent case labels by c-indent-level, too
+
   (c-set-offset 'inline-open '+)
   (c-set-offset 'block-open '+)
   (c-set-offset 'brace-list-open '+)   ; all "opens" should be indented by the c-indent-level
-  (c-set-offset 'case-label '+)       ; indent case labels by c-indent-level, too
   (setq c-basic-offset 4)
-  ;;c-basic-indent 4 )
-  ;;(c-set-offset 'substatement-open 0) ; do not tab for cycles
-  ;;(setq indent-tabs-mode nil)  ; use Tabs? - no!
-  ;;(local-set-key (kbd "RET") 'newline-and-indent)
+  ;;;;(c-set-offset 'substatement-open 0) ; do not tab for cycles
   (define-key c-mode-base-map "/" 'self-insert-command)  ;; do not break tabs when comment
   (define-key c-mode-base-map "*" 'self-insert-command)
+  (local-set-key (kbd "RET") 'newline-and-indent)
+  (c-set-offset 'arglist-intro '+)
+  (c-toggle-auto-state 1)
   )
 
-(add-hook 'c-mode-common-hook 'my-smarttabs-spaces-autoinednt)
 (add-hook 'c-mode-hook        'my-smarttabs-spaces-autoinednt)
+(add-hook 'c++-mode-hook        'my-smarttabs-spaces-autoinednt)
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
+(add-hook 'c++-mode-hook 'my-c-mode-hook)
 
 ;;----------------------------------------------------
 ;; HTML
