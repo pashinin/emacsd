@@ -3,10 +3,12 @@
 ;;; Code:
 
 (require 'term)
-(when (not (eq system-type 'windows-nt))
-  (setq shell-file-name "zsh"
-        explicit-shell-file-name shell-file-name)
-  (setenv "SHELL" shell-file-name))
+
+;; Tramp can't work well with zsh
+;;(when (not (eq system-type 'windows-nt))
+;;  (setq shell-file-name "zsh"
+;;        explicit-shell-file-name shell-file-name)
+;;  (setenv "SHELL" shell-file-name))
 
 ;;; Shell mode
 (require 'ansi-color)

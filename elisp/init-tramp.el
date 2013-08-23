@@ -44,7 +44,7 @@
 ;;(setq tramp-shell-prompt-pattern "")
 ;;(setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>→] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
 ;; TODO: check if current user uses zsh
-(setq tramp-shell-prompt-pattern "^[^$>→]*[#$%>→] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
+;;(setq tramp-shell-prompt-pattern "^[^$>→]*[#$%>→] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
 
 (provide 'init-tramp)
 ;;; init-tramp.el ends here
