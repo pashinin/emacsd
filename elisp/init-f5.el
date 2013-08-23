@@ -11,68 +11,52 @@
   (python-shell-send-buffer t)
   )
 
+(defun after-compilation (status code msg)
+  "Run this function after compile."
+  (interactive)
+  ;; If M-x compile exists with a 0
+  ;; compile-command
+  ;;(when (and (eq status 'exit) (zerop code))
+  ;;  (if (executable-find "upx")
+  ;;      (shell-command (concat "upx -q C:/bin/hello/fileexists.exe"))))
+  ;; Always return the anticipated result of compilation-exit-message-function
+  (cons msg code))
+
 (defun my-magic-cpp (filename)
   "Do some magic with C/C++ file FILENAME."
   (interactive)
   (let ((f (file-truename filename))
         (ext (file-name-extension filename))
         (extl (downcase (file-name-extension filename)))
-        base gcc)
+        base gcc files resfile)
     (setq base (file-name-base f))
     (when (eq system-type 'windows-nt)
       (setq gcc "g++ -mwindows ")
       ;;(shell-command (concat gcc f " -o " base ".exe"))
       ;;(compile (concat gcc filename " -o " base ".exe -DCURL_STATICLIB"))
-      (compile (concat gcc filename " -o " base ".exe"
+
+      ;; if have .res file (resources) - add it to the end
+      (setq files (directory-files "." nil "\\.res$"))
+      (if (> (length files) 0) (setq resfile (car files)))
+
+      (setq compilation-exit-message-function 'after-compilation)
+      (compile (concat gcc filename " -o " base ".exe " (if resfile resfile)
                        ;;" -lcurl -lwsock32 -lidn -lwldap32"
                        ;;" -lssh2 -lrtmp -lcrypto -lz -lws2_32 -lwinmm -lssl"
                        ;;" -lboost_filesystem -lboost_system"
                        ;;" -luser32"
                        ))
-      ;; update dired buffer
       )))
 
-(defcustom var-libreoffice-exe nil
-  "Explicitly point to LibreOffice executable."
-  :group 'my-vars)
-
-(defun libreoffice-exec ()
-  "Return a full path to LibreOffice executable."
+(defun my-magic-rc-file (filename)
+  "Compile .rc resource FILENAME to .res on Windows."
   (interactive)
-  (if var-libreoffice-exe
-      var-libreoffice-exe
-    (let (files res)
-      (if (eq system-type 'windows-nt)
-          (progn
-            (setq files (list
-                         "C:/Program Files (x86)/LibreOffice 4/program/soffice.exe"
-                         "C:/Program Files (x86)/LibreOffice 4.0/program/soffice.exe"))
-            (dolist (element files res)
-              (if (file-exists-p element)
-                  (setq res element))))
-        "libreoffice"))))
-
-;; doesn't work on windows
-(defun libreoffice-convert (filename format)
-  "Convert fucking doc FILENAME to FORMAT."
-  (interactive)
-  (message "converting")
-  (let (office cmd)
-    (setq office (libreoffice-exec))
-
-    (setq cmd (concat (shell-quote-argument office)
-                      " --headless"
-                      " --invisible"
-                      " --convert-to " format
-                      " "
-                      ;;" --outdir D:/"
-                      (shell-quote-argument filename)
-                      ;;filename
-                      ))
+  (let (base cmd)
+    (setq base (file-name-base filename))
+    (setq cmd (concat "windres \"" filename "\" -O coff -o "
+                      (concat base ".res")))
     (message (shell-command-to-string cmd))
-    ;;(message cmd)
-    ;;(kill-ring-save cmd)
-  ))
+    ))
 
 (defun my-magic-f5 ()
   "Do magic.
@@ -96,6 +80,7 @@ It's not finished and never will be."
                      (string= ext "c")) (my-magic-cpp f))
                 ((string= ext "iso")    (mount-iso f))
                 ((is-archive-ext f)     (message "archive"))
+                ((string= ext "rc")    (my-magic-rc-file f))
                 ((or (string= ext "doc")
                      (string= ext "docx"))
                  (libreoffice-convert f "odt"))
