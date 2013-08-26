@@ -2,10 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-;;(require 'init-ibuffer nil 'noerror)
-;;(require 'init-ibuffer)
-;; improve buffer switching (but really we will use Helm)
-
 ;; Ido mode with fuzzy matching
 ;;(require 'ido)
 (when (require 'ido nil 'noerror)
