@@ -21,8 +21,8 @@
 ;;(setq ac-auto-start 4)  ; number of chars after to complete
 
 ;; Show AC 0.5 second later
-(setq ac-auto-show-menu 0.5)
-(setq ac-delay 0.5
+(setq ac-auto-show-menu 0.0)
+(setq ac-delay 0.1
       ac-quick-help-delay 0.5)
 
 (setq ac-source-yasnippet nil)
@@ -32,6 +32,9 @@
 (set-face-attribute 'ac-candidate-face nil   :background "#00222c" :foreground "light gray")
 (set-face-attribute 'ac-selection-face nil   :background "SteelBlue4" :foreground "white")
 (set-face-attribute 'popup-tip-face    nil   :background "#003A4E" :foreground "light gray")
+
+(define-key ac-completing-map [tab] nil)
+(define-key ac-completing-map [return] 'ac-complete)
 
 ;; resetting ac-sources
 ;;(setq-default ac-sources '(
