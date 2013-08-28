@@ -34,7 +34,10 @@
   (global-set-key (kbd "C-<left>")  'windmove-left)
   (global-set-key (kbd "C-<down>")  'windmove-down)
   (global-set-key (kbd "C-<right>") 'windmove-right)
-  (global-set-key (kbd "<apps>") (lookup-key global-map (kbd "M-x"))))
+  (global-set-key (kbd "<apps>") (lookup-key global-map (kbd "M-x")))
+
+  (setq coding-system-for-read 'cp1251)
+  )
 
 (provide 'init-common-windows)
 ;;; init-common-windows.el ends here
