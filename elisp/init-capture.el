@@ -51,17 +51,20 @@
                     " -b:v 1M "
                     " -qmin 0 -qmax 50"
                     " -threads 2")
-          ""))
+          (concat " -q 1 "
+                  " -b 8500000"
+                  " -bt 8000000"
+                  " -preset ultrafast -threads 2")))
 
   (defun my-capture-presets ()
     "Make my presets for capturing."
     (interactive)
     (capture-presets-clear)
-    (capture-add-preset 524 333 854 480 15 "webm" ""
-                        "854px (no audio)")
-    (capture-add-preset 454 74 1280 720 15 "webm"
-                        my-capture-args
-                        "1280px (no audio)")
+    (capture-add-preset 524 333 854 480 15 "webm" "" "854px (no audio)")
+    (capture-add-preset 0   0  1280 720 15 "webm" my-capture-args "1280px (top left)")
+    (capture-add-preset 640 0  1280 720 15 "webm" my-capture-args "1280px (top right)")
+    ;;(capture-add-preset 454 74 1280 720 15 "webm" my-capture-args "1280px (default)")
+    (capture-add-preset 504 194 1280 720 15 "webm" my-capture-args "1280px (default)")
     )
   (my-capture-presets)
   ;; example
@@ -77,7 +80,7 @@
   (defun capture-before-capture ()
     "Run this function before starting capturing."
     (interactive)
-    ;;(suspend-frame)
+    (suspend-frame)
     )
 
   (defun capture-after-capture ()
