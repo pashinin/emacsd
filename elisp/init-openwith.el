@@ -20,7 +20,7 @@
                 '("chm"))
                "xchm" '(file))
          (list (openwith-make-extension-regexp
-                '("mp3" "ogg" "wav" "m4a"))
+                '("mp3" "ogg" "wav" "m4a" "flac"))
                "deadbeef" '(file))
          (list (openwith-make-extension-regexp
                 '("mpeg" "avi" "wmv" "flv" "mkv" "ts" "mp4" "webm"))
