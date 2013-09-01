@@ -29,10 +29,11 @@
                 (files (dired-get-marked-files))
                 ext ext1)
             ;;(message (number-to-string (length files)))
-            (if (and f (= (length files) 1))
-                (do-magic-with-file f)
-              (mapc 'do-magic-with-file files))
-            )
+            (save-window-excursion
+              (if (and f (= (length files) 1))
+                  (do-magic-with-file f)
+                (mapc 'do-magic-with-file files))
+              ))
           (save-window-excursion (with-temp-message "" (revert-buffer))))
 
         ;; tex
@@ -108,14 +109,80 @@ CHILD - function called from other."
   (interactive)
   (do-magic-current-dir nil t))
 
-;; with current buffer or marked file(s) in Dired:
-(global-set-key (kbd "<f5>") 'do-magic-with-file)
+(defun do-magic-action1 (&optional filename)
+  "Do something else with a given FILENAME."
+  (interactive)
+  (if (not filename)
+      (progn
+        ;; lisp
+        (when (eq major-mode 'emacs-lisp-mode)
+          (byte-compile-file (buffer-file-name)))
 
-;; with same files in current directory (Shift-F5)
-(global-set-key (kbd "<S-f5>") 'do-magic-current-dir)
+        (when (eq major-mode 'dired-mode)
+          (let ((f (dired-get-filename t t))
+                (files (dired-get-marked-files))
+                ext ext1)
+            (save-window-excursion
+              (if (and f (= (length files) 1))
+                  (do-magic-with-file f)
+                (mapc 'do-magic-with-file files))
+              ))
+          (save-window-excursion (with-temp-message "" (revert-buffer))))
 
-;; with same files in current and all directories in it (Shift-Win-F5)
+        ;; tex
+        (when (fboundp 'latex-mode)
+          (when (eq major-mode 'latex-mode)
+            (my-tex-run-tex)
+            ))
+
+        (let ((f (buffer-file-name)))
+          ;; C++
+          (when (eq major-mode 'c++-mode)
+            (my-magic-cpp f))
+
+          ;; Python
+          (when (eq major-mode 'python-mode)
+            (my-magic-python f))
+          ))
+    (let (ext ext1 f d)
+      (setq f (or filename (buffer-file-name)))
+      (setq d (file-name-directory f))
+      (if (file-exists-p (concat d "desktop.ini"))
+          (shell-command-to-string (concat "rm \"" d "desktop.ini\"")))
+      (if (file-directory-p f)
+          (progn
+            ;;(setq ext-regexp (make-regex-of-extensions (list ext)))
+            ;;(dired-mark-files-regexp ext-regexp)
+            (message f))
+        (progn
+          (setq ext (downcase (or (file-name-extension f) "")))
+          (cond ((or (string= ext "cpp")
+                     (string= ext "c")) (my-magic-cpp f))
+                ((is-archive-ext f)     (message "archive"))
+                ((string= ext "iso")    (mount-iso f))
+                ((string= ext "rc")     (my-magic-rc-file f))
+                ((string= ext "el")     (byte-compile-file f))
+                ((or (string= ext "mp3")
+                     (string= ext "m4a")) (convert-mp3-ogg f))
+                ((or (string= ext "doc")
+                     (string= ext "docx"))
+                 (libreoffice-convert f "odt"))
+                )
+          ))
+      )
+    ))
+
+
+;; default F5 action
+(global-set-key (kbd "<f5>")     'do-magic-with-file)
+(global-set-key (kbd "<S-f5>")   'do-magic-current-dir)
 (global-set-key (kbd "<s-S-f5>") 'do-magic-recursively)
+
+;; additional action 1 (M-f5)
+(global-set-key (kbd "<M-f5>")   'do-magic-action1)
+
+;; additional action 2 (C-f5)
+(global-set-key (kbd "<C-f5>")   'do-magic-action2)
 
 (provide 'init-f5)
 ;;; init-f5.el ends here
