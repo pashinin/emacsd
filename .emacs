@@ -62,10 +62,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(bold ((t (:weight bold))))
- '(ediff-current-diff-C ((t (:background "#888833" :foreground "black"))))
- '(ediff-even-diff-C ((t (:background "gray20" :foreground "dark gray"))))
- '(ediff-fine-diff-B ((t (:background "#22aa22" :foreground "black"))))
- '(ediff-odd-diff-C ((t (:background "midnight blue" :foreground "White"))))
+ '(ediff-current-diff-C ((t (:background "#888833" :foreground "black"))) t)
+ '(ediff-even-diff-C ((t (:background "gray20" :foreground "dark gray"))) t)
+ '(ediff-fine-diff-B ((t (:background "#22aa22" :foreground "black"))) t)
+ '(ediff-odd-diff-C ((t (:background "midnight blue" :foreground "White"))) t)
  '(helm-candidate-number ((t (:background "deep sky blue" :foreground "black"))))
  '(helm-selection ((t (:foreground "lime green" :weight bold))))
  '(helm-source-header ((t (:foreground "gray" :weight normal :height 1.3 :family "Sans Serif"))))
