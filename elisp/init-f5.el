@@ -24,16 +24,36 @@
 
         ;; dired
         (when (eq major-mode 'dired-mode)
-          ;; TODO: remove garbage: thumbs.db files
+
           (let ((f (dired-get-filename t t))
                 (files (dired-get-marked-files))
                 ext ext1)
             ;;(message (number-to-string (length files)))
             (save-window-excursion
-              (if (and f (= (length files) 1))
-                  (do-magic-with-file f)
-                (mapc 'do-magic-with-file files))
-              ))
+              ;; TODO: analyze - what is selected
+              (cond
+               ((and f (= (length files) 1))  ; only 1 file
+                (do-magic-with-file f))
+               ((> (length files) 1)          ; more than 1 file selected
+                (let ((stats (files-stats files))
+                      img art)
+                  (cond
+                   ((files-ogg-1jpg stats)
+                    (when (yes-or-no-p "Make this an album art for all OGG files?")
+                      (setq img (get-first-image-from-files files))
+                      (setq art (make-art-image img))
+                      ;;(message (concat "TDOD: add " img " album cover to OGGs"))
+                      (dolist (el (get-files-by-extension files "ogg"))
+                        (message el)
+                        (ogg-add-cover art el)
+                      )))
+                   (t
+                    (message "Do magic on each file...")
+                    (mapc 'do-magic-with-file files))
+                   )))
+               (t
+                (message "Nothing selected!") ; nothing selected!
+                ))))
           (save-window-excursion (with-temp-message "" (revert-buffer))))
 
         ;; tex
@@ -54,6 +74,7 @@
     (let (ext ext1 f d)
       (setq f (or filename (buffer-file-name)))
       (setq d (file-name-directory f))
+      ;; TODO: remove garbage: thumbs.db files
       (if (file-exists-p (concat d "desktop.ini"))
           (shell-command-to-string (concat "rm \"" d "desktop.ini\"")))
       (if (file-directory-p f)
