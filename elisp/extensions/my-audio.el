@@ -57,6 +57,12 @@ FILENAME1, FILENAME2 - mp3/ogg filenames."
      (t 5)
      )))
 
+(defun ogg-add-cover (image ogg)
+  "Add/Replace album art IMAGE to OGG filename."
+  (interactive)
+  (shell-command-to-string (concat "~/.emacs.d/gnulinux/oggart "
+                                   (shell-quote-argument ogg) " " image)))
+
 (defun convert-mp3-ogg (filename &optional quality)
   "Convert mp3 FILENAME to OGG with QUALITY 1..10.
 If quality is omitted then chosen automatically."
@@ -106,8 +112,9 @@ If quality is omitted then chosen automatically."
                         (if (file-exists-p tmp) (setq res tmp))))
           (if cover
               (when (file-exists-p cover)
-                (shell-command-to-string (concat "~/.emacs.d/gnulinux/oggart "
-                                                 (shell-quote-argument dst) " " cover))
+                ;;(shell-command-to-string (concat "~/.emacs.d/gnulinux/oggart "
+                ;;                                 (shell-quote-argument dst) " " cover))
+                (ogg-add-cover cover dst)
                 (shell-command-to-string (concat "rm " cover))
                 )))
 
@@ -118,6 +125,34 @@ If quality is omitted then chosen automatically."
 
         (shell-command-to-string (concat "rm \"" tmpmp3 "\""))
         ))))
+
+(defun make-art-image (img &optional maxsize)
+  "Return filename of created album art image for ogg file.
+Makes a JPG-image IMG of size less than MAXSIZE Kb."
+  (interactive)
+  (if (not (file-exists-p img))
+      (error (concat "No file: " img)))
+  (let (msize size w h p
+        (miw 300)
+        (mih 300)
+        (dst "/tmp/image_new.jpg"))
+    (setq msize (or maxsize 50000.0))
+    (setq size (string-to-number
+                (shell-command-to-string (concat "stat -c %s "
+                                                 (shell-quote-argument img)))))
+    (setq p (round (* (/ msize (float size)) 400.0)))
+    (setq p (- 100 p))
+    ;; (round (* (/ 5 (float 10)) 100))
+    (if (< p 100)
+        (progn
+          (shell-command (concat "convert "
+                                 (shell-quote-argument img)
+                                 " -resize " (number-to-string p) "% "
+                                 dst))
+
+                       dst)
+      img)
+    ))
 
 (provide 'my-audio)
 ;;; my-audio.el ends here
