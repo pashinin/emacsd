@@ -158,5 +158,63 @@ played."
     ;;(kill-ring-save cmd)
     ))
 
+(defun files-stats (files)
+  "Return a list of (extension . count).
+FILES - a list of files to analyze.
+Case of extension string is lowered."
+  (interactive)
+  (let ((res '()) ext count)
+    (dolist (el files res)
+      (if (file-directory-p el)
+          (setq ext "DIR")
+        (setq ext (downcase (or (file-name-extension el) ""))))
+      ;;(assoc "ext" res)       ;    (ext . count)
+      (setq count (or (cdr (assoc ext res))
+                      0))
+      (setq res (delq (assoc ext res) res))
+      (add-to-list 'res `(,ext . ,(+ count 1)))
+      )))
+;; (length (files-stats (list "asd" "aasd.a" "/tmp")))
+
+(defun files-ogg-1jpg (stats)
+  "Return t if all files in STATS are ogg + 1 jpg.
+STATS is returned by `files-stats'."
+  (interactive)
+  (when (= (length stats) 2)
+    (when (and (assoc "ogg" stats)
+               (assoc "jpg" stats))
+      (= (cdr (assoc "jpg" stats)) 1)
+      )))
+;; (files-stats (list "asd.jpg" "aasd.ogG"))
+
+(defun get-first-image-from-files (files)
+  "Return the first filename from FILES that is an image.
+That ends with .jpg or .png."
+  (interactive)
+  (catch 'loop
+    (let (res ext)
+      (dolist (el files res)
+        ;;(info "(elisp) Examples of Catch")
+        (setq ext (downcase (or (file-name-extension el) "")))
+        (when (or (string= ext "jpg")
+                  (string= ext "jpeg"))
+          (setq res el)
+          (throw 'loop el)
+          )))))
+;; (get-first-image-from-files (list "asd" "asd.jpg" "aasd.ogG"))
+
+(defun get-files-by-extension (files ext)
+  "Return a sublist from FILES where extension is EXT."
+  (interactive)
+  (let (res e)
+    (dolist (el files res)
+      (setq e (downcase (or (file-name-extension el) "")))
+      (when (string= e ext)
+        (if (not res)
+            (setq res (list el))
+          (add-to-list 'res el))
+    ))))
+;; (get-files-by-extension (list "asd" "asd.jpg" "aasd.ogG" "aa.ogg") "ogg")
+
 (provide 'init-os-misc)
 ;;; init-os-misc.el ends here
