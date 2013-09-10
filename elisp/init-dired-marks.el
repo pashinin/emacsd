@@ -23,7 +23,7 @@ You give a list of extensions EXTS ('avi', 'mkv', ...)."
       (setq ext (file-name-extension f))
       (if (file-directory-p f)
           (dired-mark-directories nil)
-        (if ext (dired-mark-extension ext)
+        (if ext (dired-mark-extension (concat "." ext))
           (save-excursion (dired-mark nil)))))))
 
 (defun my-dired-unmark-helper (mark)
