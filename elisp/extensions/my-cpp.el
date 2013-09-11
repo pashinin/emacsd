@@ -42,7 +42,12 @@ STATUS CODE MSG"
                        ;;" -lboost_filesystem -lboost_system"
                        ;;" -luser32"
                        ))
-      )))
+      )
+    (when (eq system-type 'gnu/linux)
+      (setq gcc "g++ ")
+      (compile (concat gcc filename " -o " base " "))
+      )
+    ))
 
 (defun my-magic-rc-file (filename)
   "Compile .rc resource FILENAME to .res on Windows."
