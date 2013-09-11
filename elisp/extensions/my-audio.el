@@ -58,10 +58,14 @@ FILENAME1, FILENAME2 - mp3/ogg filenames."
      )))
 
 (defun ogg-add-cover (image ogg)
-  "Add/Replace album art IMAGE to OGG filename."
+  "Replace/Add album art IMAGE to OGG filename."
   (interactive)
-  (shell-command-to-string (concat "~/.emacs.d/gnulinux/oggart "
-                                   (shell-quote-argument ogg) " " image)))
+  (if (and (executable-find "oggart")
+           (executable-find "oggcover64"))
+      (shell-command-to-string (concat "oggart "
+                                       (shell-quote-argument ogg) " "
+                                       (shell-quote-argument image)))
+    (error "Please install oggart and oggcover64 scripts from http://github.com/pashinin/scripts")))
 
 (defun convert-mp3-ogg (filename &optional quality)
   "Convert mp3 FILENAME to OGG with QUALITY 1..10.
@@ -88,6 +92,10 @@ If quality is omitted then chosen automatically."
           (shell-command-to-string (concat "eyeD3 --remove-v2 --set-user-url-frame=\"\" --remove-comments --remove-images \"" tmpmp3 "\""))
           (shell-command-to-string (concat "/home/xdev/.emacs.d/gnulinux/cleanmp3tags.py \"" tmpmp3 "\"")))
 
+
+        ;; handle non utf-8 tags:
+        (shell-command-to-string (concat "mid3iconv -eCP1251 " tmpmp3))
+
         (setq cmd (concat
                    "avconv -i \""
                    tmpmp3
@@ -112,8 +120,6 @@ If quality is omitted then chosen automatically."
                         (if (file-exists-p tmp) (setq res tmp))))
           (if cover
               (when (file-exists-p cover)
-                ;;(shell-command-to-string (concat "~/.emacs.d/gnulinux/oggart "
-                ;;                                 (shell-quote-argument dst) " " cover))
                 (ogg-add-cover cover dst)
                 (shell-command-to-string (concat "rm " cover))
                 )))
@@ -133,26 +139,34 @@ Makes a JPG-image IMG of size less than MAXSIZE Kb."
   (if (not (file-exists-p img))
       (error (concat "No file: " img)))
   (let (msize size w h p
-        (miw 300)
-        (mih 300)
-        (dst "/tmp/image_new.jpg"))
-    (setq msize (or maxsize 50000.0))
+              (pmin 1)
+              (pmax 99)
+              (miw 300)
+              (mih 300)
+              (dst "/tmp/tmp_cover_art.jpg"))
+    (setq msize (or maxsize 50000))
     (setq size (string-to-number
                 (shell-command-to-string (concat "stat -c %s "
                                                  (shell-quote-argument img)))))
-    (setq p (round (* (/ msize (float size)) 400.0)))
-    (setq p (- 100 p))
-    ;; (round (* (/ 5 (float 10)) 100))
-    (if (< p 100)
-        (progn
+    (if (<= size msize)
+        img
+      (progn
+        (while (and (> size msize)
+                    (> (- pmax pmin) 10))
+          ;;(setq p (round (* (/ msize (float size)) 400.0)))
+          ;;(setq p (- 100 p))
+          (setq p (/ (+ pmin pmax) 2))
           (shell-command (concat "convert "
                                  (shell-quote-argument img)
                                  " -resize " (number-to-string p) "% "
                                  dst))
-
-                       dst)
-      img)
-    ))
+          (setq size (string-to-number
+                      (shell-command-to-string (concat "stat -c %s "
+                                                       (shell-quote-argument dst)))))
+          (if (<= size msize)
+              (setq pmin (+ pmin 2))
+            (setq pmax (- pmax 2))))
+        dst))))
 
 (provide 'my-audio)
 ;;; my-audio.el ends here
