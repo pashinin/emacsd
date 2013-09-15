@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;; http://www.emacswiki.org/emacs/init-emms.el
 ;; Manual - http://www.gnu.org/software/emms/manual/
+;; http://emacser.com/emms.htm
 ;;; Code:
 
 (unless (file-exists-p "~/.emacs.d/emms")
@@ -18,6 +19,7 @@
 (require 'emms-source-file)
 (require 'emms-playlist-sort)
 (require 'emms)
+(require 'emms-i18n)  ; autodetect musci files id3 tags encodeing
 
 ;;(emms-devel)
 (emms-standard)
@@ -54,6 +56,24 @@
 
 (setq emms-playlist-buffer-name "*Music*")
 (global-set-key (kbd "<C-XF86AudioPlay>") 'emms-pause)
+
+;; my customizable playlist format
+(defun bigclean-emms-info-track-description (track)
+  "Return a description of the current TRACK."
+  (let ((artist (emms-track-get track 'info-artist))
+        (title (emms-track-get track 'info-title))
+        (album (emms-track-get track 'info-album))
+        (ptime (emms-track-get track 'info-playing-time)))
+    (if title
+        (format
+         "%-35s %-40s %-35s %5s:%-5s"
+         (if artist artist "")
+         (if title title "")
+         (if album album "")
+         (/ ptime 60)
+         (% ptime 60)))))
+;;(setq emms-track-description-function
+;;      'bigclean-emms-info-track-description)
 
 (provide 'init-emms)
 ;;; init-emms.el ends here
