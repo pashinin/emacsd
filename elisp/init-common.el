@@ -50,11 +50,11 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)   ;; "y", "n" instead of "yes", "no"
 
-;(when (require 'multiple-cursors nil 'noerror)
-;  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-;  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-;  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-;  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
+(when (require 'multiple-cursors nil 'noerror)
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
 
 ;; Rectangular region and multiple cursors
 (global-set-key (kbd "s-SPC") 'set-rectangular-region-anchor)
