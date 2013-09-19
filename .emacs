@@ -73,7 +73,10 @@
  '(mode-line ((t (:background "#073642" :foreground "dodger blue" :box (:line-width 1 :color "#839496") :weight normal))))
  '(mode-line-buffer-id ((t (:foreground "coral" :weight bold))))
  '(mode-line-highlight ((t (:foreground "navajo white" :box nil :weight bold))))
- '(org-agenda-date-today ((t (:inherit org-agenda-date :foreground "lawn green" :slant normal :weight bold))) t))
+ '(org-agenda-date-today ((t (:inherit org-agenda-date :foreground "lawn green" :slant normal :weight bold))) t)
+ '(web-mode-html-attr-name-face ((t (:foreground "medium sea green"))))
+ '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face :foreground "gold3"))))
+ '(web-mode-html-tag-face ((t (:foreground "chartreuse4")))))
 
 ;;==========================================================
 
@@ -92,7 +95,7 @@
 (when t ; nil - for debug
   (when (and (require 'init-gpg nil 'noerror) internet-ok)
     (require 'init-irc)
-    ;;(require 'init-mail)
+    (require 'init-mail-gnus)
     )
   (require 'init-windows-buffers)    ;; ido, helm...
   (require 'init-bbdb)
