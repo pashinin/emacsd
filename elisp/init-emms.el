@@ -24,11 +24,8 @@
 ;;(emms-devel)
 (emms-standard)
 
-;; When asked for emms-play-directory,
-;; always start from this one
+;; When asked for emms-play-directory, start from this one:
 (setq emms-source-file-default-directory "/usr/data/disk_3/Music/SORT/")
-
-;;(emms-setup 'default emms-source-file-default-directory)
 
 (setq emms-player-mpd-server-name "localhost")
 (setq emms-player-mpd-server-port "6600")
@@ -41,7 +38,8 @@
 (emms-default-players)
 
 (add-hook 'emms-player-started-hook 'emms-show)
-(setq emms-show-format "NP: %s")
+;;(setq emms-show-format "NP: %s")
+(setq emms-show-format "%s")
 
 ;; Want to use alsa with mpg321 ?
 (setq emms-player-mpg321-parameters '("-o" "alsa"))
@@ -74,6 +72,15 @@
          (% ptime 60)))))
 ;;(setq emms-track-description-function
 ;;      'bigclean-emms-info-track-description)
+
+(defun emms-my-hook ()
+  "Run this in `emms-playlist-mode'."
+  (interactive)
+  (local-set-key (kbd "j") 'isearch-forward)
+  )
+;; (isearch-forward)
+(add-hook 'emms-playlist-mode-hook 'emms-my-hook)
+
 
 (provide 'init-emms)
 ;;; init-emms.el ends here
