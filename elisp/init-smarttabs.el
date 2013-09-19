@@ -126,7 +126,7 @@ Used in hooks."
 (add-hook 'nxml-mode        'myHtmlStyle)
 (add-hook 'css-mode-hook    'myHtmlStyle)
 (add-hook 'php-mode-hook    'myHtmlStyle)
-;;(add-hook 'web-mode-hook    'myHtmlStyle)
+(add-hook 'web-mode-hook    'myHtmlStyle)
 
 ;; Javascript
 (add-hook 'js2-mode-hook        'my-smarttabs-tabs-autoinednt)
