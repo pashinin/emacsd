@@ -66,13 +66,13 @@
 (global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
-;; C-x C-u(l) - make upper/lower case
+;; Upper/lower case ( C-x C-u  |  C-x C-l)
 ;; don't warn these commands
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
-(if (require 'page-break-lines nil 'noerror)
-    (global-page-break-lines-mode))
+;;(if (require 'page-break-lines nil 'noerror)
+;;    (global-page-break-lines-mode))
 
 ;; Whitespaces
 ;;(require 'whitespace)
@@ -93,7 +93,7 @@
 ;; reload file contents
 (global-set-key (kbd "M-<kp-1>")    'revert-buffer)
 
-;; undo/redo windows manipulation with "C-c left(right)"
+;; undo/redo windows manipulation with "C-c left", "C-c right"
 (winner-mode 1)
 
 (delete-selection-mode 1)   ; delete seleted text when typing
@@ -147,6 +147,12 @@
   (dflet ((process-list ())) ad-do-it))
 
 ;; Unicode
+;;(setq default-buffer-file-coding-system 'utf-8-unix)
+(setq buffer-file-coding-system 'utf-8-unix)
+(setq default-file-name-coding-system 'utf-8-unix)
+(setq default-keyboard-coding-system 'utf-8-unix)
+(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+
 (set-language-environment 'UTF-8)
 ;;(setenv "LC_ALL"     "en_US.UTF-8")
 (set-default-coding-systems 'utf-8)
@@ -181,10 +187,10 @@
 				  (member method '("su" "sudo"))))))))
 
 ;; keys for russian layout (C-s == C-ы)
-(global-set-key (kbd "C-п") (lookup-key global-map (kbd "C-g")))
-(global-set-key (kbd "C-ч C-ы") (lookup-key global-map (kbd "C-x C-s")))
-(global-set-key (kbd "C-ч C-с") (lookup-key global-map (kbd "C-x C-c")))
-(global-set-key (kbd "C-ч C-у") (lookup-key global-map (kbd "C-x C-e")))
+;;(global-set-key (kbd "C-п") (lookup-key global-map (kbd "C-g")))
+;;(global-set-key (kbd "C-ч C-ы") (lookup-key global-map (kbd "C-x C-s")))
+;;(global-set-key (kbd "C-ч C-с") (lookup-key global-map (kbd "C-x C-c")))
+;;(global-set-key (kbd "C-ч C-у") (lookup-key global-map (kbd "C-x C-e")))
 
 (defun kill-current-buffer ()
   "Kill current buffer."
@@ -199,7 +205,18 @@
 
 (global-set-key (kbd "<s-backspace>") 'kill-current-buffer)
 (global-set-key (kbd "<s-delete>")    'kill-buffer-close-window)
-(global-set-key [S-f3] 'find-grep)
+
+(defun my-run-ack ()
+  "Run ack-grep in current buffer."
+  (interactive)
+  (save-window-excursion
+    (call-interactively 'rgrep))
+  ;;(compile-goto-error
+  (switch-to-buffer "*grep*"))
+(global-set-key [S-f3] 'my-run-ack)
+(global-set-key [C-f3] 'find-name-dired)
+;; (find-name-dired)
+
 
 (defun unix-newlines-no-spaces ()
   "Convert current text file to a better format.
