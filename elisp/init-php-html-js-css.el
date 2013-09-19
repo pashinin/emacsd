@@ -2,15 +2,16 @@
 ;;; Commentary:
 ;;; Code:
 
-;; It will refuse to run unless you have byte-compiled it. You must
-;; byte-compile it with your version of Emacs because different versions of
-;; Emacs have different byte-compiled formats.
-(require 'js2-mode)
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(require 'js3-mode)
+(add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
 
-(require 'zencoding-mode)
-(add-hook 'sgml-mode-hook 'zencoding-mode) ;; Auto-start on any markup modes
+;; emmet-mode
+;; Just write something like "a.x>span" and press C-<RET>
+(require 'emmet-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'html-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook  'emmet-mode)
+(add-hook 'web-mode-hook  'emmet-mode)
 
 ;; nxhtml
 ;;(load "~/.emacs.d/extensions/nxhtml/autostart.el")
@@ -43,8 +44,6 @@
 ;;                  'font-lock-beginning-of-syntax-function)))
 
 
-
-
 ;; web-mode
 ;; Install from Melpa, also look at:
 ;; 1. http://web-mode.org/
@@ -59,14 +58,18 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'"    . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php5?\\'"     . web-mode))
+;;(set-face-attribute 'web-mode-css-rule-face nil :foreground "Pink3")
+(add-hook 'web-mode-hook 'whitespace-turn-off)
+(add-hook 'web-mode-hook (lambda () (whitespace-mode -1)))
 
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-css-indent-offset    2)  ; CSS offset indentation
+(setq web-mode-code-indent-offset   2)  ; indentation for js, Java, PHP, etc.
+(setq web-mode-disable-autocompletion t)
+;;(local-set-key (kbd "RET") 'newline-and-indent)
 
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset    2) ; CSS offset indentation
-  (setq web-mode-code-indent-offset   2) ; indentation for js, Java, PHP, etc.
-
   ;; HTML content is not indented by default (indeed indenting the content of a TEXTAREA for example can have nasty side effects).
   ;; You can change this behaviour with
   (setq web-mode-indent-style 2)
@@ -76,11 +79,7 @@
   (setq tab-width 2)
   )
 
-;;(add-hook 'web-mode-hook
-;;		  '(lambda ()
-;;			 (define-key web-mode-map "\C-m" 'newline-and-indent)))
 ;;(add-hook 'web-mode-hook  'my-web-mode-hook)
-;;(add-hook 'web-mode-hook  'myHtmlStyle)
 
 (provide 'init-php-html-js-css)
 ;;; init-php-html-js-css.el ends here
