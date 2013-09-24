@@ -18,16 +18,16 @@
 
 ;; auto install Melpa packages
 (defvar my-packages
-  '(ack-and-a-half ac-js2 ack apache-mode async auto-compile auto-complete auctex
+  '(ack-and-a-half ack apache-mode async auto-compile auto-complete auctex
                    bash-completion bm bookmark+ buffer-move bbdb
                    color-theme ctags crontab-mode color-theme-sanityinc-solarized
                    dired-details dired-details+
-                   emms expand-region
+                   emmet-mode emms expand-region
                    frame-cmds frame-fns flycheck flymake full-ack
                    gitignore-mode
                    helm helm-git helm-projectile
                    image-dired+ ipython
-                   jedi js3-mode
+                   jedi js2-mode js3-mode
                    magit markdown-mode markdown-mode+ multi-term multiple-cursors
                    nginx-mode
                    openwith org
@@ -36,7 +36,7 @@
                    volatile-highlights
                    web-mode wrap-region windsize
                    yaml-mode yari yasnippet
-                   zencoding-mode zenburn-theme)
+                   zenburn-theme)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()
@@ -60,14 +60,14 @@
 ;; el-get
 (when (> emacs-major-version 23)
   (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-  (when (require 'el-get nil 'noerror)
+  (unless (require 'el-get nil 'noerror)
     (when internet-ok
       (with-current-buffer
           (url-retrieve-synchronously
            "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
         (goto-char (point-max))
         (eval-print-last-sexp)))
-    (el-get 'sync)))  ;; hangs if no internet
+    (el-get 'sync)))
 
 ;; auto-install - Automates the installation of Emacs Lisp files and packages
 ;;(when (require 'auto-install nil 'noerror)
