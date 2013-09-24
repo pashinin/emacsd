@@ -75,21 +75,6 @@ played."
 
 ;; (my-notify-popup "title2" "msg2" "~/.emacs.d/bindata/icons/email_envelope.png" "/usr/share/sounds/gnome/default/alerts/drip.ogg")
 
-;;(defun my-compress-pictures ()
-;;  "Make a .djvu file from all or marked pictures."
-;;  (interactive)
-;;  (when (eq major-mode 'dired-mode)
-;;    ;; create a file with list of images
-;;    (let ((tmpfile (make-temp-file "makedjvu-" nil ".txt"))
-;;          (files (dired-get-marked-files)))
-;;      ;;(message (dired-get-marked-files))
-;;      (with-temp-buffer
-;;        (dolist (elt files)
-;;          (insert elt "\n"))
-;;        (write-file tmpfile)))
-;;    ;; feed it to script making djvu
-;;  ))
-
 (defun is-64bit-os ()
   "Return t if we are under 64 bit OS."
   (interactive)
@@ -97,23 +82,24 @@ played."
       (file-directory-p "C:/Program files (x86)")
     nil))
 
-;;C:\Program Files (x86)\WinCDEmu\vmnt64.exe D:\ubuntu-13.04-server-amd64.iso
+;; C:\Program Files (x86)\WinCDEmu\vmnt64.exe D:\ubuntu-13.04-server-amd64.iso
 (defun mount-iso (filename)
   "Mount ISO image FILENAME."
   (interactive)
   (let (p cmd)
-    (if (eq system-type 'windows-nt)
-        (setq p (if (is-64bit-os) "C:/Program Files (x86)/WinCDEmu/vmnt64.exe"
-                  "C:/Program Files (x86)/WinCDEmu/vmnt.exe"))
-      (setq p (if (is-64bit-os) "C:/Program Files (x86)/WinCDEmu/vmnt64.exe"  ; TODO: change for GNU/Linux
-                "C:/Program Files (x86)/WinCDEmu/vmnt.exe")))
-    (if (not (file-exists-p p))
-        (if (eq system-type 'windows-nt)
-            (error "Install WinCDEmu")
-          (error "Install mounting program")))
-    (setq p (shell-quote-argument p))
-    (setq cmd (concat p " " (shell-quote-argument filename)))
-    (shell-command cmd)))
+    (cond
+     ((eq system-type 'windows-nt)
+      (setq p (if (is-64bit-os) "C:/Program Files (x86)/WinCDEmu/vmnt64.exe"
+                "C:/Program Files (x86)/WinCDEmu/vmnt.exe"))
+      (if (not (file-exists-p p)) (error "Install WinCDEmu"))
+      (setq p (shell-quote-argument p))
+      (shell-command (concat p " " (shell-quote-argument filename))))
+     (t
+      ;;(error "Don't know the system to use mounting")
+      ;;fuseiso example.iso example
+      (setq cmd (concat "fuseiso " (shell-quote-argument filename)))
+      (shell-command cmd)
+      ))))
 
 
 (defcustom var-libreoffice-exe nil
