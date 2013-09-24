@@ -4,17 +4,13 @@
 
 (require 'init-variables)
 (add-to-list 'load-path (concat my-emacs-ext-dir "workgroups2/src"))
+
+(desktop-save-mode 1)
+
 (when (require 'workgroups2 nil 'noerror)
 
-;; Some settings:
-(setq wg-prefix-key (kbd "C-c z")
-      wg-restore-associated-buffers nil
-      wg-use-default-session-file (eq system-type 'windows-nt)  ; turn off for "emacs --daemon"
-      wg-default-session-file (concat my-emacs-files-dir "workgroups")
-      wg-use-faces t
-      wg-morph-on nil)             ; animation off
-
-;; (wg-reload-session)
+;; WG file:
+(setq wg-default-session-file (concat my-emacs-files-dir "workgroups"))
 
 (setq
  wg-mode-line-decor-left-brace "["
@@ -35,6 +31,7 @@
 (defun test-and-load-workgroups ()
   "Load workgroups if it's not a Capture frame."
   (interactive)
+  (workgroups-mode 1)
   (with-selected-frame (selected-frame)
     (when (not (equal "capture" (frame-parameter nil 'name)))
       (wg-reload-session)
@@ -64,7 +61,9 @@
 
 (add-hook 'after-make-frame-functions 'set-my-frame-title)
 
+;;     (not server-process))
 (workgroups-mode 1)
+
 )
 (provide 'init-workgroups)
 ;;; init-workgroups.el ends here
