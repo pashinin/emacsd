@@ -77,7 +77,10 @@ If quality is omitted then chosen automatically."
     (setq basename (file-name-sans-extension basenameext))
     (setq dst (concat p basename ".ogg"))
 
-    (if (file-exists-p dst) (message "Already converted")
+    (if (file-exists-p dst)
+        (progn
+          (message "Already converted")
+          dst)
       (progn
         ;; copy to /tmp
         (shell-command (concat "cp -f \"" filename "\" /tmp/"))
@@ -130,7 +133,8 @@ If quality is omitted then chosen automatically."
           (error (concat "Corrupted sound file " filename)))
 
         (shell-command-to-string (concat "rm \"" tmpmp3 "\""))
-        ))))
+        ))
+    dst))
 
 (defun make-art-image (img &optional maxsize)
   "Return filename of created album art image for ogg file.
