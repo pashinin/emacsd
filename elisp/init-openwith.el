@@ -3,13 +3,13 @@
 ;; Install "openwith" from MELPA
 ;;; Code:
 
-;;(when (require 'openwith nil 'noerror)
-(require 'openwith)
+(when (require 'openwith nil 'noerror)
+  ;;(require 'openwith)
   (setq openwith-associations
         (list
          (list (openwith-make-extension-regexp
                 '("odt" "ods" "doc" "docx" "xls" "rtf"))
-                "libreoffice" '(file))
+               "libreoffice" '(file))
          (list (openwith-make-extension-regexp
                 '("pdf" "dvi" "djvu"))
                "evince" '(file))
@@ -29,46 +29,54 @@
                 '("jpg" "jpeg" "png" "gif" "jpeg" "bmp"))
                "shotwell" '(file))))
 
-  (openwith-mode t)
-;;)
+  (openwith-mode t))
 
-
-;; Open ISO files
 
 (defun open-in-external-app ()
-  "Open the current file or dired marked files in external app."
+  "Open a current file or marked files in an external app."
   (interactive)
-  (let ( doIt
-         (myFileList
-          (cond
-           ((string-equal major-mode "dired-mode") (dired-get-marked-files))
-           (t (list (buffer-file-name))) ) ) )
+  (let (doIt cmd
+             (myFileList
+              (cond
+               ((eq major-mode 'dired-mode) (dired-get-marked-files))
+               (t (list (buffer-file-name))))))
 
-    (setq doIt (if (<= (length myFileList) 5)
-                   t
-                 (y-or-n-p "Open more than 5 files? ") ) )
+    (setq doIt (if (<= (length myFileList) 5) t (y-or-n-p "Open more than 5 files? ")))
 
     (when doIt
       (cond
-       ((string-equal system-type "windows-nt")
+       ((eq system-type 'windows-nt)
         (mapc (lambda (fPath)
                 ;;(defvar w32-shell-execute)
                 ;;(w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t))
                 ) myFileList)
         )
-       ((string-equal system-type "darwin")
+       ((eq system-type 'darwin)
         (mapc (lambda (fPath)
                 (let ((process-connection-type nil))
-                  (start-process "" nil "open" fPath)))  myFileList) )
-       ((string-equal system-type "gnu/linux")
-        (mapc (lambda (fPath)
-                (let ((process-connection-type nil))
-                  (start-process "" nil "xdg-open" fPath)) ) myFileList))))))
+                  (start-process "" nil "open" fPath)))  myFileList))
+       ((eq system-type 'gnu/linux)
+        (openwith-open-unix "vlc" myFileList)
+        )))))
+
+(defun my-dired-smart-open ()
+  "Open a file/several files in external apps."
+  (interactive)
+  (let ((myFileList
+         (cond
+          ((eq major-mode 'dired-mode) (dired-get-marked-files))
+          (t (list (buffer-file-name)))
+          )))
+    (if (> (length myFileList) 1)
+        (open-in-external-app)
+      (dired-find-file))
+    ))
 
 (defun my-dired-external-open-hook ()
   "Set local dired keys to open files in other apps."
   (interactive)
-  (local-set-key (kbd "<C-return>") 'open-in-external-app))
+  (define-key dired-mode-map (kbd "<return>") 'my-dired-smart-open)
+  (define-key dired-mode-map (kbd "<kp-enter>") 'my-dired-smart-open))
 (add-hook 'dired-mode-hook 'my-dired-external-open-hook)
 
 (provide 'init-openwith)
