@@ -1,5 +1,6 @@
-;;; init-f5 --- description
+;;; init-f5 --- A magic key
 ;;; Commentary:
+;; Just my experiments
 ;;; Code:
 
 (require 'init-dired-z)
@@ -14,17 +15,18 @@
   )
 
 (defun do-magic-with-file (&optional filename)
-  "Do something useful with a given FILENAME."
+  "Do something useful with a given FILENAME.
+If not given - use current buffer file or file under the cursor."
   (interactive)
   (if (not filename)
-      (progn
-        ;; lisp
-        (when (eq major-mode 'emacs-lisp-mode)
+      (let ((f (buffer-file-name)))
+        (cond
+         ;; lisp
+         ((eq major-mode 'emacs-lisp-mode)
           (byte-compile-file (buffer-file-name)))
 
-        ;; dired
-        (when (eq major-mode 'dired-mode)
-
+         ;; dired
+         ((eq major-mode 'dired-mode)
           (let ((f (dired-get-filename t t))
                 (files (dired-get-marked-files))
                 ext ext1)
@@ -46,7 +48,7 @@
                       (dolist (el (get-files-by-extension files "ogg"))
                         (message el)
                         (ogg-add-cover art el)
-                      )))
+                        )))
                    (t
                     (message "Do magic on each file...")
                     (mapc 'do-magic-with-file files))
@@ -56,21 +58,41 @@
                 ))))
           (save-window-excursion (with-temp-message "" (revert-buffer))))
 
-        ;; tex
-        (when (fboundp 'latex-mode)
-          (when (eq major-mode 'latex-mode)
-            (my-tex-run-tex)
-            ))
+         ;; TeX
+         ((and (fboundp 'latex-mode)
+               (eq major-mode 'latex-mode))
+          (my-tex-run-tex))
 
-        (let ((f (buffer-file-name)))
-          ;; C++
-          (when (eq major-mode 'c++-mode)
-            (my-magic-cpp f))
+         ;; C++
+         ((eq major-mode 'c++-mode) (my-magic-cpp f))
 
-          ;; Python
-          (when (eq major-mode 'python-mode)
-            (my-magic-python f))
-          ))
+         ;; Python
+         ((eq major-mode 'python-mode) (my-magic-python f))
+
+         ;; EMMS playlist
+         ((eq major-mode 'emms-playlist-mode)
+          ;; if on last line - add a new file to the playlist
+          (let* ((current-track (emms-playlist-track-at (point)))
+                 (next-track (emms-playlist-track-at (+ (line-end-position) 1)))
+                 (f-current (cdr (assoc 'name current-track)))
+                 (f-next (cdr (assoc 'name next-track)))
+                 (resfile (or (do-magic-with-file f-current) "")))
+            ;;(emms-playlist-track-at (end-of-line)
+            ;;(emms-insert-file (do-magic-with-file f))
+
+            (if (and (string= f-next resfile))
+                (message "Already have it")
+              ;;(emms-add-file resfile)
+              (save-excursion
+                (forward-line 1)
+                (emms-insert-file resfile)
+              ))))
+
+         ;; - Unknown mode -
+         (t (message "Don't know what to do in this mode!"))
+         ))
+
+    ;; if filename provided:
     (let (ext ext1 f d)
       (setq f (or filename (buffer-file-name)))
       (setq d (file-name-directory f))
