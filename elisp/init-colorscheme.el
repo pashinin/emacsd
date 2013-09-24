@@ -2,9 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-;; for your own colors use:
-;; M-x customize-group <RET> mode-line
-
 (require 'color-theme-sanityinc-solarized)
 (load-theme 'sanityinc-solarized-dark)
 
