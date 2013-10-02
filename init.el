@@ -126,6 +126,7 @@
   ;;(require 'auto-complete-yasnippet)
   (require 'init-capture nil 'noerror)
   (require 'init-f5)
+  (require 'init-scala)
   (require 'init-workgroups nil 'noerror)
   (require 'init-bookmarks)
   )
