@@ -162,16 +162,14 @@ Case of extension string is lowered."
       )))
 ;; (length (files-stats (list "asd" "aasd.a" "/tmp")))
 
-(defun files-ogg-1jpg (stats)
-  "Return t if all files in STATS are ogg + 1 jpg.
+(defun files-many-plus-one (stats many one)
+  "Return t if all files in STATS have ext MANY + 1 ONE.
 STATS is returned by `files-stats'."
   (interactive)
   (when (= (length stats) 2)
-    (when (and (assoc "ogg" stats)
-               (assoc "jpg" stats))
-      (= (cdr (assoc "jpg" stats)) 1)
-      )))
-;; (files-stats (list "asd.jpg" "aasd.ogG"))
+    (when (and (assoc many stats)
+               (assoc one stats))
+      (= (cdr (assoc one stats)) 1))))
 
 (defun get-first-image-from-files (files)
   "Return the first filename from FILES that is an image.
