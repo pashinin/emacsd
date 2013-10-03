@@ -4,7 +4,7 @@
 
 (require 'dired)
 
-(defun toggle-fullscreen ()
+(defun toggle-maximize ()
   "Maximize Emacs window."
   (interactive)
   (if (eq system-type 'windows-nt)
@@ -16,6 +16,15 @@
       (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
                              '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
       )))
+
+(defun toggle-fullscreen (&optional f)
+  (interactive)
+  (let ((current-value (frame-parameter nil 'fullscreen)))
+    (if (equal 'fullboth current-value)
+        (set-frame-parameter nil 'fullscreen 'maximized)
+      (set-frame-parameter nil 'fullscreen 'fullboth))))
+(global-set-key [f11] 'toggle-fullscreen)
+
 ;; all created frames - fullscreen
 ;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
