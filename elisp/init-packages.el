@@ -66,8 +66,8 @@
           (url-retrieve-synchronously
            "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
         (goto-char (point-max))
-        (eval-print-last-sexp)))
-    (el-get 'sync)))
+        (eval-print-last-sexp))
+      (el-get 'sync))))
 
 ;; auto-install - Automates the installation of Emacs Lisp files and packages
 ;;(when (require 'auto-install nil 'noerror)
