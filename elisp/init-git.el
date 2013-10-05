@@ -14,6 +14,7 @@
                                       'split-window-horizontally
                                     'split-window-vertically))
 (setq magit-set-upstream-on-push t)
+(setq magit-status-buffer-switch-function 'switch-to-buffer)
 
 ;; windows shell has a bug (when using Magit "stash apply stash@{0}"):
 ;; it destroys brackets "{", "}" - so need to escape them
