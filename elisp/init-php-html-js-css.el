@@ -2,9 +2,40 @@
 ;;; Commentary:
 ;;; Code:
 
+;;
+;; js3-mode
+;;
 (require 'js3-mode)
 (add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
+(add-to-list ' load-path (concat my-emacs-ext-dir "jquery-doc"))
+(require 'jquery-doc)
+(add-hook 'js3-mode-hook 'jquery-doc-setup)
 
+(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+(add-hook 'js3-mode-hook 'javascript-custom-setup)
+
+(add-to-list 'load-path "~/src/lintnode")
+(require 'flymake-jslint)
+;; Make sure we can find the lintnode executable
+(setq lintnode-location "~/src/lintnode")
+;; JSLint can be... opinionated
+(setq lintnode-jslint-excludes (list 'nomen 'undef 'plusplus 'onevar 'white))
+;; Start the server when we first open a js file and start checking
+(add-hook 'js3-mode-hook (lambda () (lintnode-hook)))
+
+(defun javascript-custom-setup ()
+  (moz-minor-mode 1))
+
+(defun firefox-reload ()
+  "Reload current tab in Firefox."
+  (interactive)
+  (comint-send-string (inferior-moz-process)
+                      "BrowserReload();"))
+
+(define-key js3-mode-map (kbd "s-r") 'firefox-reload)
+;;(define-key css-mode-map (kbd "s-r") 'firefox-reload)
+
+;;
 ;; emmet-mode
 ;; Just write something like "a.x>span" and press C-<RET>
 (require 'emmet-mode)
@@ -66,20 +97,6 @@
 (setq web-mode-css-indent-offset    2)  ; CSS offset indentation
 (setq web-mode-code-indent-offset   2)  ; indentation for js, Java, PHP, etc.
 (setq web-mode-disable-autocompletion t)
-;;(local-set-key (kbd "RET") 'newline-and-indent)
-
-(defun my-web-mode-hook ()
-  "Hooks for Web mode."
-  ;; HTML content is not indented by default (indeed indenting the content of a TEXTAREA for example can have nasty side effects).
-  ;; You can change this behaviour with
-  (setq web-mode-indent-style 2)
-  (local-set-key (kbd "RET") 'newline-and-indent)
-  (smart-tabs-mode-enable)
-  (setq indent-tabs-mode t)
-  (setq tab-width 2)
-  )
-
-;;(add-hook 'web-mode-hook  'my-web-mode-hook)
 
 (provide 'init-php-html-js-css)
 ;;; init-php-html-js-css.el ends here
