@@ -45,6 +45,9 @@ Rename into the same dir or to the dir of other dired-window."
     (global-set-key (kbd "s-d")    'dired-explorer)
   (global-set-key (kbd "s-d")    'dired-nautilus))
 
+;; Solves UTF-8 problems that "find ... -ls" has
+(setq find-ls-option '("-print0 | xargs -0 ls -alhd" . ""))
+
 ;;(setq-default dired-omit-mode t)
 ;;(add-hook 'dired-mode-hook '(lambda () (toggle-truncate-lines 1)))
 (defun my-dired-options-enable ()
