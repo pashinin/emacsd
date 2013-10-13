@@ -4,8 +4,7 @@
 ;;
 ;;; Code:
 
-;;(require 'init-variables)
-(setq bbdb-file "~/.bbdb/bbdb")
+(setq bbdb-file "~/.emacs_files/bbdb/bbdb")
 (require 'bbdb)
 (require 'bbdb-com)
 ;;(unless (file-exists-p bbdb-file)  ; create if not exists?
@@ -24,9 +23,6 @@
 ;;          (shell-command-to-string "mklink C:\\bin\\bbdb C:\\bin\bbdb-my\\bbdb")
 ;;        )))
 
-
-;;(setq bbdb-file "~/bbdb")    ; "~/.bbdb"
-;;(setq bbdb-file "~/.bbdb/bbdb")
 ;;(bbdb-initialize 'gnus 'message)
 
 ;;(add-to-list 'file-coding-system-alist (cons "\\.bbdb"  'utf-8))
