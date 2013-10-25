@@ -165,5 +165,17 @@ If there is still something left do do start the next latex-command."
 ;;(add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 ;;(setq TeX-source-correlate-start-server t)
 
+;;
+;; sage-mode
+;;
+;; Install - http://wiki.sagemath.org/sage-mode
+;; sudo sage -i sage_mode
+;;
+;; Dev - https://bitbucket.org/gvol/sage-mode/src
+;;
+(add-to-list 'load-path "/usr/lib/sagemath/local/share/emacs")
+(require 'sage "sage")
+(setq sage-command "/usr/lib/sagemath/sage")
+
 (provide 'init-tex)
 ;;; init-tex.el ends here
