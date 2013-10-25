@@ -61,7 +61,6 @@
 
 (add-hook 'after-make-frame-functions 'set-my-frame-title)
 
-;;     (not server-process))
 (workgroups-mode 1)
 
 )
