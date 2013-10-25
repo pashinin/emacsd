@@ -5,7 +5,7 @@
 (require 'init-variables)
 (add-to-list 'load-path (concat my-emacs-ext-dir "workgroups2/src"))
 
-(desktop-save-mode 1)
+;;(desktop-save-mode 1)
 
 (when (require 'workgroups2 nil 'noerror)
 
