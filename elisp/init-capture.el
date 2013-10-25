@@ -121,7 +121,13 @@
     "Create a terminal window of 854px width."
     (interactive)
     (capture-run-daemonized-command-no-buf
-     "gnome-terminal --geometry=94x25+525+332"))
+     "gnome-terminal --geometry=94x25+526+332"))
+
+  (defun terminal-1280 ()
+    "Create a terminal for 720p video."
+    (interactive)
+    (capture-run-daemonized-command-no-buf
+     "gnome-terminal --geometry=125x35+575+222"))
 )
 
 (provide 'init-capture)
