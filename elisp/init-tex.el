@@ -57,23 +57,24 @@
 (require 'tex-buf)
 (defun TeX-command-default (name)
   "Next TeX command to use. Most of the code is stolen from `TeX-command-query'."
-  (cond ((if (string-equal name TeX-region)
-             (TeX-check-files (concat name "." (TeX-output-extension))
-                              (list name)
-                              TeX-file-extensions)
-           (TeX-save-document (TeX-master-file)))
-         TeX-command-default)
-        ((and (memq major-mode '(doctex-mode latex-mode))
-              (TeX-check-files (concat name ".bbl")
-                               (mapcar 'car
-                                       (LaTeX-bibliography-list))
-                               BibTeX-file-extensions))
-         ;; We should check for bst files here as well.
-         TeX-command-BibTeX)
-        ((TeX-process-get-variable name
-                                   'TeX-command-next
-                                   TeX-command-Show))
-        (TeX-command-Show)))
+  (with-no-warnings
+    (cond ((if (string-equal name TeX-region)
+               (TeX-check-files (concat name "." (TeX-output-extension))
+                                (list name)
+                                TeX-file-extensions)
+             (TeX-save-document (TeX-master-file)))
+           TeX-command-default)
+          ((and (memq major-mode '(doctex-mode latex-mode))
+                (TeX-check-files (concat name ".bbl")
+                                 (mapcar 'car
+                                         (LaTeX-bibliography-list))
+                                 BibTeX-file-extensions))
+           ;; We should check for bst files here as well.
+           TeX-command-BibTeX)
+          ((TeX-process-get-variable name
+                                     'TeX-command-next
+                                     TeX-command-Show))
+          (TeX-command-Show))))
 
 ;;;  from wiki
 (defcustom TeX-texify-Show t
