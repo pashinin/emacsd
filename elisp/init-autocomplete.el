@@ -37,12 +37,21 @@
 (define-key ac-completing-map [return] 'ac-complete)
 
 ;; resetting ac-sources
-;;(setq-default ac-sources '(
-;;                           ac-source-yasnippet
-;;                           ac-source-abbrev
-;;                           ac-source-dictionary
-;;                           ac-source-words-in-same-mode-buffers
-;;                           ))
+;; (ac-source-features ac-source-functions ac-source-yasnippet
+;; ac-source-variables ac-source-symbols ac-source-abbrev
+;; ac-source-dictionary ac-source-words-in-same-mode-buffers)
+
+(setq-default ac-sources '(ac-source-semantic-raw
+                           ac-source-features
+                           ac-source-functions
+                           ac-source-yasnippet
+                           ac-source-variables
+                           ac-source-symbols
+                           ac-source-abbrev
+                           ac-source-dictionary
+                           ac-source-words-in-same-mode-buffers
+                           ))
+;;(setq-default ac-sources '(ac-source-semantic-raw))
 
 ;; Disabling Yasnippet completion
 ;;(defun epy-snips-from-table (table)
