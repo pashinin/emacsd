@@ -2,7 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
-(load-file "~/.emacs.d/extensions/cedet-1.1/common/cedet.el")
+;;(add-to-list 'load-path (concat my-emacs-ext-dir "extensions/cedet-1.1/common"))
+(require 'cedet)
 
 ;;; ede
 ;(global-semantic-fo
@@ -31,7 +32,11 @@
         ))
 ;; Enable EDE (Project Management) features
 (global-ede-mode 1)
+
 ;; speedbar
+;; http://www.emacswiki.org/emacs/SrSpeedbar
+(require 'sr-speedbar)
+(setq sr-speedbar-right-side nil)
 (setq speedbar-mode-hook '(lambda ()
                             (interactive)
                             (other-frame 0)))
@@ -46,17 +51,23 @@
 ;;(global-semantic-folding-mode t)
 
 
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
+;; Enable Semantic
+(semantic-mode 1)
+
+(define-key js3-mode-map "." 'semantic-complete-self-insert)
+
 
 
 ;; Open speedbar and focus on it
 (defun my-show-speedbar ()
   (interactive)
   (sr-speedbar-toggle)
-  (sr-speedbar-select-window)
-  )
+  (sr-speedbar-select-window))
 (global-set-key "\C-\\" 'my-show-speedbar)
 
-(require 'sr-speedbar)
+;;(require 'sr-speedbar)
 
 (provide 'init-cedet)
 ;;; init-cedet.el ends here
