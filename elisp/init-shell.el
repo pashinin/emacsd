@@ -73,11 +73,9 @@
 (defun my-shell-options-enable ()
   "My personal shell-mode options hook-function."
   (interactive)
-  ;;(local-set-key (kbd "<C-kp-divide>") 'my-toggle-dired-dwim)
   (toggle-truncate-lines 1)
   (ansi-color-for-comint-mode-on)
   (local-set-key (kbd "C-d") 'comint-delchar-or-maybe-eof)
-  ;;(local-set-key "\C-cl" 'erase-buffer)
   (local-set-key "\C-cl" 'my-clear-shell-buffer)
 
   ;;(setq ansi-color-names-vector
