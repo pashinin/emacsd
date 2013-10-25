@@ -96,6 +96,8 @@
   (when (and (require 'init-gpg nil 'noerror) internet-ok)
     (require 'init-irc)
     (require 'init-mail-gnus)
+    ;; (require 'init-mail-wl)
+    ;; Please set `wl-message-id-domain' to get valid Message-ID string
     )
   (require 'init-windows-buffers)    ;; ido, helm...
   (require 'init-bbdb)
@@ -105,6 +107,7 @@
   (require 'init-org)
   (require 'init-jabber nil 'noerror)
   (require 'init-dired nil 'noerror)
+  ;;(require 'init-lisp)
   (require 'init-shell)
 
   (require 'init-emms nil 'noerror)
@@ -117,6 +120,7 @@
   (require 'init-php-html-js-css)
 
   (require 'init-ctags)
+  ;;(require 'init-cedet)
   (require 'init-flycheck)
   (require 'init-smarttabs)
   (require 'init-autocomplete)
