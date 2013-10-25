@@ -21,7 +21,8 @@
 ;; JSLint can be... opinionated
 (setq lintnode-jslint-excludes (list 'nomen 'undef 'plusplus 'onevar 'white))
 ;; Start the server when we first open a js file and start checking
-(add-hook 'js3-mode-hook (lambda () (lintnode-hook)))
+;;(add-hook 'js3-mode-hook (lambda () (lintnode-hook)))
+;;(remove-hook 'js3-mode-hook '(lambda () (lintnode-hook)))
 
 (defun javascript-custom-setup ()
   (moz-minor-mode 1))
