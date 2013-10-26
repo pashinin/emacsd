@@ -1,5 +1,8 @@
 ;;; init-flycheck --- my settings for flycheck
 ;;; Commentary:
+;;
+;; Source: https://github.com/flycheck/flycheck
+;;
 ;;; Code:
 
 (require 'flycheck)
