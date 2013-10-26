@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;; See help - http://ergoemacs.org/emacs/emacs_package_system.html
 ;;; Code:
-
+;;
 (require 'init-variables)
 
 (when (> emacs-major-version 23)
