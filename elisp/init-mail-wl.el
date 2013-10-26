@@ -61,28 +61,21 @@
 (setq wl-summary-line-format "%T%P%t%[%25(%c %f%) %]%1@%Y.%M.%D(%W) %h:%m %s")
 
 
-;; ignore  all fields
-(setq wl-message-ignored-field-list '("^.*:"))
-;;(setq wl-message-ignored-field-list '("^"))
-
 ;; ..but these five:
 (setq wl-message-visible-field-list '("^To" "^Subject" "^From" "^Date" "^Cc"))
-;;(setq wl-message-visible-field-list
-;;	  '("^To:"
-;;		"^Cc:"
-;;		"^From:"
-;;		"^Subject:"
-;;		"^Date:"))
+
+;; Ignore  all headers (except some)
+;; To show all headers:
+(setq wl-message-ignored-field-list '("^"))
 
 ;; In addition you can control the order of these headers using the
 ;; variable ‘wl-message-sort-field-list’:
 (setq wl-message-sort-field-list
-	  '("^From:"
-		"^Subject:"
+	  '("^Subject:"
+		"^From:"
 		"^Date:"
 		"^To:"
 		"^Cc:"))
-
 
 ;;(setq wl-summary-toggle-mime "mime")  ;; wtf is it?
 ;; Open new frame for draft buffer.
@@ -142,58 +135,13 @@
           (lambda()
             (notify-my-mail)))
 
-
-;; Hidden header field in message buffer.
-(setq wl-message-ignored-field-list
-      '(".*Received:"
-        ".*Path:"
-                                        ;	"^Message-I[dD]:"		; RFC 2036 too!
-        "^References:"
-        "^Replied:"
-        "^Errors-To:"
-        "^Lines:"
-        ".*Sender:"			; include X-Sender, X-X-Sender, etc.
-        ".*Host:"
-        "^Xref:"
-        "^Content-Type:"
-;;;	"^Precedence:"
-        "^Status:"
-        "^X-VM-.*:"
-        "^[mM][iI][mM][eE]-[vV]ersion:"	; irrelevant!  :-)
-        "^[cC]ontent.*:"		; irrelevant!  :-)
-        "^In-Reply-To:"			; just another message-id
-        "^DomainKey.*:"			; bogus junk
-        "^X-Sieve:"			; cyrus
-        "^X-BeenThere:"			; mailman?
-        "^X-Mailman.*:"			; mailman
-        "^X-ML.*:"			; fml
-                                        ;	"^X-Original-To:"		; fml?
-        "^X-MAil-Count:"		; fml?
-        "^X-SKK:"
-        "^List-.*:"			; rfc????
-        "^X-Cam.*:"			; some stupid virus scanner
-        "^X-Spam.*:"
-        "^X-Scanned.*:"
-        "^X-Virus.*:"
-        "^X-CanItPRO.*:"
-        "^X-PMX.*:"
-        "^X-RPI.*:"
-        "^X-Accept-Language:"
-        "^X-Greylist.*:"
-        "^X-OriginalArrivalTime:"
-        "^X-MIME-Autoconverted:"
-
-        "^X-Rc-Virus:"
-        "^X-Rc-Spam:"
-        ;;"^Resent-Message-I[dD]:"
-        "^X-DSPAM.*:"
-        ))
-
+(setq wl-message-id-domain "pashinin.com")
+(setq elmo-multi-divide-number 1000000)
 ;;(require 'bbdb-wl "/usr/share/emacs/site-lisp/wl/utils/bbdb-wl.el")
 
 ;; Run Wanderlust with "Emacs --daemon"
 ;; only if have internet - or Emacs hangs
-(wl)
+;;(wl)
 
 (provide 'init-mail-wl)
 ;;; init-mail-wl.el ends here
