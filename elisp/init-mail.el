@@ -60,5 +60,14 @@
 (require 'init-mail-wl)
 (require 'init-mail-gnus)
 
+(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+(add-hook 'gnus-startup-hook 'bbdb-insinuate-message)
+;;(add-hook 'message-setup-hook 'bbdb-define-all-aliases)
+
+(add-hook 'message-mode-hook
+          (function (lambda()
+                      (local-set-key (kbd "<tab>") 'bbdb-complete-name)
+                      )))
+
 (provide 'init-mail)
 ;;; init-mail.el ends here
