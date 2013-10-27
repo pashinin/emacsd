@@ -32,7 +32,7 @@
                    nginx-mode
                    openwith org
                    pymacs pysmell pyvirtualenv paredit projectile pony-mode
-                   s skewer-mode smart-tab smart-tabs-mode
+                   s skewer-mode smart-tab smart-tabs-mode smex
                    volatile-highlights
                    web-mode wrap-region windsize
                    yaml-mode yari yasnippet

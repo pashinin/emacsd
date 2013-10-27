@@ -323,5 +323,12 @@
 
 (global-set-key (kbd "<s-kp-enter>") 'toggle-current-window-dedication)
 
+
+;; https://github.com/nonsequitur/smex
+(require 'smex)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "<menu>") 'smex)
+
 (provide 'init-common)
 ;;; init-common.el ends here
