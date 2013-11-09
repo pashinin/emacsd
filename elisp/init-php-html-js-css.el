@@ -34,7 +34,10 @@
                       "BrowserReload();"))
 
 (define-key js3-mode-map (kbd "s-r") 'firefox-reload)
-;;(define-key css-mode-map (kbd "s-r") 'firefox-reload)
+
+
+(require 'css-mode)
+(define-key css-mode-map (kbd "s-r") 'firefox-reload)
 
 ;;
 ;; emmet-mode
@@ -81,6 +84,7 @@
 ;; 1. http://web-mode.org/
 ;; 2. https://github.com/fxbois/web-mode
 (require 'web-mode)
+(define-key web-mode-map (kbd "s-r") 'firefox-reload)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsp\\'"       . web-mode))
