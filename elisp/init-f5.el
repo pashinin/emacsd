@@ -8,11 +8,25 @@
 (require 'my-cpp)
 (require 'my-audio)
 
+(defun file-under-path (&optional path file)
+  "Returns t if a FILE is under PATH directory."
+  (interactive)
+  (let ((p (file-truename path)))
+    (if (not file)
+        (let ((file (file-truename buffer-file-name)))
+          (s-starts-with? p file)
+          )
+      (s-starts-with? p file))))
+
 (defun my-magic-python (filename)
   "Run python shell with current FILENAME."
-  (python-shell-send-buffer t)
-  ;; do something else
-  )
+  (cond
+   ((and (file-under-path "/var/www")
+         (file-exists-p "/var/www/.../reload"))
+    (shell-command "touch reload"))
+   (t
+    (python-shell-send-buffer t))
+   ))
 
 (defun do-magic-with-file (&optional filename)
   "Do something useful with a given FILENAME.
@@ -21,16 +35,25 @@ If not given - use current buffer file or file under the cursor."
   (if (not filename)
       (let ((f (buffer-file-name)))
         (cond
+         ;; fundamental
+         ((eq major-mode 'fundamental-mode)
+          ;;(do-magic-with-file (buffer-file-name)))
+          (do-magic-with-file (file-truename (buffer-file-name))))
+
          ;; lisp
          ((eq major-mode 'emacs-lisp-mode)
           (byte-compile-file (buffer-file-name)))
+
+         ((eq major-mode 'js3-mode)
+          (if (fboundp 'inferior-moz-process)
+              (comint-send-string (inferior-moz-process)
+                                  "BrowserReload();")))
 
          ;; dired
          ((eq major-mode 'dired-mode)
           (let ((f (dired-get-filename t t))
                 (files (dired-get-marked-files))
                 ext ext1)
-            ;;(message (number-to-string (length files)))
             (save-window-excursion
               ;; TODO: analyze - what is selected
               (cond
@@ -40,15 +63,17 @@ If not given - use current buffer file or file under the cursor."
                 (let ((stats (files-stats files))
                       img art)
                   (cond
-                   ((files-ogg-1jpg stats)
+                   ((files-many-plus-one stats "avi" "jpg")
+                    (message "cover"))
+                   ((files-many-plus-one stats "mkv" "jpg")
+                    (message "cover"))
+                   ((files-many-plus-one stats "ogg" "jpg")
                     (when (yes-or-no-p "Make this an album art for all OGG files?")
                       (setq img (get-first-image-from-files files))
                       (setq art (make-art-image img))
-                      ;;(message (concat "TDOD: add " img " album cover to OGGs"))
                       (dolist (el (get-files-by-extension files "ogg"))
                         (message el)
-                        (ogg-add-cover art el)
-                        )))
+                        (ogg-add-cover art el))))
                    (t
                     (message "Do magic on each file...")
                     (mapc 'do-magic-with-file files))
@@ -93,34 +118,56 @@ If not given - use current buffer file or file under the cursor."
          ))
 
     ;; if filename provided:
-    (let (ext ext1 f d)
-      (setq f (or filename (buffer-file-name)))
-      (setq d (file-name-directory f))
-      ;; TODO: remove garbage: thumbs.db files
+    (let* ((f (or filename (buffer-file-name)))
+           (ffull (or filename (buffer-file-name)))
+           (d (file-name-directory  (expand-file-name f)))
+           (ext (downcase (or (file-name-extension f) ""))))
+      ;; Remove garbage: thumbs.db files
       (if (file-exists-p (concat d "desktop.ini"))
           (shell-command-to-string (concat "rm \"" d "desktop.ini\"")))
       (if (file-directory-p f)
           (progn
             ;;(setq ext-regexp (make-regex-of-extensions (list ext)))
             ;;(dired-mark-files-regexp ext-regexp)
-            (message f))
+            (cond
+             ((string= f "locale")
+              (message "Rebuild locales and reload uwsgi.")
+              )
+             (t
+              (message f))
+             )
+            )
         (progn
-          (setq ext (downcase (or (file-name-extension f) "")))
           (cond ((or (string= ext "cpp")
                      (string= ext "c")) (my-magic-cpp f))
                 ((is-archive-ext f)     (message "archive"))
                 ((string= ext "iso")    (mount-iso f))
                 ((string= ext "rc")     (my-magic-rc-file f))
                 ((string= ext "el")     (byte-compile-file f))
+                ((string= ext "sh")
+                 ;;(byte-compile-file f)
+                 (capture-run-daemonized-command-no-buf
+                  (concat "gnome-terminal --geometry=125x35+575+222 "
+                          "--working-directory=" d))
+                 ;;(message d)
+                 )
+
+                ;; mp3 TODO:
+                ;; if filename contains backtick - error happens
                 ((or (string= ext "mp3")
                      (string= ext "m4a")) (convert-mp3-ogg f))
                 ((or (string= ext "doc")
                      (string= ext "docx"))
                  (libreoffice-convert f "odt"))
-                )
-          ))
-      )
-    ))
+                (t
+                 (cond
+                  ((file-under-path "~/.emacs.d/snippets")
+                   (message "Reloading Emacs snippets...")
+                   (yas-reload-all))
+                  (t
+                   (message (concat "Don't know what to do with this file(s): " ext)))
+                  ))))))))
+;;(mapconcat nil '("" "home" "alex " "elisp" "erc") "/")
 
 (defun do-magic-current-dir (&optional dir recursive child)
   "Do magic with all files recursively in current dir.
@@ -215,6 +262,71 @@ CHILD - function called from other."
       )
     ))
 
+(defun do-magic-action2 (&optional filename)
+  "Do something else with a given FILENAME."
+  (interactive)
+  (if (not filename)
+      (progn
+        ;; lisp
+        (when (eq major-mode 'emacs-lisp-mode)
+          (byte-compile-file (buffer-file-name)))
+
+        (when (eq major-mode 'dired-mode)
+          (let ((f (dired-get-filename t t))
+                (files (dired-get-marked-files))
+                ext ext1)
+            (save-window-excursion
+              (if (and f (= (length files) 1))
+                  (do-magic-with-file f)
+                (mapc 'do-magic-with-file files))
+              ))
+          (save-window-excursion (with-temp-message "" (revert-buffer))))
+
+        ;; tex
+        (when (fboundp 'latex-mode)
+          (when (eq major-mode 'latex-mode)
+            (my-tex-run-tex)
+            ))
+
+        (let ((f (buffer-file-name)))
+          ;; C++
+          (when (eq major-mode 'c++-mode)
+            (my-magic-cpp f))
+
+          ;; Python
+          (when (eq major-mode 'python-mode)
+            ;;(my-magic-python f)
+            ;; Reload UWSGI
+            ;; find empty "reload" file and "touch" it
+            )
+          ))
+    (let (ext ext1 f d)
+      (setq f (or filename (buffer-file-name)))
+      (setq d (file-name-directory f))
+      (if (file-exists-p (concat d "desktop.ini"))
+          (shell-command-to-string (concat "rm \"" d "desktop.ini\"")))
+      (if (file-directory-p f)
+          (progn
+            ;;(setq ext-regexp (make-regex-of-extensions (list ext)))
+            ;;(dired-mark-files-regexp ext-regexp)
+            (message f))
+        (progn
+          (setq ext (downcase (or (file-name-extension f) "")))
+          (cond ((or (string= ext "cpp")
+                     (string= ext "c")) (my-magic-cpp f))
+                ((is-archive-ext f)     (message "archive"))
+                ((string= ext "iso")    (mount-iso f))
+                ((string= ext "rc")     (my-magic-rc-file f))
+                ((string= ext "el")     (byte-compile-file f))
+                ((or (string= ext "mp3")
+                     (string= ext "m4a")) (convert-mp3-ogg f))
+                ((or (string= ext "doc")
+                     (string= ext "docx"))
+                 (libreoffice-convert f "odt"))
+                )
+          ))
+      )
+    ))
 
 ;; default F5 action
 (global-set-key (kbd "<f5>")     'do-magic-with-file)
