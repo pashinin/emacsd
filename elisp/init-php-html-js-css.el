@@ -12,7 +12,10 @@
 (add-hook 'js3-mode-hook 'jquery-doc-setup)
 
 (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
-(add-hook 'js3-mode-hook 'javascript-custom-setup)
+(defun moz-minor-mode-enable ()
+  (moz-minor-mode 1))
+
+(add-hook 'js3-mode-hook 'moz-minor-mode-enable)
 
 (add-to-list 'load-path "~/src/lintnode")
 (require 'flymake-jslint)
@@ -24,8 +27,6 @@
 ;;(add-hook 'js3-mode-hook (lambda () (lintnode-hook)))
 ;;(remove-hook 'js3-mode-hook '(lambda () (lintnode-hook)))
 
-(defun javascript-custom-setup ()
-  (moz-minor-mode 1))
 
 (defun firefox-reload ()
   "Reload current tab in Firefox."
@@ -35,8 +36,8 @@
 
 (define-key js3-mode-map (kbd "s-r") 'firefox-reload)
 
-
 (require 'css-mode)
+(add-hook 'css-mode-hook 'moz-minor-mode-enable)
 (define-key css-mode-map (kbd "s-r") 'firefox-reload)
 
 ;;
@@ -84,6 +85,7 @@
 ;; 1. http://web-mode.org/
 ;; 2. https://github.com/fxbois/web-mode
 (require 'web-mode)
+(add-hook 'web-mode-hook 'moz-minor-mode-enable)
 (define-key web-mode-map (kbd "s-r") 'firefox-reload)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
