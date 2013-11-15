@@ -8,15 +8,18 @@
 (require 'my-cpp)
 (require 'my-audio)
 
-(defun file-under-path (&optional path file)
-  "Returns t if a FILE is under PATH directory."
+(defun file-under-path (path &optional filename)
+  "Returns t if a FILENAME is under PATH directory."
   (interactive)
-  (let ((p (file-truename path)))
-    (if (not file)
-        (let ((file (file-truename buffer-file-name)))
-          (s-starts-with? p file)
-          )
-      (s-starts-with? p file))))
+  (let* ((p (expand-file-name path)))
+    (if filename
+        (s-starts-with? p filename)
+      (let ((file (expand-file-name (or buffer-file-name default-directory))))
+        (s-starts-with? p file)
+        ))))
+;; (file-under-path "/d")
+;; (file-under-path "/d" "/d/a.txt")
+
 
 (defun my-magic-python (filename)
   "Run python shell with current FILENAME."
