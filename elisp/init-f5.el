@@ -135,6 +135,10 @@ If not given - use current buffer file or file under the cursor."
             (cond
              ((string= f "locale")
               (message "Rebuild locales and reload uwsgi.")
+              ;; if no folders - create new localization
+              ;; django-admin.py makemessages -l en
+              ;; else - update "django-admin.py makemessages --all"
+              (shell-command "django-admin.py makemessages --all")
               )
              (t
               (message f))
