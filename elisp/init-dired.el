@@ -94,5 +94,22 @@ Rename into the same dir or to the dir of other dired-window."
 
 (add-hook 'dired-mode-hook 'my-dired-options-enable)
 
+(defun goto-random-line ()
+  "Go to a random line in this buffer."
+  (interactive)
+  (goto-line (1+ (random (buffer-line-count)))))
+
+(defun buffer-line-count ()
+  "Return the number of lines in this buffer."
+  (count-lines (point-min) (point-max)))
+
+(defun dired-point-to-random-file ()
+  "Move the cursor to a random file in `dired-mode'."
+  (interactive)
+  (dired-next-line 1)
+  (goto-random-line)
+  )
+(define-key dired-mode-map (kbd "s-r") 'dired-point-to-random-file)
+
 (provide 'init-dired)
 ;;; init-dired.el ends here
