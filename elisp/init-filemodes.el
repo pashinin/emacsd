@@ -22,6 +22,8 @@
 
 (add-to-list 'auto-mode-alist '("cron\\(tab\\)?"             . crontab-mode))
 (add-to-list 'auto-mode-alist '("/etc/nginx/\.*"             . nginx-mode))
+(add-to-list 'auto-mode-alist '("\\.nginx"                   . nginx-mode))
+(add-to-list 'auto-mode-alist '("\\.uwsgi"                   . conf-unix-mode))
 (add-to-list 'auto-mode-alist '("\.*/etc/network/interfaces" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\.*iptables.up.rules"       . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\.*/etc/tor/torrc"          . shell-script-mode))
