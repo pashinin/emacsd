@@ -23,7 +23,7 @@
                 '("mp3" "ogg" "wav" "m4a" "flac"))
                "deadbeef" '(file))
          (list (openwith-make-extension-regexp
-                '("mpeg" "avi" "wmv" "flv" "mkv" "ts" "mp4" "webm" "ogv" "m4v"))
+                '("mpeg" "avi" "wmv" "flv" "mkv" "ts" "mp4" "webm" "ogv" "m4v" "pls"))
                "vlc" '(file))
          (list (openwith-make-extension-regexp
                 '("jpg" "jpeg" "png" "gif" "jpeg" "bmp"))
