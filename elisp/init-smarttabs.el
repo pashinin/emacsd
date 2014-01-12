@@ -104,10 +104,10 @@ Used in hooks."
   (c-toggle-auto-newline 1)
   )
 
-(add-hook 'c-mode-hook        'my-smarttabs-spaces-autoinednt)
-(add-hook 'c++-mode-hook        'my-smarttabs-spaces-autoinednt)
-(add-hook 'c-mode-common-hook 'my-c-mode-hook)
-(add-hook 'c++-mode-hook 'my-c-mode-hook)
+;;(add-hook 'c-mode-hook        'my-smarttabs-spaces-autoinednt)
+;;(add-hook 'c++-mode-hook      'my-smarttabs-spaces-autoinednt)
+;;(add-hook 'c-mode-common-hook 'my-c-mode-hook)
+;;(add-hook 'c++-mode-hook      'my-c-mode-hook)
 
 ;;----------------------------------------------------
 ;; HTML
