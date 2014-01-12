@@ -15,9 +15,9 @@
   (switch-to-buffer "*Bookmark List*"))
 (global-set-key (kbd "s-b") 'my-bookmarks-list-same-buffer)
 
-(global-set-key (kbd "<C-f2>") 'bm-toggle)
-(global-set-key (kbd "<f2>")   'bm-next)
-(global-set-key (kbd "<S-f2>") 'bm-previous)
+(global-set-key (kbd "<s-return>") 'bm-toggle)
+(global-set-key (kbd "<s-next>")   'bm-next)
+(global-set-key (kbd "<s-prior>")  'bm-previous)
 
 (provide 'init-bookmarks)
 ;;; init-bookmarks.el ends here
