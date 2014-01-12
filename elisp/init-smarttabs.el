@@ -118,8 +118,8 @@ Used in hooks."
   (smart-tabs-mode-enable)
   (setq indent-tabs-mode t)
   (setq tab-width 2)
-  (local-set-key (kbd "RET") 'newline-and-indent)
-  )
+  (setq css-indent-offset 2)
+  (local-set-key (kbd "RET") 'newline-and-indent))
 
 (add-hook 'html-mode-hook   'myHtmlStyle)
 (add-hook 'nxhtml-mode-hook 'myHtmlStyle)
