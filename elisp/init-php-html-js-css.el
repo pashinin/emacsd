@@ -101,9 +101,21 @@
 (add-hook 'web-mode-hook (lambda () (whitespace-mode -1)))
 
 (setq web-mode-markup-indent-offset 2)
-(setq web-mode-css-indent-offset    2)  ; CSS offset indentation
+;;(setq web-mode-css-indent-offset    3)  ; CSS offset indentation
 (setq web-mode-code-indent-offset   2)  ; indentation for js, Java, PHP, etc.
 (setq web-mode-disable-autocompletion t)
+
+(defun jump-tag-end ()
+  (interactive)
+  (web-mode-element-end)
+  (backward-char 2))
+(defun jump-tag-begin ()
+  (interactive)
+  (web-mode-element-beginning)
+  ;;(web-mode-tag-end)
+  (forward-char 2))
+(define-key web-mode-map (kbd "<C-down>") 'jump-tag-end)
+(define-key web-mode-map (kbd "<C-up>")   'jump-tag-begin)
 
 (provide 'init-php-html-js-css)
 ;;; init-php-html-js-css.el ends here
