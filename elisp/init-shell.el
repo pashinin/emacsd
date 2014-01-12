@@ -49,9 +49,9 @@
 ;;		  'comint-strip-ctrl-m)
 
 ;; multi-shell - http://www.emacswiki.org/emacs/multi-shell.el
-(require 'multi-shell)
-
-(require 'init-shell-term)
+;; TODO: use when
+;;(require 'multi-shell)
+;;(require 'init-shell-term)
 
 ;; run system shell in buffer's dir
 (defun run-system-shell ()
@@ -62,8 +62,6 @@
       (async-shell-command "nohup gnome-terminal >/dev/null 2>&1")
       (run-with-timer 10 nil (lambda (buf) (kill-buffer buf)) buf))))
 ;;(global-set-key (kbd "s-`")    'shell)
-(global-set-key (kbd "s-`")    'multi-shell-new)
-(global-set-key (kbd "C-s-`")  'run-system-shell)
 
 (defun my-clear-shell-buffer ()
   (interactive)
@@ -87,6 +85,21 @@
   ;;(setq ansi-color-map (ansi-color-make-color-map))
   )
 (add-hook 'shell-mode-hook 'my-shell-options-enable)
+
+(defun run-sml-shell ()
+  "Run system termianl in current buffer's dir."
+  (interactive)
+  (let (b)
+    (save-window-excursion
+      (setq b (run-sml "sml" "" "")))
+    (switch-to-buffer b)))
+
+(global-set-key (kbd "s-`")    'multi-shell-new)
+(global-set-key (kbd "C-s-`")  'run-system-shell)
+(global-set-key (kbd "M-s-`")  'run-sml-shell)
+
+;;(require 'geiser)
+;;(require 'inf-mongo)
 
 (provide 'init-shell)
 ;;; init-shell.el ends here
