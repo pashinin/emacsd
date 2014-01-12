@@ -123,7 +123,7 @@ If there is still something left do do start the next latex-command."
   ;;           (setq TeX-texify-sentinel (process-sentinel proc))
   ;;           (set-process-sentinel proc 'TeX-texify-sentinel)))))
   ;;(TeX-command (TeX-command-default (TeX-master-file)) 'TeX-master-file)
-  (TeX-run-command "XeLaTeX" "xelatex -interaction=nonstopmode " (TeX-master-file))
+  (TeX-run-command "XeLaTeX" "xelatex -interaction=nonstopmode -shell-escape " (TeX-master-file))
   )
 
 (defun my-tex-run-tex ()
@@ -151,7 +151,7 @@ If there is still something left do do start the next latex-command."
 ;;(setq TeX-engine 'xetex)
 (eval-after-load "tex"
   '(add-to-list 'TeX-command-list
-				'("XeLaTeX" "xelatex -interaction=nonstopmode %s"
+				'("XeLaTeX" "xelatex -interaction=nonstopmode -shell-escape %s"
 				  TeX-run-command nil t :help "Run xelatex") t))
                                         ; 4th argument - "t" to give
                                         ; user a chance to edit a
