@@ -159,7 +159,7 @@ Used in hooks."
                         '(emacs-lisp-mode lisp-mode
                                           clojure-mode    scheme-mode
                                           haskell-mode    ruby-mode
-                                          rspec-mode      python-mode
+                                          rspec-mode      ;; python-mode
                                           c-mode          c++-mode
                                           objc-mode       latex-mode
                                           plain-tex-mode  js3-mode))
