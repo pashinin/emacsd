@@ -10,6 +10,8 @@
 (setq yas-prompt-functions '(yas/dropdown-prompt yas/ido-prompt yas/x-prompt))
 (setq yas-wrap-around-region 'cua)
 (yas-global-mode 1)
+;;(yas-reload-all)
+;;(global-set-key (kbd "<tab>") 'yas-expand)
 
 ;;(setq yas/root-directory '("~/emacs.d/mysnippets"
 ;;                           "~/Downloads/interesting-snippets"))
