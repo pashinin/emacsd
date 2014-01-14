@@ -10,7 +10,7 @@
  '(ac-auto-start nil)
  '(ac-trigger-key "TAB")
  '(ac-use-menu-map t)
- '(bmkp-last-as-first-bookmark-file "~/.emacs_files/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "~/.emacs_files/bookmarks" t)
  '(column-number-mode t)
  '(cua-rectangle-mark-key (kbd "<C-S-return>"))
  '(custom-safe-themes
@@ -22,8 +22,6 @@
     (("arial black" "arial" "DejaVu Sans")
      ("arial" "DejaVu Sans")
      ("verdana" "DejaVu Sans"))))
- '(font-lock-keywords-case-fold-search t t)
- '(global-font-lock-mode t nil (font-lock))
  '(inhibit-startup-screen t)
  '(preview-gs-options
    (quote
@@ -55,12 +53,12 @@
  '(tramp-encoding-shell "/bin/bash")
  '(wg-restore-position t)
  '(wg-switch-to-first-workgroup-on-find-session-file t))
-
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(bm-face ((t (:background "dark green" :foreground "gray59"))))
  '(bold ((t (:weight bold))))
  '(ediff-current-diff-C ((t (:background "#888833" :foreground "black"))) t)
  '(ediff-even-diff-C ((t (:background "gray20" :foreground "dark gray"))) t)
@@ -78,9 +76,7 @@
  '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face :foreground "gold3"))))
  '(web-mode-html-tag-face ((t (:foreground "chartreuse4")))))
 
-;;==========================================================
 
-(setq load-path (cons "~/.emacs.d" load-path))
 (setq load-path (cons "~/.emacs.d/elisp" load-path))
 ;;(setq bbdb-file "~/bbdb")    ; "~/.bbdb"
 
