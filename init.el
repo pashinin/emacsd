@@ -107,7 +107,6 @@
   (require 'init-shell)
 
   (require 'init-emms nil 'noerror)
-  (require 'init-python)
   (require 'init-filemodes)
   (require 'init-tramp)
   (require 'init-xiki)
@@ -129,4 +128,5 @@
   ;;(require 'init-scala)
   (require 'init-workgroups nil 'noerror)
   (require 'init-bookmarks)
+  (require 'init-python)
   )
