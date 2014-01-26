@@ -62,6 +62,7 @@ Rename into the same dir or to the dir of other dired-window."
   (local-set-key (kbd "* -")    'my-dired-unmark-all-current-ext)
   (local-set-key (kbd "* 0")    'dired-unmark-all-marks)
   (local-set-key (kbd "* RET")  'my-dired-mark-all)
+  (local-set-key (kbd "s-h")    'dired-omit-mode)
 
   (local-set-key (kbd "q")      'dired-jump)
   ;;(if (eq system-type 'windows-nt)
@@ -86,6 +87,8 @@ Rename into the same dir or to the dir of other dired-window."
         (concat dired-omit-files "\\|^\\.\\([^.].+\\)?$"))
   (setq dired-omit-files
         (concat dired-omit-files "\\|^session\.\\([^.]\\{9,10\\}[^.].+\\)?$"))
+  (setq dired-omit-files
+        (concat dired-omit-files "\\|^__pycache__$"))
   (dired-omit-mode 1)
   (if (not (eq system-type 'windows-nt))
       (if (fboundp 'dired-hide-details-mode)
