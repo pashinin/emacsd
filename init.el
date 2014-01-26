@@ -10,13 +10,14 @@
  '(ac-auto-start nil)
  '(ac-trigger-key "TAB")
  '(ac-use-menu-map t)
- '(bmkp-last-as-first-bookmark-file "~/.emacs_files/bookmarks" t)
+ '(bmkp-last-as-first-bookmark-file "~/.emacs_files/bookmarks")
  '(column-number-mode t)
  '(cua-rectangle-mark-key (kbd "<C-S-return>"))
  '(custom-safe-themes
    (quote
     ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+ '(emms-mode-line-mode-line-function (quote emms-mode-line-icon-function))
  '(face-font-family-alternatives
    (quote
     (("arial black" "arial" "DejaVu Sans")
@@ -51,6 +52,8 @@
  '(tramp-default-host "localhost")
  '(tramp-default-user "root")
  '(tramp-encoding-shell "/bin/bash")
+ '(wg-mode-line-decor-left-brace "[")
+ '(wg-mode-line-decor-right-brace "]")
  '(wg-restore-position t)
  '(wg-switch-to-first-workgroup-on-find-session-file t))
 (custom-set-faces
@@ -60,15 +63,19 @@
  ;; If there is more than one, they won't work right.
  '(bm-face ((t (:background "dark green" :foreground "gray59"))))
  '(bold ((t (:weight bold))))
- '(ediff-current-diff-C ((t (:background "#888833" :foreground "black"))) t)
- '(ediff-even-diff-C ((t (:background "gray20" :foreground "dark gray"))) t)
- '(ediff-fine-diff-B ((t (:background "#22aa22" :foreground "black"))) t)
- '(ediff-odd-diff-C ((t (:background "midnight blue" :foreground "White"))) t)
+ '(dired-symlink ((t (:inherit font-lock-keyword-face :weight normal))))
+ '(ediff-current-diff-C ((t (:background "#888833" :foreground "black"))))
+ '(ediff-even-diff-C ((t (:background "gray20" :foreground "dark gray"))))
+ '(ediff-fine-diff-B ((t (:background "#22aa22" :foreground "black"))))
+ '(ediff-odd-diff-C ((t (:background "midnight blue" :foreground "White"))))
+ '(font-lock-keyword-face ((t (:foreground "#859900" :weight bold))))
  '(helm-candidate-number ((t (:background "deep sky blue" :foreground "black"))))
  '(helm-selection ((t (:foreground "lime green" :weight bold))))
  '(helm-source-header ((t (:foreground "gray" :weight normal :height 1.3 :family "Sans Serif"))))
+ '(helm-swoop-target-word-face ((t (:background "dark slate blue" :foreground "#ffffff"))))
  '(helm-visible-mark ((t (:background "#005500" :foreground "black"))))
- '(mode-line ((t (:background "#073642" :foreground "dodger blue" :box (:line-width 1 :color "#839496") :weight normal))))
+ '(match ((t (:background "dark slate gray"))))
+ '(mode-line ((t (:background "#0736F2" :foreground "dodger blue" :weight normal))))
  '(mode-line-buffer-id ((t (:foreground "coral" :weight bold))))
  '(mode-line-highlight ((t (:foreground "navajo white" :box nil :weight bold))))
  '(org-agenda-date-today ((t (:inherit org-agenda-date :foreground "lawn green" :slant normal :weight bold))) t)
@@ -80,15 +87,16 @@
 (setq load-path (cons "~/.emacs.d/elisp" load-path))
 ;;(setq bbdb-file "~/bbdb")    ; "~/.bbdb"
 
-(require 'init-variables)      ;; my emacs extensions paths,
+(require 'init-variables)
 (require 'init-packages)
+;;(ignore-errors
 
 (require 'init-server)         ;; start Emacs as a server
 (require 'init-common)         ;; basic params and colors
 
 (if (eq system-type 'windows-nt) (toggle-fullscreen))
 
-(when t ; nil - for debug
+(when t
   (when (and (require 'init-gpg nil 'noerror) internet-ok)
     (require 'init-irc)
     (require 'init-mail-gnus)
@@ -126,7 +134,7 @@
   (require 'init-capture nil 'noerror)
   (require 'init-f5)
   ;;(require 'init-scala)
-  (require 'init-workgroups nil 'noerror)
   (require 'init-bookmarks)
   (require 'init-python)
   )
+(require 'init-workgroups nil 'noerror)
