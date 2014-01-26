@@ -21,7 +21,7 @@
   '(ack-and-a-half ack apache-mode async auto-compile auto-complete auctex
                    bash-completion bm bookmark+ buffer-move bbdb
                    color-theme ctags crontab-mode color-theme-sanityinc-solarized
-                   dired-details dired-details+
+                   dash dired-details dired-details+
                    emmet-mode emms expand-region
                    frame-cmds frame-fns flycheck flymake full-ack
                    gitignore-mode
@@ -31,7 +31,7 @@
                    magit markdown-mode markdown-mode+ multi-term multiple-cursors
                    nginx-mode
                    openwith org
-                   pymacs pysmell pyvirtualenv paredit projectile pony-mode
+                   projectile pymacs pysmell pyvirtualenv paredit projectile pony-mode
                    s skewer-mode smart-tab smart-tabs-mode smex
                    volatile-highlights
                    web-mode wrap-region windsize
