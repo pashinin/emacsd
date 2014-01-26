@@ -29,7 +29,8 @@
 (set-face-foreground 'region "black")
 (set-face-background 'region "#9999BB")
 
-;;(set-face-background 'modeline "white")
+(set-face-background 'mode-line "#403048")
+(set-face-foreground 'mode-line "#C4C9C8")
 ;;(set-face-background 'modeline-inactive "#99aaff")
 ;;(set-face-background 'fringe "#809088")      ; between buffers
 
