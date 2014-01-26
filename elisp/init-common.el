@@ -218,13 +218,28 @@
 ;; (find-name-dired)
 
 
+;;
+;; What to do on save?
+;;
+(defvar my-flag-delete-trailing-spaces t
+  "If t trailing spaces will be removed on saving a file.")
+(defun toggle-delete-trailing-spaces ()
+  ""
+  (interactive)
+  (setq my-flag-delete-trailing-spaces (not my-flag-delete-trailing-spaces))
+  (if my-flag-delete-trailing-spaces
+      (message "Remove fucking trailing spaces when saving a file")
+    (message "Do not touch spaces on save")))
+(global-set-key (kbd "C-s-s") 'toggle-delete-trailing-spaces)
+
 (defun unix-newlines-no-spaces ()
   "Convert current text file to a better format.
 1. make unix lines endings \\n
 2. delete spaces you don't need"
   (save-window-excursion
     (set-buffer-file-coding-system 'utf-8-unix)
-    (delete-trailing-whitespace)))
+    (if my-flag-delete-trailing-spaces
+        (delete-trailing-whitespace))))
 (add-hook 'before-save-hook 'unix-newlines-no-spaces)
 
 
