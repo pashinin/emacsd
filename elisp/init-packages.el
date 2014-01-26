@@ -44,31 +44,38 @@
         when (not (package-installed-p p)) do (return nil)
         finally (return t)))
 
-(unless (prelude-packages-installed-p)
-  ;; check for new packages (package versions)
-  (message "%s" "Refreshing package database...")
-  (package-refresh-contents)
-  (message "%s" " done.")
-  ;; install the missing packages
-  (dolist (p my-packages)
-    (when (not (package-installed-p p))
-      (package-install p))))
+(condition-case err
+    (unless (prelude-packages-installed-p)
+      ;; check for new packages (package versions)
+      (message "%s" "Refreshing package database...")
+      (package-refresh-contents)
+      (message "%s" " done.")
+      ;; install the missing packages
+      (dolist (p my-packages)
+	(when (not (package-installed-p p))
+	  (package-install p))))
+  (error (princ (format "FAILED, needed to download packages: %s" err))
+	 2))
 
 
 
+(condition-case err
+    ;; el-get
+    (with-no-warnings
+      (when (> emacs-major-version 23)
+	(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+	(unless (require 'el-get nil 'noerror)
+	  (when internet-ok
+	    (with-current-buffer
+		(url-retrieve-synchronously
+		 "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+	      (goto-char (point-max))
+	      (eval-print-last-sexp))))
+	(when internet-ok
+	  (el-get 'sync))))
+  (error (princ (format "FAILED loading el-get: %s" err))
+	 2))
 
-;; el-get
-(when (> emacs-major-version 23)
-  (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-  (unless (require 'el-get nil 'noerror)
-    (when internet-ok
-      (with-current-buffer
-          (url-retrieve-synchronously
-           "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-        (goto-char (point-max))
-        (eval-print-last-sexp))))
-  (when internet-ok
-    (el-get 'sync)))
 
 ;; auto-install - Automates the installation of Emacs Lisp files and packages
 ;;(when (require 'auto-install nil 'noerror)
