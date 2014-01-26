@@ -9,7 +9,7 @@
 (require 'my-audio)
 
 (defun file-under-path (path &optional filename)
-  "Returns t if a FILENAME is under PATH directory."
+  "Return t if PATH has a FILENAME in any folder under it."
   (interactive)
   (let* ((p (expand-file-name path)))
     (if filename
@@ -24,7 +24,8 @@
 (defun my-magic-python (filename)
   "Run python shell with current FILENAME."
   (cond
-   ((and (file-under-path "/var/www")
+   ((and (or (file-under-path "/var/www")
+             (file-under-path "/var/www_production"))
          (file-exists-p "/var/www/.../reload"))
     (shell-command "touch reload"))
    (t
@@ -171,6 +172,10 @@ If not given - use current buffer file or file under the cursor."
                   ((file-under-path "~/.emacs.d/snippets")
                    (message "Reloading Emacs snippets...")
                    (yas-reload-all))
+                  ((string= "reload" f)
+                   (message "Reloading...")
+                   (if (file-exists-p "reload")
+                       (shell-command "touch reload")))
                   (t
                    (message (concat "Don't know what to do with this file(s): " ext)))
                   ))))))))
