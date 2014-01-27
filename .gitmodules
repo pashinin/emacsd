@@ -7,3 +7,6 @@
 [submodule "elisp/extensions/emacs-jabber"]
 	path = elisp/extensions/emacs-jabber
 	url = git://git.code.sf.net/p/emacs-jabber/git
+[submodule "elisp/extensions/magit"]
+	path = elisp/extensions/magit
+	url = git://github.com/magit/magit.git
