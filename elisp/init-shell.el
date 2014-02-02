@@ -50,8 +50,8 @@
 
 ;; multi-shell - http://www.emacswiki.org/emacs/multi-shell.el
 ;; TODO: use when
-;;(require 'multi-shell)
-;;(require 'init-shell-term)
+(require 'multi-shell)
+(require 'init-shell-term)
 
 ;; run system shell in buffer's dir
 (defun run-system-shell ()
