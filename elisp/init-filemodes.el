@@ -29,6 +29,7 @@
 (add-to-list 'auto-mode-alist '("\.*/etc/tor/torrc"          . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\.*/etc/apt/sources"        . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\.*/etc/amavis/conf.d\.*"   . shell-script-mode))
+(add-to-list 'auto-mode-alist '("\\.py\\.sample"             . python-mode))
 
 
 ;; vimrc-mode
