@@ -1,13 +1,5 @@
 ;; init-autocomplete --- Auto Completion
 ;;; Commentary:
-;; (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories
-;;      (concat epy-install-dir "auto-complete/ac-dict"))
-;;
-;; Problems to fix:
-;;  1. AC makes yasnippets not work
-;;     We need to use TAB on Autocompletion only if have no snippets
-;;     And maybe use popup for snippets.
 ;;; Code:
 
 (require 'init-common)
@@ -51,59 +43,6 @@
                            ac-source-dictionary
                            ac-source-words-in-same-mode-buffers
                            ))
-;;(setq-default ac-sources '(ac-source-semantic-raw))
-
-;; Disabling Yasnippet completion
-;;(defun epy-snips-from-table (table)
-;;  (with-no-warnings
-;;    (let ((hashtab (ac-yasnippet-table-hash table))
-;;          (parent (ac-yasnippet-table-parent table))
-;;          candidates)
-;;      (maphash (lambda (key value)
-;;                 (push key candidates))
-;;               hashtab)
-;;      (identity candidates)
-;;      )))
-;;
-;;(defun epy-get-all-snips ()
-;;  (require 'yasnippet) ;; FIXME: find a way to conditionally load it
-;;  (let (candidates)
-;;    (maphash
-;;     (lambda (kk vv) (push (epy-snips-from-table vv) candidates)) yas/tables)
-;;    (apply 'append candidates))
-;;  )
-
-;;(setq ac-ignores (concatenate 'list ac-ignores (epy-get-all-snips)))
-;;
-;;;; ropemacs Integration with auto-completion
-;;(defun ac-ropemacs-candidates ()
-;;  (mapcar (lambda (completion)
-;;      (concat ac-prefix completion))
-;;    (rope-completions)))
-;;
-;;(ac-define-source nropemacs
-;;  '((candidates . ac-ropemacs-candidates)
-;;    (symbol     . "p")))
-;;
-;;(ac-define-source nropemacs-dot
-;;  '((candidates . ac-ropemacs-candidates)
-;;    (symbol     . "p")
-;;    (prefix     . c-dot)
-;;    (requires   . 0)))
-;;
-;;(defun ac-nropemacs-setup ()
-;;  (setq ac-sources (append '(ac-source-nropemacs
-;;                             ac-source-nropemacs-dot) ac-sources)))
-;;(defun ac-python-mode-setup ()
-;;  (add-to-list 'ac-sources 'ac-source-yasnippet))
-;;
-;;(add-hook 'python-mode-hook 'ac-python-mode-setup)
-;;(add-hook 'rope-open-project-hook 'ac-nropemacs-setup)
-
-;;setup for auto-complete-yasnippet
-
-;;(ac-set-trigger-key "TAB")
-;;(ac-set-trigger-key "<tab>")
 
 (provide 'init-autocomplete)
 ;;; init-autocomplete.el ends here
