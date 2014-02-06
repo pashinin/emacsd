@@ -5,6 +5,9 @@
 ;; po-mode is part of the gettext suite available here.
 ;; http://www.gnu.org/software/gettext/
 
+;; apt-get isntall gettext-el
+;; /usr/share/emacs24/site-lisp/gettext/po-mode.elc
+
 (require 'po-mode)
 (autoload 'po-mode "po-mode"
   "Major mode for translators to edit PO files" t)
