@@ -32,8 +32,8 @@
   (windmove-default-keybindings 's))
 
 ;;; Scroll buffer by 1 line - M-f, M-b
-(global-set-key "\M-f" "\C-u1\C-v")
-(global-set-key "\M-b" "\C-u1\M-v")
+(global-set-key "\M-b" (lambda () (interactive) (scroll-down 1)))
+(global-set-key "\M-f" (lambda () (interactive) (scroll-up 1)))
 
 (column-number-mode 1)   ; display not only current line but also a column
 
