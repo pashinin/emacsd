@@ -113,6 +113,7 @@
   (require 'init-dired nil 'noerror)
   ;;(require 'init-lisp)
   (require 'init-shell)
+  (require 'init-gettext)
 
   (require 'init-emms nil 'noerror)
   (require 'init-filemodes)
