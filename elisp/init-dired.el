@@ -114,5 +114,19 @@ Rename into the same dir or to the dir of other dired-window."
   )
 (define-key dired-mode-map (kbd "s-r") 'dired-point-to-random-file)
 
+
+;; This defadvice makes dired show directories first, then files
+(defun mydired-sort ()
+  "Sort dired listings with directories first."
+  (save-excursion
+    (let (buffer-read-only)
+      (forward-line 2) ;; beyond dir. header
+      (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
+    (set-buffer-modified-p nil)))
+(defadvice dired-readin
+    (after dired-after-updating-hook first () activate)
+  "Sort dired listings with directories first before adding mark."
+  (mydired-sort))
+
 (provide 'init-dired)
 ;;; init-dired.el ends here
