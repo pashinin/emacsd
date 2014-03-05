@@ -160,7 +160,7 @@ Used in hooks."
                                           clojure-mode    scheme-mode
                                           haskell-mode    ruby-mode
                                           rspec-mode      ;; python-mode
-                                          c-mode          c++-mode
+                                          ;;c-mode          c++-mode
                                           objc-mode       latex-mode
                                           plain-tex-mode  js3-mode))
                 (let ((mark-even-if-inactive transient-mark-mode))
