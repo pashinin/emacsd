@@ -5,6 +5,7 @@
 
 (require 'init-dired-z)
 (require 'init-os-misc)
+(require 'coffee-mode)
 (require 'my-cpp)
 (require 'my-audio)
 
@@ -32,9 +33,10 @@
     (python-shell-send-buffer t))
    ))
 
-(defun do-magic-with-file (&optional filename)
+(defun do-magic-with-file (&optional filename flag1)
   "Do something useful with a given FILENAME.
-If not given - use current buffer file or file under the cursor."
+If not given - use current buffer file or file under the cursor.
+FLAG1 - is to do more fun.  Is set when <C-f5>."
   (interactive)
   (if (not filename)
       (let ((f (buffer-file-name)))
@@ -52,6 +54,23 @@ If not given - use current buffer file or file under the cursor."
           (if (fboundp 'inferior-moz-process)
               (comint-send-string (inferior-moz-process)
                                   "BrowserReload();")))
+
+         ((eq major-mode 'coffee-mode)
+
+          (if flag1
+              (let ((cmd (format "uglifyjs - -o %s"
+                                 (concat (file-name-sans-extension buffer-file-name) ".min.js"))))
+                (coffee-compile-buffer)
+                (with-current-buffer coffee-compiled-buffer-name
+                  (shell-command-on-region (point-min) (point-max) cmd)))
+            ;; uglifyjs pkg.name.js --screw-ie8 --output pkg.name.min.js
+            (if (fboundp 'coffee-compile-buffer)
+                (coffee-compile-buffer))))
+
+         ((eq major-mode 'sass-mode)
+          (save-window-excursion
+            (if (fboundp 'sass-output-buffer)
+                (sass-output-buffer))))
 
          ;; dired
          ((eq major-mode 'dired-mode)
