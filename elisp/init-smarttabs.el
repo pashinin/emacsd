@@ -146,12 +146,7 @@ Used in hooks."
 (add-hook 'lisp-mode-hook       'my-smarttabs-spaces-autoinednt)
 
 
-;;----------------------------------------
-;; COOL FEATURES
-
-;; In TextMate, pasted lines are automatically indented, which is extremely
-;; time-saving. This should be fairly straightforward to implement in Emacs,
-;; but how?
+;; Automatically indent pasted lines in these modes
 (dolist (command '(yank yank-pop))
   (eval `(defadvice ,command (after indent-region activate)
            (and (not current-prefix-arg)
@@ -160,6 +155,7 @@ Used in hooks."
                                           clojure-mode    scheme-mode
                                           haskell-mode    ruby-mode
                                           rspec-mode      ;; python-mode
+                                          scss-mode       css-mode
                                           ;;c-mode          c++-mode
                                           objc-mode       latex-mode
                                           plain-tex-mode  js3-mode))
