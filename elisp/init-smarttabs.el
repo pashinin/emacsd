@@ -1,6 +1,7 @@
 ;;; init-smarttabs --- Smarttabs config
 ;;; Commentary:
 ;; https://github.com/jcsalomon/smarttabs
+;; Tabs or spaces?
 ;;; Code:
 
 (require 'smart-tab)
@@ -117,6 +118,7 @@ Used in hooks."
   "Set smarttabs html parameters."
   (smart-tabs-mode-enable)
   (setq indent-tabs-mode t)
+  (make-local-variable 'tab-width)
   (setq tab-width 2)
   (setq css-indent-offset 2)
   (local-set-key (kbd "RET") 'newline-and-indent))
@@ -128,6 +130,9 @@ Used in hooks."
 (add-hook 'php-mode-hook    'myHtmlStyle)
 (add-hook 'web-mode-hook    'myHtmlStyle)
 (add-hook 'js3-mode-hook    'myHtmlStyle)
+(add-hook 'coffee-mode-hook 'myHtmlStyle)
+(add-hook 'sass-mode-hook   'myHtmlStyle)
+(add-hook 'coffee-mode-hook 'myHtmlStyle)
 
 ;; Javascript
 (add-hook 'js2-mode-hook        'my-smarttabs-tabs-autoinednt)
