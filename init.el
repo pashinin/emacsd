@@ -125,7 +125,9 @@
   (require 'init-xiki)
   (require 'init-git)
   (require 'init-os-misc)          ; "notify" function and so on...
-  (require 'init-php-html-js-css)
+  (require 'init-css-sass-scss)
+  (require 'init-js-coffee)
+  (require 'init-web-mode)
 
   (require 'init-ctags)
   ;;(require 'init-cedet)
