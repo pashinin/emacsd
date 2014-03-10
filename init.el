@@ -132,9 +132,7 @@
   (require 'init-ctags)
   ;;(require 'init-cedet)
   (require 'init-flycheck)
-  (require 'init-smarttabs)
   (require 'init-autocomplete)
-  (require 'init-yasnippet)
 
   (require 'init-tex nil 'noerror)  ;; loading tex.el before can reset TeX-PDF-mode setting
   ;;(require 'auto-complete-yasnippet)
