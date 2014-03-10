@@ -49,15 +49,18 @@
           (my-scss-compile-file)
           (firefox-reload)
           )))))
-
 (add-hook 'after-save-hook 'sass/scss-save-hook)
 
 (define-key scss-mode-map (kbd "s-r") 'my-scss-compile-file)
 
 
+;; Enable autocomplete in scss-mode
 (when (require 'init-autocomplete nil 'noerror)
-  (add-to-list 'ac-modes 'scss-mode)  ; Enable autocomplete in scss-mode
-  )
+  (add-to-list 'ac-modes 'scss-mode))
+
+(when (require 'init-smarttabs nil 'noerror)
+  ;; scss indent is based on `css-mode'
+  (add-hook 'css-mode-hook    'myHtmlStyle))
 
 
 (provide 'init-css-sass-scss)
