@@ -144,5 +144,9 @@
   (require 'init-bookmarks)
   (require 'init-python)
   (require 'init-gettext)
+
+  (require 'init-smarttabs)
+  (require 'init-yasnippet)
   )
+
 (require 'init-workgroups nil 'noerror)
