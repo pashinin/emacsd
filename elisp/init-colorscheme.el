@@ -29,10 +29,24 @@
 (set-face-foreground 'region "black")
 (set-face-background 'region "#9999BB")
 
-(set-face-background 'mode-line "#403048")
+(set-face-background 'default "#002b36")
+(set-face-background 'default "#1C1F27")
+
+
+;;(set-face-background 'mode-line "#403048")
+(set-face-background 'mode-line "#272738")
+(set-face-background 'mode-line-inactive "#272738")
 (set-face-foreground 'mode-line "#C4C9C8")
+
+(set-face-attribute 'mode-line nil :box nil)
+(set-face-attribute 'mode-line-inactive nil :box nil)
+
+(set-face-attribute 'vertical-border nil :foreground "#484a4e")
+(set-face-background 'fringe "#272738")  ; Borders for buffers ("padding")
+
 ;;(set-face-background 'modeline-inactive "#99aaff")
 ;;(set-face-background 'fringe "#809088")      ; between buffers
+
 
 ;; active buffer - modeline borders
 ;;(custom-set-faces
