@@ -11,11 +11,14 @@
  '(ac-trigger-key "TAB")
  '(ac-use-menu-map t)
  '(bmkp-last-as-first-bookmark-file "~/.emacs_files/bookmarks")
+ '(coffee-tab-width 2)
  '(column-number-mode t)
  '(cua-rectangle-mark-key (kbd "<C-S-return>"))
  '(custom-safe-themes
    (quote
     ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
+ '(ecb-options-version "2.40")
+ '(ede-project-directories (quote ("/home/xdev/.emacs.d")))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(emms-mode-line-mode-line-function (quote emms-mode-line-icon-function))
  '(face-font-family-alternatives
@@ -75,9 +78,12 @@
  '(helm-swoop-target-word-face ((t (:background "dark slate blue" :foreground "#ffffff"))))
  '(helm-visible-mark ((t (:background "#005500" :foreground "black"))))
  '(match ((t (:background "dark slate gray"))))
+ '(mode-line ((t (:background "#403048" :foreground "#C4C9C8" :weight normal))))
  '(mode-line-buffer-id ((t (:foreground "coral" :weight bold))))
  '(mode-line-highlight ((t (:foreground "navajo white" :box nil :weight bold))))
+ '(mode-line-inactive ((t (:inherit mode-line :background "#073642" :foreground "#586e75" :weight normal))))
  '(org-agenda-date-today ((t (:inherit org-agenda-date :foreground "lawn green" :slant normal :weight bold))) t)
+ '(vertical-border ((((type tty)) (:inherit mode-line-inactive))))
  '(web-mode-html-attr-name-face ((t (:foreground "medium sea green"))))
  '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face :foreground "gold3"))))
  '(web-mode-html-tag-face ((t (:foreground "chartreuse4"))))
@@ -130,7 +136,7 @@
   (require 'init-web-mode)
 
   (require 'init-ctags)
-  ;;(require 'init-cedet)
+  (require 'init-cedet)
   (require 'init-flycheck)
   (require 'init-autocomplete)
 
