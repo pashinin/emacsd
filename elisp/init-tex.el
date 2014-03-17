@@ -165,6 +165,10 @@ If there is still something left do do start the next latex-command."
 ;;(add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 ;;(setq TeX-source-correlate-start-server t)
 
+
+(when (require 'init-smarttabs nil 'noerror)
+  (add-hook 'LaTeX-mode-hook      'my-smarttabs-spaces-autoinednt))
+
 ;;
 ;; sage-mode
 ;;

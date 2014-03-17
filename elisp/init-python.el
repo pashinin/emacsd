@@ -1,5 +1,6 @@
 ;;; init-python --- Python config
 ;;; Commentary:
+;; https://github.com/jorgenschaefer/elpy/wiki/Configuration
 ;;; Code:
 
 (require 'python)
@@ -11,16 +12,15 @@
 (define-key function-key-map [(control tab)] [?\M-\t])
 
 ;; Rope bindings
-(add-hook 'python-mode-hook
-          (lambda ()
-            (define-key python-mode-map "\C-ci" 'rope-auto-import)
-            (define-key python-mode-map "\C-c\C-d" 'rope-show-calltip)))
+(define-key python-mode-map "\C-ci" 'rope-auto-import)
+(define-key python-mode-map "\C-c\C-d" 'rope-show-calltip)
+
+;;python-indent-levels
 
 ;;; Ipython integration with fgallina/python.el
 (defun my-setup-ipython ()
   "Setup ipython integration with python-mode"
   (interactive)
-
   (setq
    python-shell-interpreter "ipython"
    python-shell-interpreter-args "--profile=dev"
@@ -56,15 +56,8 @@
   (setq deactivate-mark nil)
   )
 
-(add-hook 'python-mode-hook
-          (lambda ()
-            (define-key python-mode-map (kbd "M-<right>")
-              'balle-python-shift-right)
-            (define-key python-mode-map (kbd "M-<left>")
-              'balle-python-shift-left)
-            ;;(epy-setup-ipython)
-            ))
-
+(define-key python-mode-map (kbd "M-<right>") 'balle-python-shift-right)
+(define-key python-mode-map (kbd "M-<left>")  'balle-python-shift-left)
 
 
 ;; Pedro Kroger provided in his blog post about Configuring Emacs as a
@@ -139,12 +132,34 @@
 ;;      (py-reload-file buf))))
 
 
-;; https://github.com/jorgenschaefer/elpy/wiki/Configuration
-;;(require 'elpy)
-;;(elpy-enable t)
-;;(elpy-clean-modeline)
-;;(define-key ac-completing-map [tab] 'yas-expand)
-;;(define-key ac-completing-map [return] 'ac-complete)
+
+
+;; yasnippets make indent wrong on tab
+;; (yas--fallback) makes a problem
+;; (yas--keybinding-beyond-yasnippet)
+(defun my-python-hook ()
+  "Function to run on python-mode-hook."
+  (interactive)
+  (smart-tabs-mode-enable)
+  ;;(setq indent-tabs-mode nil) ; nil - use spaces, t - tabs
+  ;;(setq tab-width 4)
+  ;;(set-variable 'py-indent-offset 4)
+  ;;(setq python-indent 4)
+  ;;(setq python-indent-offset 4)
+  ;;(setq tab-width (default-value 'tab-width))
+  (define-key python-mode-map "\C-m" 'newline-and-indent)
+  ;;(define-key python-mode-map "\C-m" 'python-indent-line)
+  ;;(define-key python-mode-map (kbd "TAB") 'python-indent-line)
+  ;;(make-variable-buffer-local 'yas-fallback-behavior)
+  ;;(setq 'yas-fallback-behavior '(python-indent-line . nil))
+  ;;(set (make-local-variable 'yas-fallback-behavior) '(apply ,python-indent-line))
+  ;;(set 'yas-fallback-behavior '(apply ,newline-and-indent))
+  (setq python-indent-trigger-commands nil)
+  ;;(setq python-indent-trigger-commands '(indent-for-tab-command yas-expand yas/expand))
+  )
+
+(when (require 'init-smarttabs nil 'noerror)
+  (add-hook 'python-mode-hook 'my-python-hook))
 
 (provide 'init-python)
 ;;; init-python.el ends here

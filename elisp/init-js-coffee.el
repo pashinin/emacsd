@@ -26,6 +26,7 @@
 ;; Start the server when we first open a js file and start checking
 ;;(add-hook 'js3-mode-hook (lambda () (lintnode-hook)))
 ;;(remove-hook 'js3-mode-hook '(lambda () (lintnode-hook)))
+;;coffee-indent-line
 
 
 (define-key js3-mode-map (kbd "s-r") 'firefox-reload)
@@ -41,10 +42,54 @@
 (add-hook 'coffee-mode-hook 'flymake-coffee-load)
 (setq coffee-tab-width 2
       coffee-indent-tabs-mode t
-      coffee-args-compile '("-c" "-b" "-g")
+      coffee-args-compile '("-c" "-b")
       )
-(when (require 'init-smarttabs nil 'noerror)
+(custom-set-variables '(coffee-tab-width 2))
+
+;; hook
+(defun my-coffee-hook ()
+  "Run when in coffee-mode."
+  (interactive)
+  (my-smarttabs-spaces-autoinednt)
+
+  (smart-tabs-mode-enable)
+  (setq coffee-tab-width 2
+        coffee-indent-tabs-mode nil
+        coffee-args-compile '("-c" "-b")
+        )
+  ;;coffee-compile-file
+  ;;(smart-tabs-advice  coffee-indent-line     coffee-indent-line)
+  ;;(smart-tabs-advice  py-indent-line         py-indent-offset)
+  ;;(smart-tabs-advice  py-newline-and-indent  python-indent-line-1)
+  ;;(smart-tabs-advice  py-indent-region       py-indent-offset)
+  ;;py-indent-offset
   )
+
+(when (require 'init-smarttabs nil 'noerror)
+  ;;(add-hook 'js2-mode-hook    'my-smarttabs-tabs-autoinednt)
+  (add-hook 'js3-mode-hook    'myHtmlStyle)
+  (add-hook 'coffee-mode-hook 'my-coffee-hook)
+  ;;(add-hook 'coffee-mode-hook 'myHtmlStyle)
+  ;;(remove-hook 'coffee-mode-hook 'myHtmlStyle)
+  ;;(add-hook 'coffee-mode-hook 'my-coffee-hook)
+  ;;(remove-hook 'coffee-mode-hook 'my-coffee-hook)
+  ;;coffee
+  )
+
+
+(defun coffee-on-save()
+  "My function on saving coffee."
+  (when (eq major-mode 'coffee-mode)
+    (coffee-compile-file)
+    (firefox-reload)))
+(add-hook 'after-save-hook 'coffee-on-save)
+
+;; Enable autocomplete in scss-mode
+(when (require 'init-autocomplete nil 'noerror)
+  (add-to-list 'ac-modes 'coffee-mode))
+
+
+;; json
 
 
 (provide 'init-js-coffee)

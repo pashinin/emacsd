@@ -44,5 +44,14 @@
 (define-key web-mode-map (kbd "<C-down>") 'jump-tag-end)
 (define-key web-mode-map (kbd "<C-up>")   'jump-tag-begin)
 
+
+(when (require 'init-smarttabs nil 'noerror)
+  (add-hook 'html-mode-hook   'myHtmlStyle)
+  (add-hook 'nxhtml-mode-hook 'myHtmlStyle)
+  (add-hook 'nxml-mode        'myHtmlStyle)
+  (add-hook 'php-mode-hook    'myHtmlStyle)
+  (add-hook 'web-mode-hook    'myHtmlStyle))
+
+
 (provide 'init-web-mode)
 ;;; init-web-mode.el ends here

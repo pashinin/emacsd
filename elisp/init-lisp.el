@@ -14,5 +14,11 @@
 (setq inferior-lisp-program (executable-find "sbcl")) ; your Lisp system
 (add-to-list 'load-path "~/.slime") ; your SLIME directory
 
+
+;; LISP-mode - use spaces, autoindent
+(when (require 'init-smarttabs nil 'noerror)
+  (add-hook 'emacs-lisp-mode-hook 'my-smarttabs-spaces-autoinednt)
+  (add-hook 'lisp-mode-hook       'my-smarttabs-spaces-autoinednt))
+
 (provide 'init-lisp)
 ;;; init-lisp.el ends here
