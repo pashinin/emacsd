@@ -7,3 +7,4 @@
 Submodules hints:
 
     git submodule add git://github.com/magit/magit.git elisp/extensions/magit
+    git submodule add git://github.com/emacsmirror/ecb.git elisp/extensions/ecb
