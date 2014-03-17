@@ -5,7 +5,10 @@
 ;; Ido mode with fuzzy matching
 ;;(require 'ido)
 (when (require 'ido nil 'noerror)
-  (ido-mode t)
+  (require 'ido-vertical-mode)
+  (ido-mode 1)
+  (ido-vertical-mode 1)
+
   (setq ido-enable-flex-matching t) ;; enable fuzzy matching
   ;; IDO becomes very hectic when creating a new file. If you don't type the
   ;; new file name fast enough, it searches for existing files in other
