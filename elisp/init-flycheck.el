@@ -12,7 +12,8 @@
       flycheck-emacs-lisp-load-path load-path)
 
 ;;(add-hook 'after-init-hook #'global-flycheck-mode)
-(global-flycheck-mode)
+;;(global-flycheck-mode)
+;; CoffeeScript: creates a folder in current dir when flycheck
 
 
 (require 'flymake-python-pyflakes)
