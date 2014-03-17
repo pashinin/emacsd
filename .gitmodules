@@ -10,3 +10,6 @@
 [submodule "elisp/extensions/magit"]
 	path = elisp/extensions/magit
 	url = git://github.com/magit/magit.git
+[submodule "elisp/extensions/ecb"]
+	path = elisp/extensions/ecb
+	url = git://github.com/emacsmirror/ecb.git
