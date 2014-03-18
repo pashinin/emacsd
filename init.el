@@ -102,12 +102,12 @@
 (require 'init-packages)
 ;;(ignore-errors
 
-(require 'init-server)         ;; start Emacs as a server
-(require 'init-common)         ;; basic params and colors
+(when (not travis)
+  (require 'init-server)         ;; start Emacs as a server
+  (require 'init-common)         ;; basic params and colors
 
-(if (eq system-type 'windows-nt) (toggle-fullscreen))
+  (if (eq system-type 'windows-nt) (toggle-fullscreen))
 
-(when t
   (when (and (require 'init-gpg nil 'noerror) internet-ok)
     (require 'init-irc)
     (require 'init-mail-gnus)
