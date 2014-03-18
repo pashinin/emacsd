@@ -55,5 +55,11 @@
 ;;)
 ;; (set-face-background 'hl-line "seashell2") ;; Choose a good color
 
+;; Colors for pairs {} () []
+;;(set-face-background 'show-paren-match (face-background 'default))
+(set-face-background 'show-paren-match "#ffe")
+(set-face-foreground 'show-paren-match "#55a")
+(set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+
 (provide 'init-colorscheme)
 ;;; init-colorscheme.el ends here
