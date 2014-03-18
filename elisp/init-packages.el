@@ -43,6 +43,7 @@
         when (not (package-installed-p p)) do (return nil)
         finally (return t)))
 
+(when (not travis)
 (condition-case err
     (unless (prelude-packages-installed-p)
       ;; check for new packages (package versions)
@@ -55,6 +56,7 @@
       (package-install p))))
   (error (princ (format "FAILED, needed to download packages: %s" err))
      2))
+)
 
 
 
