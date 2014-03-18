@@ -59,8 +59,9 @@
 
 
 
+;; el-get
+(when (not travis)
 (condition-case err
-    ;; el-get
     (with-no-warnings
       (when (> emacs-major-version 23)
     (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -75,7 +76,7 @@
       (el-get 'sync))))
   (error (princ (format "FAILED loading el-get: %s" err))
      2))
-
+)
 
 ;; auto-install - Automates the installation of Emacs Lisp files and packages
 ;;(when (require 'auto-install nil 'noerror)
