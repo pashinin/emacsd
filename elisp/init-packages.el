@@ -26,7 +26,7 @@
                    frame-cmds frame-fns flycheck flymake full-ack
                    gitignore-mode
                    helm helm-git helm-projectile
-                   image-dired+ ipython
+                   image-dired+
                    jedi js2-mode js3-mode
                    magit markdown-mode markdown-mode+ multi-term multiple-cursors
                    nginx-mode
