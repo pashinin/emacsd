@@ -16,7 +16,7 @@
 (set-cursor-color "coral") ; it doesn't work for emacsclient, so make a function
 (set-border-color "dark orange")
 (set-mouse-color "dark orange")
-(setq cursor-type 'box)
+(set-default 'cursor-type 'bar)  ;; box bar
 
 (defun frame-colors (frame)
   "Custom behaviours for new FRAME."
