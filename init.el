@@ -111,7 +111,7 @@
   (when (and (require 'init-gpg nil 'noerror) internet-ok)
     (require 'init-irc)
     (require 'init-mail-gnus)
-    (require 'init-mail-wl)
+    ;;(require 'init-mail-wl)
     ;; Please set `wl-message-id-domain' to get valid Message-ID string
     )
   (require 'init-windows-buffers)    ;; ido, helm...
