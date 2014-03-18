@@ -15,5 +15,6 @@ install:
   - if [ "$EMACS" = "emacs-snapshot" ]; then
       sudo apt-get install -qq emacs-snapshot-el emacs-snapshot-gtk;
     fi
+  - ln -s `pwd` ~/.emacs.d
 script:
   $EMACS --version && make test EMACS=${EMACS}
