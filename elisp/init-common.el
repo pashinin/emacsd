@@ -340,10 +340,11 @@
 
 
 ;; https://github.com/nonsequitur/smex
-(require 'smex)
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "<menu>") 'smex)
+;; IDO to your recently and most frequently used "M-x" commands
+(when (require 'smex nil 'noerror)
+  (smex-initialize)
+  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "<menu>") 'smex))
 
 (provide 'init-common)
 ;;; init-common.el ends here
