@@ -1,9 +1,9 @@
-;;; init-colorscheme --- description
+;;; init-colorscheme --- Set some colors
 ;;; Commentary:
 ;;; Code:
 
-(require 'color-theme-sanityinc-solarized)
-(load-theme 'sanityinc-solarized-dark)
+(when (require 'color-theme-sanityinc-solarized nil 'noerror)
+  (load-theme 'sanityinc-solarized-dark))
 
 ;; terminal colors
 ;; #268bd2 - directory
