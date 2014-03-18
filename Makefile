@@ -7,7 +7,7 @@ TRAVIS_FILE = .travis.yml
 COMMONEL = elisp/init-common.el
 
 # Compile with noninteractive and relatively clean environment.
-BATCHFLAGS = -batch -q --no-site-file
+BATCHFLAGS = -batch -q --no-site-file --debug-init
 
 clean:
 	find . -name "*.elc" -exec rm -rf {} \;
