@@ -5,16 +5,15 @@
 ;;
 (require 'init-variables)
 
-(when (> emacs-major-version 23)
-  (require 'package)
-  (setq package-archives '(("gnu"       . "http://elpa.gnu.org/packages/")
-                           ;;("marmalade" . "http://marmalade-repo.org/packages/")
-                           ("melpa"     . "http://melpa.milkbox.net/packages/")))
-
-  ;;(setq package-load-list '((org nil) all))  ; do not load ORG-mode
-  (package-initialize)   ; loads all packages, or those defined in
-                                        ; "package-load-list" variable
-  )
+;;(when (> emacs-major-version 23)
+(require 'package)
+(setq package-archives '(("gnu"       . "http://elpa.gnu.org/packages/")
+                         ;;("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa"     . "http://melpa.milkbox.net/packages/")))
+;;(setq package-load-list '((org nil) all))  ; do not load ORG-mode
+;; loads all packages, or those defined in "package-load-list" variable
+(package-initialize)
+;;)
 
 ;; auto install Melpa packages
 (defvar my-packages
