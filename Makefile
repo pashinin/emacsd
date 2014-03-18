@@ -22,6 +22,7 @@ install:
 
 test:
 # just load all files
+	${EMACS} -L elisp -L elisp/extensions $(BATCHFLAGS) -f batch-byte-compile elisp/init-packages.el
 	${EMACS} -L elisp -L elisp/extensions $(BATCHFLAGS) -f batch-byte-compile init.el
 #${EMACS} -L elisp/extensions/workgroups2 -L elisp -L src -l ${COMMONEL} $(BATCHFLAGS) -f batch-byte-compile $(TEST_DIR)/*.el
 
