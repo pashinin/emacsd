@@ -58,16 +58,22 @@ Or write GOOD to the `internet-ok' var."
 
 ;; internet-ok
 ;; Check internet every 20 seconds
-(if (not (eq system-type 'windows-nt))
-    (run-with-timer 10 20 '(lambda ()
-                             (async-start
-                              (lambda ()
-                                (or (= 0 (call-process "curl" nil nil nil
-                                                       "--connect-timeout" "2" "-f" "facebook.com"))
-                                    (= 0 (call-process "curl" nil nil nil
-                                                       "--connect-timeout" "2" "-f" "google.com"))))
-                              (lambda (res)
-                                (write-internet-status res))))))
+;(if (not (eq system-type 'windows-nt))
+;    (run-with-timer 10 20 '(lambda ()
+;                             (async-start
+;                              (lambda ()
+;                                (or (= 0 (call-process "curl" nil nil nil
+;                                                       "--connect-timeout" "2" "-f" "facebook.com"))
+;                                    (= 0 (call-process "curl" nil nil nil
+;                                                       "--connect-timeout" "2" "-f" "google.com"))))
+;                              (lambda (res)
+                                        ;                                (write-internet-status res))))))
+
+(defcustom travis (string= (getenv "CI") "true")
+  "If the code is run within a Travis build."
+  :type 'boolean
+  :group 'my-vars)
+
 
 (provide 'init-variables)
 ;;; init-variables.el ends here
