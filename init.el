@@ -100,10 +100,10 @@
 
 (require 'init-variables)
 (require 'init-packages)
-;;(ignore-errors
+
+(require 'init-server)         ;; start Emacs as a server
 
 (when (not travis)
-  (require 'init-server)         ;; start Emacs as a server
   (require 'init-common)         ;; basic params and colors
 
   (if (eq system-type 'windows-nt) (toggle-fullscreen))
