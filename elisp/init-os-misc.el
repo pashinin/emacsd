@@ -74,15 +74,18 @@ TITLE is the title of the message, MSG is the
 context.  Optionally, you can provide an ICON and a SOUND to be
 played."
   (interactive)
-  (save-window-excursion
-    (run-daemonized-command-no-buf (concat "play " sound)))
-  (if (eq window-system 'x)
-      (shell-command (concat "notify-send "
-                             (if icon (concat "-i " icon) "")
-                             " '" title "' '" msg "'"))
-    (message (concat title ": " msg))))
+  (with-temp-message ""
+    (save-window-excursion
+      (if sound
+          (run-daemonized-command-no-buf (concat "play " sound)))
+      (if (eq window-system 'x)
+          (shell-command-to-string (concat "notify-send -t 100 "
+                                           (if icon (concat "-i " icon) "")
+                                           " '" title "' '" msg "'"))
+        (message (concat title ": " msg))))))
 
 ;; (my-notify-popup "title2" "msg2" "~/.emacs.d/bindata/icons/email_envelope.png" "/usr/share/sounds/gnome/default/alerts/drip.ogg")
+;; (my-notify-popup "Do the job!" "msg2")
 
 (defun is-64bit-os ()
   "Return t if we are under 64 bit OS."
