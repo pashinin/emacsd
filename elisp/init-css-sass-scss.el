@@ -28,7 +28,12 @@
   (let ((css (concat (file-name-sans-extension buffer-file-name) ".css"))
         (mincss (concat (file-name-sans-extension buffer-file-name) ".min.css")))
     ;;(append 'scss-sass-options)
-    (shell-command (format "sass %s %s %s" (mapconcat 'identity scss-sass-options " ") (buffer-file-name) css))
+    (if (s-starts-with? "_" (buffer-name))
+        (if (file-exists-p "all.scss")
+            (shell-command (format "sass %s %s %s" (mapconcat 'identity scss-sass-options " ")
+                                   "all.scss" "all.css")))
+      (shell-command (format "sass %s %s %s" (mapconcat 'identity scss-sass-options " ")
+                             (buffer-file-name) css)))
     ;; sass --cache-location /tmp/sass /sr
     ;; (format "sass %s /tmp/sass" )
     ;;--style compressed
@@ -38,17 +43,15 @@
     ;;  )
     ))
 
-
-
 (defun sass/scss-save-hook()
   "My function on saving sass/scss."
   (when (eq major-mode 'scss-mode)
     (let ((s (buffer-substring-no-properties (point-min) (+ (point-min) 10))))
       (with-temp-message s
-        (when (string= s "// compile")
-          (my-scss-compile-file)
-          (firefox-reload)
-          )))))
+        (when (or (string= s "// compile")
+                  (s-starts-with? "_" (buffer-name)))
+          (my-scss-compile-file))
+        (firefox-reload)))))
 (add-hook 'after-save-hook 'sass/scss-save-hook)
 
 (define-key scss-mode-map (kbd "s-r") 'my-scss-compile-file)
