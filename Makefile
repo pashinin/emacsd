@@ -15,8 +15,15 @@ clean:
 compile:
 	${EMACS} -L elisp/extensions/workgroups2 -L elisp -L src -l ${COMMONEL} $(BATCHFLAGS) -f batch-byte-compile $(TEST_DIR)/*.el
 
+.PHONY: install
+install:
+	git submodule init
+	git submodule update
+
 test:
-	${EMACS} -L elisp/extensions/workgroups2 -L elisp -L src -l ${COMMONEL} $(BATCHFLAGS) -f batch-byte-compile $(TEST_DIR)/*.el
+# just load all files
+	${EMACS} -L elisp -L elisp/extensions $(BATCHFLAGS) -f batch-byte-compile init.el
+#${EMACS} -L elisp/extensions/workgroups2 -L elisp -L src -l ${COMMONEL} $(BATCHFLAGS) -f batch-byte-compile $(TEST_DIR)/*.el
 
 # TODO:
 # test loading packages
