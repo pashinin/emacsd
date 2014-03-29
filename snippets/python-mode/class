@@ -1,0 +1,11 @@
+class ${1:BaseView}(TemplateView):
+    template_name = "$2"
+
+    def get_context_data(self, **kwargs):
+        ctx = super($1, self).get_context_data(**kwargs)
+        return ctx
+
+    def get(self, request, **kwargs):
+        ctx = self.get_context_data(**kwargs)
+        $0
+        return self.render_to_response(ctx)
