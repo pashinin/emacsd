@@ -20,5 +20,11 @@
 (require 'github-browse-file)
 (global-set-key (kbd "<s-home>") 'github-browse-file)
 
+
+(require 'helm-ls-git)
+(global-set-key (kbd "C-x C-g") 'helm-ls-git-ls)
+;;(global-set-key (kbd "C-x C-d") 'helm-browse-project)
+
+
 (provide 'init-git)
 ;;; init-git.el ends here
