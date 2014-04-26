@@ -28,6 +28,7 @@
   ;;(define-key global-map [(alt t)] 'helm-for-files)
   ;;(global-set-key (kbd "<C-x C-b>") 'helm-for-files)
   (global-set-key (kbd "C-x C-b") 'helm-mini)   ; usual Helm
+  (global-set-key (kbd "s-[") 'helm-mini)
   (global-set-key (kbd "<S-s-insert>") 'helm-show-kill-ring)
   ;; TODO: helm for GIT
   ;; colors:
