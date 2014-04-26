@@ -83,6 +83,7 @@
  '(mode-line-highlight ((t (:foreground "navajo white" :box nil :weight bold))))
  '(mode-line-inactive ((t (:inherit mode-line :background "#073642" :foreground "#586e75" :weight normal))))
  '(org-agenda-date-today ((t (:inherit org-agenda-date :foreground "lawn green" :slant normal :weight bold))) t)
+ '(region ((t (foreground: "black" :background "dim gray" :inverse-video t))))
  '(vertical-border ((((type tty)) (:inherit mode-line-inactive))))
  '(web-mode-html-attr-name-face ((t (:foreground "medium sea green"))))
  '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face :foreground "gold3"))))
