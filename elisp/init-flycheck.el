@@ -12,14 +12,15 @@
       flycheck-emacs-lisp-load-path load-path)
 
 ;;(add-hook 'after-init-hook #'global-flycheck-mode)
-;;(global-flycheck-mode)
-;; CoffeeScript: creates a folder in current dir when flycheck
+(global-flycheck-mode)
+;; CoffeeScript: creates a folder ".sass-cache" in current dir when
+;; using flycheck
 
 
 (require 'flymake-python-pyflakes)
 (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
-;;flycheck-flake8rc is a variable defined in `flycheck.el'.
-;;Its value is ".flake8rc"
+;; flycheck-flake8rc is a variable defined in `flycheck.el'.
+;; Its value is ".flake8rc"
 
 (require 'flymake-shell)
 (add-hook 'sh-set-shell-hook 'flymake-shell-load)
