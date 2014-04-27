@@ -21,7 +21,10 @@
 (defun frame-colors (frame)
   "Custom behaviours for new FRAME."
   (with-selected-frame frame
-    (set-cursor-color "coral")))
+    (set-cursor-color "coral")
+    (set-face-foreground 'region "dim gray")
+    (set-face-background 'region "black")
+    ))
 (frame-colors (selected-frame))
 (add-hook 'after-make-frame-functions 'frame-colors)
 
