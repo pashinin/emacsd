@@ -16,10 +16,14 @@
 
 
 (require 'scss-mode)
-(require 'flymake-sass)
+;;(require 'flymake-sass)
 
 (setq scss-compile-at-save nil
       scss-sass-options '("--cache-location" "'/tmp/sass'"))
+(add-hook 'scss-mode-hook (lambda ()
+                            (interactive)
+                            (flycheck-mode -1)))
+
 
 (defun my-scss-compile-file (&optional filename)
   "Compile FILENAME (current buffer) to css and reload Firefox page."
