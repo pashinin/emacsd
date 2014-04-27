@@ -30,6 +30,7 @@
 (add-to-list 'auto-mode-alist '("\.*/etc/apt/sources"        . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\.*/etc/amavis/conf.d\.*"   . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\\.py\\.sample"             . python-mode))
+(add-to-list 'auto-mode-alist '("\\.j2"             . jinja2-mode))
 
 
 ;; vimrc-mode
