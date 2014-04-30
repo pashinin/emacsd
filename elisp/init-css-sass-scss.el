@@ -29,18 +29,21 @@
   "Compile FILENAME (current buffer) to css and reload Firefox page."
   (interactive)
   ;; sudo npm install -g uglifycss
-  (let ((css (concat (file-name-sans-extension buffer-file-name) ".css"))
-        (mincss (concat (file-name-sans-extension buffer-file-name) ".min.css")))
+  (let* ((css (concat (file-name-sans-extension buffer-file-name) ".css"))
+         (mincss (concat (file-name-sans-extension buffer-file-name) ".min.css"))
+         (scss (buffer-file-name))
+         err)
     ;;(append 'scss-sass-options)
     (if (s-starts-with? "_" (buffer-name))
         (if (file-exists-p "all.scss")
-            (shell-command (format "sass %s %s %s" (mapconcat 'identity scss-sass-options " ")
-                                   "all.scss" "all.css")))
-      (shell-command (format "sass %s %s %s" (mapconcat 'identity scss-sass-options " ")
-                             (buffer-file-name) css)))
+            (setq css "all.css"
+                  input "all.scss")))
+    (setq err (shell-command-to-string
+               (format "sass %s %s %s" (mapconcat 'identity scss-sass-options " ")
+                       scss css)))
+    (if err (error err))
     ;; sass --cache-location /tmp/sass /sr
-    ;; (format "sass %s /tmp/sass" )
-    ;;--style compressed
+    ;; --style compressed
     ;;(with-temp-buffer
     ;;  (insert (shell-command-to-string (format "sass %s --style compressed" (buffer-file-name))))
     ;;  (shell-command-on-region (point-min) (point-max) (format "uglifycss %s" (buffer-file-name)))
