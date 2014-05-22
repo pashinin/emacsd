@@ -346,5 +346,8 @@
   (global-set-key (kbd "M-x") 'smex)
   (global-set-key (kbd "<menu>") 'smex))
 
+
+(electric-pair-mode 1)
+
 (provide 'init-common)
 ;;; init-common.el ends here
