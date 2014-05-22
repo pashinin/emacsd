@@ -13,3 +13,6 @@
 [submodule "elisp/extensions/ecb"]
 	path = elisp/extensions/ecb
 	url = git://github.com/emacsmirror/ecb.git
+[submodule "elisp/extensions/edbi"]
+	path = elisp/extensions/edbi
+	url = git@github.com:pashinin/emacs-edbi.git
