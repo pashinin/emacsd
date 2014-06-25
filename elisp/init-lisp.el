@@ -9,10 +9,10 @@
 ;;
 ;;; Code:
 
-(require 'slime)
-;;(unload-feature 'slime)
-(setq inferior-lisp-program (executable-find "sbcl")) ; your Lisp system
-(add-to-list 'load-path "~/.slime") ; your SLIME directory
+;;(require 'slime)
+;;;;(unload-feature 'slime)
+;;(setq inferior-lisp-program (executable-find "sbcl")) ; your Lisp system
+;;(add-to-list 'load-path "~/.slime") ; your SLIME directory
 
 
 ;; LISP-mode - use spaces, autoindent
