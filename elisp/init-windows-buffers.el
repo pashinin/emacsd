@@ -6,21 +6,43 @@
 ;;(require 'ido)
 (when (require 'ido nil 'noerror)
   (require 'ido-vertical-mode)
-  (ido-mode 1)
-  (ido-vertical-mode 1)
+
 
   (setq ido-enable-flex-matching t) ;; enable fuzzy matching
   ;; IDO becomes very hectic when creating a new file. If you don't type the
   ;; new file name fast enough, it searches for existing files in other
   ;; directories with the same name and opens them instead. The following
   ;; setting disables that feature:
-  (setq ido-auto-merge-work-directories-length -1))
+  (setq ido-auto-merge-work-directories-length -1)
+  (defun my-ido-setup-hook ()
+    (define-key
+      ido-buffer-completion-map
+      " "
+      'ido-restrict-to-matches))
+
+  (add-hook 'ido-setup-hook 'my-ido-setup-hook)
+
+  (ido-mode 1)
+  (ido-vertical-mode 1)
+  )
 
 ;; Helm - choose buffer like a man
 ;; To configure colors: M-x customize-group <RET> helm <RET>
+(defun my-helm-do-grep ()
+  "Grep recursively."
+  (interactive)
+  (helm-do-grep-1 `(,default-directory)
+                  '(4)
+                  nil
+                  '("*.*")
+                  ;;'("*.clj" "*.cljs")
+                  ))
+
+
 (when (require 'helm nil 'noerror)
   (setq helm-idle-delay 0.1
         helm-input-idle-delay 0.1
+        helm-ff-transformer-show-only-basename nil     ;; show full path, need for helm-ls-git
         helm-c-locate-command "locate-with-mdfind %.0s %s")
   ;; do not list:
   ;;(loop for ext in '("\\.swf$" "\\.elc$" "\\.pyc$")
@@ -30,6 +52,8 @@
   (global-set-key (kbd "C-x C-b") 'helm-mini)   ; usual Helm
   (global-set-key (kbd "s-[") 'helm-mini)
   (global-set-key (kbd "<S-s-insert>") 'helm-show-kill-ring)
+  (global-set-key [S-f3] 'helm-do-grep)
+  (global-set-key [s-f3] 'my-helm-do-grep)
   ;; TODO: helm for GIT
   ;; colors:
   ;;(setq helm-candidate-number '((t (:background "deep sky blue" :foreground "black"))))
@@ -47,6 +71,10 @@
 
   ;; https://github.com/ShingoFukuyama/helm-swoop
   (require 'helm-swoop)
+  (setq
+   helm-swoop-split-direction 'split-window-horizontally
+   helm-swoop-split-with-multiple-windows nil)
+  (global-set-key (kbd "C-S-s") 'helm-swoop)
   (global-set-key (kbd "M-i") 'helm-swoop)
   (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
   (global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
