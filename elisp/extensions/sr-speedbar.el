@@ -380,11 +380,13 @@ of a speedbar-window.  It will be created if necessary."
           (add-hook 'speedbar-visiting-tag-hook 'sr-speedbar-visiting-tag-hook t)
           ;; Add `kill-buffer-hook'.
           (add-hook 'kill-buffer-hook 'sr-speedbar-kill-buffer-hook) ;add `kill-buffer-hook'
+          ;;(remove-hook 'kill-buffer-hook 'sr-speedbar-kill-buffer-hook)
           ;; Auto refresh speedbar content
           ;; if option `sr-speedbar-auto-refresh' is non-nil
           (sr-speedbar-handle-auto-refresh sr-speedbar-auto-refresh))
         (set-window-buffer sr-speedbar-window (get-buffer sr-speedbar-buffer-name))
-        (set-window-dedicated-p sr-speedbar-window t) ;make `sr-speedbar-window' dedicated to speedbar-buffer.
+        ;;(set-window-dedicated-p sr-speedbar-window t) ;make `sr-speedbar-window' dedicated to speedbar-buffer.
+        ;;(set-window-dedicated-p sr-speedbar-window t)
         (select-window current-window))
     (message "`sr-speedbar' window has exist.")))
 
