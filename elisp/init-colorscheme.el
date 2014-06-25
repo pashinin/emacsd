@@ -24,6 +24,8 @@
     (set-cursor-color "coral")
     (set-face-foreground 'region "dim gray")
     (set-face-background 'region "black")
+
+    ;;(set-face-background 'hl-line "#374738")
     ))
 (frame-colors (selected-frame))
 (add-hook 'after-make-frame-functions 'frame-colors)
@@ -38,8 +40,11 @@
 
 ;;(set-face-background 'mode-line "#403048")
 (set-face-background 'mode-line "#272738")
+(set-face-background 'mode-line "#373748")
 (set-face-background 'mode-line-inactive "#272738")
+(set-face-background 'mode-line-inactive "#373748")
 (set-face-foreground 'mode-line "#C4C9C8")
+(set-face-foreground 'mode-line "#C4C9F8")
 
 (set-face-attribute 'mode-line nil :box nil)
 (set-face-attribute 'mode-line-inactive nil :box nil)
@@ -57,6 +62,7 @@
 ;; '(mode-line-inactive ((t (:box (:line-width 1 :color "#555555")))))
 ;;)
 ;; (set-face-background 'hl-line "seashell2") ;; Choose a good color
+;;(set-face-background 'hl-line "#374738")
 
 ;; Colors for pairs {} () []
 ;;(set-face-background 'show-paren-match (face-background 'default))
