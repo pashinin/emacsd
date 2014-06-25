@@ -10,7 +10,7 @@
  '(ac-auto-start nil)
  '(ac-trigger-key "TAB")
  '(ac-use-menu-map t)
- '(bmkp-last-as-first-bookmark-file "~/.emacs_files/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "~/.emacs_files/bookmarks" t)
  '(coffee-tab-width 2)
  '(column-number-mode t)
  '(cua-rectangle-mark-key (kbd "<C-S-return>"))
@@ -64,6 +64,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ace-jump-face-foreground ((t (:background "dim gray" :foreground "white"))))
  '(bm-face ((t (:background "dark green" :foreground "gray59"))))
  '(bold ((t (:weight bold))))
  '(dired-symlink ((t (:inherit font-lock-keyword-face :weight normal))))
@@ -147,6 +148,7 @@
   (require 'init-bookmarks)
   (require 'init-python)
   (require 'init-gettext)
+  (require 'init-db)
 
   (require 'init-smarttabs)
   (require 'init-yasnippet)
