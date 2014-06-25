@@ -55,7 +55,7 @@
   (smart-tabs-mode-enable)
   (setq coffee-tab-width 2
         coffee-indent-tabs-mode nil
-        coffee-args-compile '("-c" "-b")
+        coffee-args-compile '("-c" "-b" "--map")
         )
   ;;coffee-compile-file
   ;;(smart-tabs-advice  coffee-indent-line     coffee-indent-line)
