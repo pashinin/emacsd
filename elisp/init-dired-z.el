@@ -1,12 +1,12 @@
 ;;; init-dired-z --- Working with archives
 ;;; Commentary:
 ;;
-;; What you should not use:
-;; - rar (fuck closed shit)
-;; - zip (has problems with encoding of filenames)
-;;
-;; What you maybe should use:
+;; Use:
 ;; - 7z (open source, good compression. no problems with encoding)
+;;
+;; Do NOT use:
+;; - rar (fuck closed shit)
+;; - zip (has problems with encoding of non-ascii filenames)
 ;;
 ;;; Code:
 
