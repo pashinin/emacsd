@@ -132,6 +132,9 @@
 ;;      (py-reload-file buf))))
 
 
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)                 ; optional
+
 
 
 ;; yasnippets make indent wrong on tab
