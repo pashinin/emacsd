@@ -349,5 +349,16 @@
 
 (electric-pair-mode 1)
 
+
+(require 'ace-jump-mode)
+(autoload
+  'ace-jump-mode
+  "ace-jump-mode"
+  "Emacs quick move minor mode"
+  t)
+;;(define-key global-map (kbd "C-s") 'isearch-forward)
+;;(define-key global-map (kbd "C-S-s") 'ace-jump-mode)
+;; isearch-forward
+
 (provide 'init-common)
 ;;; init-common.el ends here
