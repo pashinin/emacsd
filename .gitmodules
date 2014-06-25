@@ -15,4 +15,4 @@
 	url = git://github.com/emacsmirror/ecb.git
 [submodule "elisp/extensions/edbi"]
 	path = elisp/extensions/edbi
-	url = git@github.com:pashinin/emacs-edbi.git
+	url = git://github.com/pashinin/emacs-edbi.git
