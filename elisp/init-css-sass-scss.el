@@ -19,7 +19,7 @@
 ;;(require 'flymake-sass)
 
 (setq scss-compile-at-save nil
-      scss-sass-options '("--cache-location" "'/tmp/sass'"))
+      scss-sass-options '("--cache-location" "'/tmp/sass'" "--sourcemap"))
 (add-hook 'scss-mode-hook (lambda ()
                             (interactive)
                             (flycheck-mode -1)))
@@ -37,11 +37,11 @@
     (if (s-starts-with? "_" (buffer-name))
         (if (file-exists-p "all.scss")
             (setq css "all.css"
-                  input "all.scss")))
+                  scss "all.scss")))
     (setq err (shell-command-to-string
                (format "sass %s %s %s" (mapconcat 'identity scss-sass-options " ")
                        scss css)))
-    (if err (error err))
+    (if (not (string= err "")) (error err))
     ;; sass --cache-location /tmp/sass /sr
     ;; --style compressed
     ;;(with-temp-buffer
