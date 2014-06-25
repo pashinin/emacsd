@@ -20,6 +20,9 @@
                 '("chm"))
                "xchm" '(file))
          (list (openwith-make-extension-regexp
+                '("iso"))
+               "gnome-disk-image-mounter" '(file))
+         (list (openwith-make-extension-regexp
                 '("mp3" "ogg" "wav" "m4a" "flac"))
                "deadbeef" '(file))
          (list (openwith-make-extension-regexp
@@ -67,10 +70,14 @@
           ((eq major-mode 'dired-mode) (dired-get-marked-files))
           (t (list (buffer-file-name)))
           )))
-    (if (> (length myFileList) 1)
-        (open-in-external-app)
-      (dired-find-file))
-    ))
+    (cond
+     ((> (length myFileList) 1)
+          (open-in-external-app))
+     (t
+      (if (s-ends-with? ".iso" (car myFileList))
+          (shell-command "gnome-disk-image-mounter file:///usr/data/disk_3/OS/ubuntu-14.04-desktop-amd64.iso")
+        (dired-find-file)))
+     )))
 
 (defun my-dired-external-open-hook ()
   "Set local dired keys to open files in other apps."
