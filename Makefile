@@ -10,10 +10,14 @@ COMMONEL = elisp/init-common.el
 BATCHFLAGS = -batch -q --no-site-file --debug-init
 
 clean:
-	find . -name "*.elc" -exec rm -rf {} \;
+	find ./elisp -name '*.elc' -delete
+
+clean_all:
+	find . -name '*.elc' -delete
 
 compile:
-	${EMACS} -L elisp/extensions/workgroups2 -L elisp -L src -l ${COMMONEL} $(BATCHFLAGS) -f batch-byte-compile $(TEST_DIR)/*.el
+	emacs --batch --eval '(byte-recompile-directory "~/.emacs.d/elpa")'
+	#${EMACS} -L elisp/extensions/workgroups2 -L elisp -L src -l ${COMMONEL} $(BATCHFLAGS) -f batch-byte-compile $(TEST_DIR)/*.el
 
 .PHONY: install
 install:
