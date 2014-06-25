@@ -2,12 +2,35 @@
 ;;; Commentary:
 ;; Copyright (C) Sergey Pashinin
 ;; Author: Sergey Pashinin <sergey@pashinin.com>
+;;
+;; Notes
+;; =================
+;; 1. Scala language - "Object-Oriented Meets Functional" (http://www.scala-lang.org/)
+;; 2. SBT is the scala build tool
+;; 3. Ensime is the ENhanced Scala Interaction Mode for Emacs
+;;      video: What is Ensime?
+;;             www.youtube.com/watch?v=cd2LV0xy9G8
+;;
+;;
+;; Installation
+;; =================
+;; 1. Install SBT
+;;    * Go to: http://www.scala-sbt.org/release/tutrial/Installing-sbt-on-Linux.html
+;;    * Download and install .deb
+;; 2. M-x list-packages - ensime, scala-mode2
+;;
+;; Run
+;; =======
+;; 1. Open .scala file
+;; 2. ensime-sbt-switch (C-c C-v s)
+;;
 ;;; Code:
 
 (require 'scala-mode2)
 
-;; load the ensime lisp code...
-(add-to-list 'load-path "~/ensime/elisp/")
+;; Ensime
+;; Can be installed from Melpa: M-x list-packages
+;; (add-to-list 'load-path "~/ensime/elisp/")
 (require 'ensime)
 
 ;; This step causes the ensime-mode to be started whenever
