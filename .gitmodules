@@ -16,3 +16,6 @@
 [submodule "elisp/extensions/edbi"]
 	path = elisp/extensions/edbi
 	url = git://github.com/pashinin/emacs-edbi.git
+[submodule "elisp/extensions/req-package"]
+	path = elisp/extensions/req-package
+	url = https://github.com/edvorg/req-package.git
