@@ -3,11 +3,11 @@
 ;; Just my experiments
 ;;; Code:
 
-(require 'init-dired-z)
-(require 'init-os-misc)
-(require 'coffee-mode)
-(require 'my-cpp)
-(require 'my-audio)
+(req-package init-dired-z)
+(req-package init-os-misc)
+(req-package coffee-mode)
+(req-package my-cpp)
+(req-package my-audio)
 
 (defun file-under-path (path &optional filename)
   "Return t if PATH has a FILENAME in any folder under it."
@@ -367,8 +367,31 @@ CHILD - function called from other."
 ;; additional action 1 (M-f5)
 (global-set-key (kbd "<M-f5>")   'do-magic-action1)
 
-;; additional action 2 (C-f5)
-(global-set-key (kbd "<C-f5>")   'do-magic-action2)
+(defun git-repo-http ()
+  "Return http url for current repo or nil."
+  (interactive)
+  (let ((u (s-trim (shell-command-to-string "git config --get remote.origin.url"))))
+    (setq u (s-replace "git@" "https://" u))
+    (setq u (s-replace "github.com:" "github.com/" u))
+    u))
+
+
+(defun test-in-my-vm ()
+  "Try to find git repo and test it in a VM."
+  (interactive)
+  (let ((default-directory "~/.emacs.d/scripts/"))
+    (insert (shell-command-to-string
+             (concat "virsh snapshot-revert ubuntu-testbox clean-running --force")))
+    (insert (shell-command-to-string (concat "fab ll:'" (git-repo-http) "'")))
+    ;;(insert (git-repo-http))
+    ;;
+    ;;(message (shell-command-to-string "ls"))
+    ))
+
+
+;; run tests
+;;(global-set-key (kbd "<C-f5>") 'test-in-my-vm)
+(global-set-key (kbd "<C-f5>") '(lambda () (interactive) (do-magic-with-file nil t)))
 
 (provide 'init-f5)
 ;;; init-f5.el ends here

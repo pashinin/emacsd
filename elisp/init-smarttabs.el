@@ -4,11 +4,18 @@
 ;; Tabs or spaces?
 ;;; Code:
 
-(require 'smart-tab)
-(require 'smart-tabs-mode)
+(setq-default indent-tabs-mode nil)  ; spaces are better
+(setq-default tab-width 4)
 
-(setq smart-tab-using-hippie-expand t)
-(global-smart-tab-mode t)
+(req-package smart-tab
+  :bind ("TAB" . smart-tab)
+  :config
+  (progn
+    (setq smart-tab-using-hippie-expand t)
+    (global-smart-tab-mode t)
+    (setq smart-tab-using-hippie-expand t)))
+
+;;(req-package smart-tabs-mode)
 
 
 ;; Exceptions:
@@ -20,9 +27,6 @@
 ;;smart-tab-disabled-major-modes
 ;; (delete 'coffee-mode 'smart-tab-disabled-major-modes)
 
-(setq-default indent-tabs-mode nil)  ; spaces are better
-(setq-default tab-width 4)
-(setq smart-tab-using-hippie-expand t)
 
 (defun my-smarttabs-spaces-autoinednt ()
   "Make current mode use spaces for indentation and indent on RET."
@@ -87,7 +91,7 @@
         )))  ;; (indent-for-tab-command)
   )
 
-(global-set-key (kbd "TAB") 'smart-tab)
+;;(global-set-key (kbd "TAB") 'smart-tab)
 
 
 (provide 'init-smarttabs)

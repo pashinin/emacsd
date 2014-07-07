@@ -3,36 +3,40 @@
 ;; Install "openwith" from MELPA
 ;;; Code:
 
-(when (require 'openwith nil 'noerror)
-  ;;(require 'openwith)
-  (setq openwith-associations
-        (list
-         (list (openwith-make-extension-regexp
-                '("odt" "ods" "doc" "docx" "xls" "rtf"))
-               "libreoffice" '(file))
-         (list (openwith-make-extension-regexp
-                '("pdf" "dvi" "djvu"))
-               "evince" '(file))
-         (list (openwith-make-extension-regexp
-                '("rar" "gz" "7z"))
-               "file-roller" '(file))
-         (list (openwith-make-extension-regexp
-                '("chm"))
-               "xchm" '(file))
-         (list (openwith-make-extension-regexp
-                '("iso"))
-               "gnome-disk-image-mounter" '(file))
-         (list (openwith-make-extension-regexp
-                '("mp3" "ogg" "wav" "m4a" "flac"))
-               "deadbeef" '(file))
-         (list (openwith-make-extension-regexp
-                '("mpeg" "avi" "wmv" "flv" "mkv" "ts" "mp4" "webm" "ogv" "m4v" "pls" "vob" "mov"))
-               "vlc" '(file))
-         (list (openwith-make-extension-regexp
-                '("jpg" "jpeg" "png" "gif" "jpeg" "bmp"))
-               "shotwell" '(file))))
+(req-package openwith
+  :config
+  (progn
+    (setq
+     openwith-associations
+     (list
+      (list (openwith-make-extension-regexp
+             '("odt" "ods" "doc" "docx" "xls" "rtf"))
+            "libreoffice" '(file))
+      (list (openwith-make-extension-regexp
+             '("pdf" "dvi" "djvu"))
+            "evince" '(file))
+      (list (openwith-make-extension-regexp
+             '("rar" "gz" "7z"))
+            "file-roller" '(file))
+      (list (openwith-make-extension-regexp
+             '("chm"))
+            "xchm" '(file))
+      (list (openwith-make-extension-regexp
+             '("iso"))
+            "gnome-disk-image-mounter" '(file))
+      (list (openwith-make-extension-regexp
+             '("mp3" "ogg" "wav" "m4a" "flac"))
+            "deadbeef" '(file))
+      (list (openwith-make-extension-regexp
+             '("mpeg" "avi" "wmv" "flv" "mkv" "ts" "mp4" "webm" "ogv" "m4v" "pls" "vob" "mov"))
+            "vlc" '(file))
+      (list (openwith-make-extension-regexp
+             '("jpg" "jpeg" "png" "gif" "jpeg" "bmp"))
+            "shotwell" '(file))))
+    (openwith-mode t)))
 
-  (openwith-mode t))
+
+
 
 
 (defun open-in-external-app ()
@@ -74,9 +78,11 @@
      ((> (length myFileList) 1)
           (open-in-external-app))
      (t
-      (if (s-ends-with? ".iso" (car myFileList))
-          (shell-command "gnome-disk-image-mounter file:///usr/data/disk_3/OS/ubuntu-14.04-desktop-amd64.iso")
-        (dired-find-file)))
+      ;;(if (s-ends-with? ".iso" (car myFileList))
+      ;;    (shell-command "gnome-disk-image-mounter file:///usr/data/disk_3/OS/ubuntu-14.04-desktop-amd64.iso")
+      ;;  (dired-find-file))
+      (dired-find-file)
+      )
      )))
 
 (defun my-dired-external-open-hook ()

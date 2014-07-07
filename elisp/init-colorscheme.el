@@ -2,7 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
-(when (require 'color-theme-sanityinc-solarized nil 'noerror)
+(req-package color-theme-sanityinc-solarized
+  :init
   (load-theme 'sanityinc-solarized-dark))
 
 ;; terminal colors
@@ -18,15 +19,24 @@
 (set-mouse-color "dark orange")
 (set-default 'cursor-type 'bar)  ;; box bar
 
+;; (set-face-background 'fringe "red")
+
 (defun frame-colors (frame)
   "Custom behaviours for new FRAME."
   (with-selected-frame frame
     (set-cursor-color "coral")
     (set-face-foreground 'region "dim gray")
     (set-face-background 'region "black")
-
+    ;;(set-face-background 'default "#002b36")
+    (set-face-background 'fringe "#002b36")
+    ;;(face-background 'default)
+    ;;(set-face-background 'default "#002b36")
+    ;;(set-face-background 'default "#1C1F27")
+    ;;(set-face-background 'default "#1C1F27")
     ;;(set-face-background 'hl-line "#374738")
+    ;;(set-frame-parameter frame 'border-width 10)
     ))
+;;(set-frame-parameter (selected-frame) 'internal-border-width 0)
 (frame-colors (selected-frame))
 (add-hook 'after-make-frame-functions 'frame-colors)
 
@@ -34,8 +44,9 @@
 (set-face-foreground 'region "black")
 (set-face-background 'region "#9999BB")
 
-(set-face-background 'default "#002b36")
-(set-face-background 'default "#1C1F27")
+;;(when (display-graphic-p)
+;;(set-face-background 'default "#002b36")
+;;(set-face-background 'default "#1C1F27")
 
 
 ;;(set-face-background 'mode-line "#403048")

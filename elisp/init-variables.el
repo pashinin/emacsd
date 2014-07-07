@@ -37,7 +37,7 @@ The regexp should not contain a starting \"\\`\" or a trailing
       (= 0 (call-process "curl" nil nil nil "--connect-timeout" "2" "-f" "google.com")))))
 ;; (have-internet)
 
-(defcustom internet-ok (have-internet)
+(defcustom internet-ok nil
   "Show if recent test for the internet is ok."
   :type 'boolean
   :group 'my-vars)

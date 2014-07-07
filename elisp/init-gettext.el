@@ -16,11 +16,11 @@
 ;; k - Turn the current entry into an untranslated
 ;; Q - Quit processing and save the PO file
 
-(require 'po-mode)
+(req-package po-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.po\\'\\|\\.po\\." . po-mode)))
 ;;(autoload 'po-mode "po-mode"
 ;;  "Major mode for translators to edit PO files" t)
-(setq auto-mode-alist (cons '("\\.po\\'\\|\\.po\\." . po-mode)
-                            auto-mode-alist))
 ;;(autoload 'po-find-file-coding-system "po-compat")
 ;;(modify-coding-system-alist 'file "\\.po\\'\\|\\.po\\."
 ;;                            'po-find-file-coding-system)

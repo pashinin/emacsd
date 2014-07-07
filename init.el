@@ -10,7 +10,7 @@
  '(ac-auto-start nil)
  '(ac-trigger-key "TAB")
  '(ac-use-menu-map t)
- '(bmkp-last-as-first-bookmark-file "~/.emacs_files/bookmarks" t)
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(coffee-tab-width 2)
  '(column-number-mode t)
  '(cua-rectangle-mark-key (kbd "<C-S-return>"))
@@ -78,6 +78,7 @@
  '(helm-source-header ((t (:foreground "gray" :weight normal :height 1.3 :family "Sans Serif"))))
  '(helm-swoop-target-word-face ((t (:background "dark slate blue" :foreground "#ffffff"))))
  '(helm-visible-mark ((t (:background "#005500" :foreground "black"))))
+ '(magit-diff-none ((t (:inherit diff-context :foreground "dim gray"))))
  '(match ((t (:background "dark slate gray"))))
  '(mode-line ((t (:background "#403048" :foreground "#C4C9C8" :weight normal))))
  '(mode-line-buffer-id ((t (:foreground "coral" :weight bold))))
@@ -98,60 +99,63 @@
 
 
 (setq load-path (cons "~/.emacs.d/elisp" load-path))
+(add-to-list 'load-path "~/.emacs.d/elisp/")
 ;;(setq bbdb-file "~/bbdb")    ; "~/.bbdb"
-
 (require 'init-variables)
 (require 'init-packages)
 
 (require 'init-server)         ;; start Emacs as a server
-(require 'init-common)         ;; basic params and colors
+(req-package init-common)         ;; basic params and colors
 ;;(if (eq system-type 'windows-nt) (toggle-fullscreen))
 
 (when (not travis)
-  (when (and (require 'init-gpg nil 'noerror) internet-ok)
-    (require 'init-irc)
-    (require 'init-mail-gnus)
-    ;;(require 'init-mail-wl)
-    ;; Please set `wl-message-id-domain' to get valid Message-ID string
-    )
-  (require 'init-windows-buffers)    ;; ido, helm...
-  (require 'init-bbdb)
+  ;;(when (and (require 'init-gpg nil 'noerror) internet-ok)
+  ;;  (require 'init-irc)
+  ;;  (require 'init-mail-gnus)
+  ;;  ;;(require 'init-mail-wl)
+  ;;  ;; Please set `wl-message-id-domain' to get valid Message-ID string
+  ;;  )
+  (req-package init-windows-buffers)    ;; ido, helm...
+  (req-package init-bbdb)
+  (req-package init-auto-insert)
+  (req-package init-org)
+  (req-package init-jabber)
+  (req-package init-dired)
+  ;;(req-package init-lisp)
+  (req-package init-shell)
 
-  (require 'init-auto-insert)
+  (req-package init-emms)
+  (req-package init-filemodes)
+  (req-package init-tramp)
+  (req-package init-xiki)
+  (req-package init-git)
+  (req-package init-os-misc)          ; "notify" function and so on...
+  (req-package init-css-sass-scss)
+  (req-package init-js-coffee)
+  (req-package init-web-mode)
+  (req-package init-ctags)
+  (req-package init-cedet)
+  (req-package init-flycheck)
+  (req-package init-autocomplete)
+  (req-package init-tex)  ;; loading tex.el before can reset TeX-PDF-mode setting
+  ;;(req-package auto-complete-yasnippet)
+  (req-package init-capture)
+  (req-package init-f5)
+  (req-package init-scala)
+  (req-package init-bookmarks)
+  (req-package init-python)
+  (req-package init-gettext)
+  (req-package init-db)
 
-  (require 'init-org)
-  (require 'init-jabber nil 'noerror)
-  (require 'init-dired nil 'noerror)
-  ;;(require 'init-lisp)
-  (require 'init-shell)
-
-  (require 'init-emms nil 'noerror)
-  (require 'init-filemodes)
-  (require 'init-tramp)
-  (require 'init-xiki)
-  (require 'init-git)
-  (require 'init-os-misc)          ; "notify" function and so on...
-  (require 'init-css-sass-scss)
-  (require 'init-js-coffee)
-  (require 'init-web-mode)
-
-  (require 'init-ctags)
-  (require 'init-cedet)
-  (require 'init-flycheck)
-  (require 'init-autocomplete)
-
-  (require 'init-tex nil 'noerror)  ;; loading tex.el before can reset TeX-PDF-mode setting
-  ;;(require 'auto-complete-yasnippet)
-  (require 'init-capture nil 'noerror)
-  (require 'init-f5)
-  ;;(require 'init-scala)
-  (require 'init-bookmarks)
-  (require 'init-python)
-  (require 'init-gettext)
-  (require 'init-db)
-
-  (require 'init-smarttabs)
-  (require 'init-yasnippet)
+  (req-package init-smarttabs)
+  (req-package init-yasnippet)
   )
 
-(require 'init-workgroups nil 'noerror)
+;;(when (display-graphic-p)
+;;(require 'init-workgroups nil 'noerror)
+(req-package init-workgroups)
+
+(req-package-finish)
+
+(provide 'init)
+;;; init.el ends here

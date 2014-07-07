@@ -195,8 +195,7 @@ That ends with .jpg or .png."
         (when (or (string= ext "jpg")
                   (string= ext "jpeg"))
           (setq res el)
-          (throw 'loop el)
-          )))))
+          (throw 'loop el))))))
 ;; (get-first-image-from-files (list "asd" "asd.jpg" "aasd.ogG"))
 
 (defun get-files-by-extension (files ext)
@@ -208,8 +207,7 @@ That ends with .jpg or .png."
       (when (string= e ext)
         (if (not res)
             (setq res (list el))
-          (add-to-list 'res el))
-    ))))
+          (add-to-list 'res el))))))
 ;; (get-files-by-extension (list "asd" "asd.jpg" "aasd.ogG" "aa.ogg") "ogg")
 
 (provide 'init-os-misc)

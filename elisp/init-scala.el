@@ -26,17 +26,23 @@
 ;;
 ;;; Code:
 
-(require 'scala-mode2)
+;;(req-package scala-mode2)
 
 ;; Ensime
 ;; Can be installed from Melpa: M-x list-packages
 ;; (add-to-list 'load-path "~/ensime/elisp/")
-(require 'ensime)
+(req-package ensime
+  :commands ensime-scala-mode-hook
+  :require scala-mode2
+  :config
+  (progn
+    ;; This step causes the ensime-mode to be started whenever
+    ;; scala-mode is started for a buffer. You may have to customize this step
+    ;; if you're not using the standard scala mode.
+    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+    ))
 
-;; This step causes the ensime-mode to be started whenever
-;; scala-mode is started for a buffer. You may have to customize this step
-;; if you're not using the standard scala mode.
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
 
 (provide 'init-scala)
 ;;; init-scala.el ends here

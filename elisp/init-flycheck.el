@@ -1,37 +1,43 @@
 ;;; init-flycheck --- my settings for flycheck
 ;;; Commentary:
+;; GNU Emacs comes with Flymake to perform on-the-fly syntax
+;; checking. Flycheck is a replacement with support for more languages
 ;;
 ;; Source: https://github.com/flycheck/flycheck
 ;;
 ;;; Code:
 
-(require 'flycheck)
+(req-package flycheck
+  :commands global-flycheck-mode
+  :config
+  (progn
+    ;; Highlight whole line with error
+    (setq flycheck-highlighting-mode 'lines
+          flycheck-emacs-lisp-load-path load-path)
 
-;; Highlight whole line with error
-(setq flycheck-highlighting-mode 'lines
-      flycheck-emacs-lisp-load-path load-path)
-
-;;(add-hook 'after-init-hook #'global-flycheck-mode)
-(global-flycheck-mode)
-;; CoffeeScript: creates a folder ".sass-cache" in current dir when
-;; using flycheck
+    ;;(add-hook 'after-init-hook #'global-flycheck-mode)
+    (global-flycheck-mode)
+    ;; CoffeeScript: creates a folder ".sass-cache" in current dir when
+    ;; using flycheck
 
 
-(require 'flymake-python-pyflakes)
-(add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
-;; flycheck-flake8rc is a variable defined in `flycheck.el'.
-;; Its value is ".flake8rc"
+    (require 'flymake-python-pyflakes)
+    (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
+    ;; flycheck-flake8rc is a variable defined in `flycheck.el'.
+    ;; Its value is ".flake8rc"
 
-(require 'flymake-shell)
-(add-hook 'sh-set-shell-hook 'flymake-shell-load)
+    (require 'flymake-shell)
+    (add-hook 'sh-set-shell-hook 'flymake-shell-load)
 
-(require 'flymake-yaml)
-(add-hook 'yaml-mode-hook 'flymake-yaml-load)
+    (require 'flymake-yaml)
+    (add-hook 'yaml-mode-hook 'flymake-yaml-load)
 
-(global-set-key (kbd "s-<") 'flymake-goto-prev-error)
-(global-set-key (kbd "s->") 'flymake-goto-next-error)
+    (global-set-key (kbd "s-<") 'flymake-goto-prev-error)
+    (global-set-key (kbd "s->") 'flymake-goto-next-error)
 
-;;(set-face-background 'flymake-warnline "dark slate blue")
+    ;;(set-face-background 'flymake-warnline "dark slate blue")
+))
+
 
 (provide 'init-flycheck)
 ;;; init-flycheck.el ends here

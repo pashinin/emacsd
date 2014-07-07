@@ -1,12 +1,19 @@
 ;;; init-irc --- IRC config
 ;;; Commentary:
+;; erc-services ?
 ;;; Code:
 
 (require 'erc)
 (require 'erc-services)
-(require 'init-gpg)      ; my personal config that loads some passwords
+;;(require 'init-gpg)      ; my personal config that loads some passwords
+
+
 (erc-services-mode 1)
 (setq erc-prompt-for-nickserv-password nil)
+
+;;(when (locate-library "init-gpg")
+;;(autoload 'ediff-trees "ediff-trees" "Start an tree ediff" t)
+(autoload 'irc-freenode-nick-passwd "init-gpg")
 
 ;; set some passwords
 (if (boundp 'irc-freenode-nick-passwd)  ; from my init-gpg.el

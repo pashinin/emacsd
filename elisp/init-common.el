@@ -5,12 +5,17 @@
 (require 'init-variables)
 
 ;; Save history of minibuffer commands
-(require 'savehist)
-(setq savehist-file (concat my-emacs-files-dir "savehist"))  ; before activating mode
-(savehist-mode 1)
+(req-package savehist
+  :init
+  (progn
+    (setq savehist-file (concat my-emacs-files-dir "savehist"))  ; before activating mode
+    (savehist-mode 1)))
 
-(require 'init-os-misc)
-(global-set-key (kbd "<s-pause>") 'my-restart-emacs)
+
+(req-package init-os-misc
+  :bind ("<s-pause>" . my-restart-emacs))
+  ;;:config
+  ;;(global-set-key (kbd "<s-pause>") 'my-restart-emacs))
 
 (require 'init-common-windows)     ; change some variables for fucking Windows
 (require 'init-colorscheme)
@@ -22,9 +27,10 @@
 (scroll-bar-mode -1)           ; hide scrollbars
 (setq-default fill-column 72)  ; 80-char margin
 
-(if (require 'wrap-region nil 'noerror)
-    ;;(add-hook 'ruby-mode-hook 'wrap-region-mode)   ; for specific mode
-    (wrap-region-global-mode t))                     ; for all buffers
+(req-package wrap-region
+  ;;(add-hook 'ruby-mode-hook 'wrap-region-mode)   ; for specific mode
+  :init
+  (wrap-region-global-mode t))                     ; for all buffers
 
 ;; move cursor from buffer to buffer - super + arrows
 (require 'windmove)
@@ -41,7 +47,7 @@
 (require 'linum)
 (setq linum-format "%4d")
 (global-linum-mode 0)
-;;;(global-linum-mode 1)
+;;(global-linum-mode 1)       ;; slow down org-mode
 
 ;; some settings
 (setq inhibit-startup-message t)        ; Prevent the startup message
@@ -50,17 +56,18 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)   ;; "y", "n" instead of "yes", "no"
 
-(when (require 'multiple-cursors nil 'noerror)
-  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
+;;(when (require 'multiple-cursors nil 'noerror)
+(req-package multiple-cursors
+  :commands set-rectangular-region-anchor mc/edit-lines
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C->" . mc/mark-next-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)
+         ("s-SPC" . set-rectangular-region-anchor)))
 
-;; Rectangular region and multiple cursors
-(global-set-key (kbd "s-SPC") 'set-rectangular-region-anchor)
-
-(if (require 'expand-region nil 'noerror)
-    (global-set-key (kbd "C-=") 'er/expand-region))  ;; select next logical block
+(req-package expand-region
+  :bind ("C-=" . er/expand-region))
+;;(global-set-key (kbd "C-=") 'er/expand-region))  ;; select next logical block
 
 ;;;; when splitting - focus on new
 (global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
@@ -341,14 +348,15 @@
 
 ;; https://github.com/nonsequitur/smex
 ;; IDO to your recently and most frequently used "M-x" commands
-(when (require 'smex nil 'noerror)
-  (smex-initialize)
-  (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "<menu>") 'smex))
-
+(req-package smex
+  :commands smex
+  :init
+  (progn
+    (smex-initialize)
+    (global-set-key (kbd "M-x") 'smex)
+    (global-set-key (kbd "<menu>") 'smex)))
 
 (electric-pair-mode 1)
-
 
 (require 'ace-jump-mode)
 (autoload

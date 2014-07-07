@@ -1,46 +1,60 @@
 ;;; init-tex --- Use LaTeX if you're a real man
 ;;; Commentary:
 ;; 1. http://www.cs.berkeley.edu/~prmohan/emacs/latex.html
+;; tex-buf ?
 ;;; Code:
 
 ;;TEX
 ;;(add-to-list 'load-path "~/.emacs.d/elpa/auctex-11.86")
-(require 'tex)
-(require 'tex-buf)
+(req-package tex    ;; == auctex
+  :config
+  (progn
+    ;;(setq TeX-engine 'xetex)
+    (eval-after-load "tex"
+      '(add-to-list 'TeX-command-list
+                    '("XeLaTeX" "xelatex -interaction=nonstopmode -shell-escape %s"
+                      TeX-run-command nil t :help "Run xelatex") t))
+                                        ; 4th argument - "t" to give
+                                        ; user a chance to edit a
+                                        ; command
+    (setq TeX-PDF-mode t)
+))
 
-(if (not (eq system-type 'windows-nt))
-    (load "auctex.el" nil t t))
+(require 'tex-buf)
+(require 'tex-site)
+(require 'tex-mik)
+
+;;(if (not (eq system-type 'windows-nt))
+;;    (load "auctex.el" nil t t))
+;;(req-package auctex)
 
 ;;(require 'auctex nil t)
 ;;(load "auto-complete-auctex.el")     ; not loading on windows
-(eval-after-load "tex-mode" '(progn
-                               ;;(load "auctex.el"	nil nil t)
-                               (load "preview-latex.el" nil nil t)))
+;;(eval-after-load "tex-mode" '(progn
+;;                               ;;(load "auctex.el"	nil nil t)
+;;                               (load "preview-latex.el" nil nil t)))
+
+(req-package preview-latex
+  :require tex-mode
+  :config
+  (progn
+    ))
 
 ;;(require 'auto-complete-latex)
 ;;(require 'ac-math)
-(require 'auto-complete-config nil t)
-(add-to-list 'ac-modes 'latex-mode)
+(req-package auto-complete-config
+  :init
+  (add-to-list 'ac-modes 'latex-mode))
 (setq TeX-PDF-mode t)
 (TeX-PDF-mode t)
-(setq latex-run-command "xelatex")
-
-(require 'tex-site)
-
-(if (not (eq system-type 'windows-nt))
-	(load "preview-latex.el" nil t t))    ; not loading on windows
-
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq TeX-save-query nil)
-;;(setq-default TeX-master nil)
+(setq latex-run-command "xelatex"
+      TeX-auto-save t
+      TeX-parse-self t
+      TeX-save-query nil)
 (setq-default TeX-master t)
 
-;;(load "auctex.el" nil t t)
-(require 'tex-mik)
 
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-;;(add-hook 'LaTeX-mode-hook 'flyspell-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 ;;(setq reftex-plug-into-AUCTeX t)
@@ -54,7 +68,6 @@
 ;;(setq outline-minor-mode-prefix "\C-c \C-o") ; Or something else
 
 ;;; http://www.emacswiki.org/emacs/TN
-(require 'tex-buf)
 (defun TeX-command-default (name)
   "Next TeX command to use. Most of the code is stolen from `TeX-command-query'."
   (with-no-warnings
@@ -148,15 +161,6 @@ If there is still something left do do start the next latex-command."
           '(lambda ()
              (define-key LaTeX-mode-map (kbd "C-c C-a") 'TeX-texify)))
 
-;;(setq TeX-engine 'xetex)
-(eval-after-load "tex"
-  '(add-to-list 'TeX-command-list
-				'("XeLaTeX" "xelatex -interaction=nonstopmode -shell-escape %s"
-				  TeX-run-command nil t :help "Run xelatex") t))
-                                        ; 4th argument - "t" to give
-                                        ; user a chance to edit a
-                                        ; command
-(setq TeX-PDF-mode t)
 
 ;; goto pdf page under cursor
 ;; http://superuser.com/questions/253525/emacs-auctex-how-do-i-open-the-pdf-in-evince-at-the-current-cursor-position
@@ -166,20 +170,25 @@ If there is still something left do do start the next latex-command."
 ;;(setq TeX-source-correlate-start-server t)
 
 
-(when (require 'init-smarttabs nil 'noerror)
+(req-package init-smarttabs
+  :init
   (add-hook 'LaTeX-mode-hook      'my-smarttabs-spaces-autoinednt))
 
-;;
 ;; sage-mode
+;; Links:
+;; 1. http://wiki.sagemath.org/sage-mode
+;; 2. Downloads: https://bitbucket.org/gvol/sage-mode/downloads
+;; 3. https://bitbucket.org/gvol/sage-mode/src
 ;;
-;; Install - http://wiki.sagemath.org/sage-mode
+;; Install:
+;; sudo sage -i https://bitbucket.org/gvol/sage-mode/downloads/sage_mode-20140407.spkg
 ;; sudo sage -i sage_mode
 ;;
-;; Dev - https://bitbucket.org/gvol/sage-mode/src
 ;;
 (add-to-list 'load-path "/usr/lib/sagemath/local/share/emacs")
-(require 'sage "sage")
-(setq sage-command "/usr/lib/sagemath/sage")
+(req-package sage
+  :config
+  (setq sage-command "/usr/lib/sagemath/sage"))
 
 (provide 'init-tex)
 ;;; init-tex.el ends here
