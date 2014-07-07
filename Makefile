@@ -15,9 +15,12 @@ clean:
 clean_all:
 	find . -name '*.elc' -delete
 
-compile:
+compile_elpa:
 	emacs --batch --eval '(byte-recompile-directory "~/.emacs.d/elpa")'
 	#${EMACS} -L elisp/extensions/workgroups2 -L elisp -L src -l ${COMMONEL} $(BATCHFLAGS) -f batch-byte-compile $(TEST_DIR)/*.el
+
+compile:
+	emacs -batch -f batch-byte-compile *.el
 
 .PHONY: install
 install:
