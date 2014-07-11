@@ -19,3 +19,6 @@
 [submodule "elisp/extensions/req-package"]
 	path = elisp/extensions/req-package
 	url = https://github.com/edvorg/req-package.git
+[submodule "elisp/extensions/xiki"]
+	path = elisp/extensions/xiki
+	url = git://github.com/trogdoro/xiki.git
