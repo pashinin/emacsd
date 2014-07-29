@@ -144,5 +144,7 @@ Rename into the same dir or to the dir of other dired-window."
     "Sort dired listings with directories first before adding mark."
     (mydired-sort)))
 
+(require 'dired-async)
+
 (provide 'init-dired)
 ;;; init-dired.el ends here
