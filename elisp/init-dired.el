@@ -48,8 +48,8 @@
             (concat dired-omit-files "\\|^session\.\\([^.]\\{9,10\\}[^.].+\\)?$"))
       (setq dired-omit-files
             (concat dired-omit-files "\\|^__pycache__$"))
-      (setq dired-omit-files
-            (concat dired-omit-files "\\|^.+.js$"))
+      ;;(setq dired-omit-files
+      ;;      (concat dired-omit-files "\\|^.+.js$"))
       (setq dired-omit-files
             (concat dired-omit-files "\\|^.+.map$"))
       (dired-omit-mode 1)
