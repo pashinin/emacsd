@@ -20,6 +20,7 @@
  '(ecb-options-version "2.40")
  '(ede-project-directories (quote ("/home/xdev/.emacs.d")))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+ '(elfeed-feeds (quote ("http://www.yaplakal.com/news.xml")))
  '(emms-mode-line-mode-line-function (quote emms-mode-line-icon-function))
  '(face-font-family-alternatives
    (quote
@@ -103,57 +104,61 @@
 ;;(setq bbdb-file "~/bbdb")    ; "~/.bbdb"
 (require 'init-variables)
 (require 'init-packages)
+(require 'init-colorscheme)
 
-(require 'init-server)         ;; start Emacs as a server
-(req-package init-common)         ;; basic params and colors
+(require 'init-server)
+(require 'init-common)
 ;;(if (eq system-type 'windows-nt) (toggle-fullscreen))
 
-(when (not travis)
+(require 'init-windows-buffers)
+(require 'init-bbdb)
+(require 'init-auto-insert)
+(require 'init-org)
+(require 'init-jabber)
+(require 'init-dired)
+(require 'init-shell)
+(require 'init-emms)
+(require 'init-filemodes)
+
+;;(when nil ;; (not travis)
   ;;(when (and (require 'init-gpg nil 'noerror) internet-ok)
   ;;  (require 'init-irc)
   ;;  (require 'init-mail-gnus)
   ;;  ;;(require 'init-mail-wl)
   ;;  ;; Please set `wl-message-id-domain' to get valid Message-ID string
   ;;  )
-  (req-package init-windows-buffers)    ;; ido, helm...
-  (req-package init-bbdb)
-  (req-package init-auto-insert)
-  (req-package init-org)
-  (req-package init-jabber)
-  (req-package init-dired)
-  ;;(req-package init-lisp)
-  (req-package init-shell)
+(require 'init-lisp)
 
-  (req-package init-emms)
-  (req-package init-filemodes)
-  (req-package init-tramp)
-  (req-package init-xiki)
-  (req-package init-git)
-  (req-package init-os-misc)          ; "notify" function and so on...
-  (req-package init-css-sass-scss)
-  (req-package init-js-coffee)
-  (req-package init-web-mode)
-  (req-package init-ctags)
-  (req-package init-cedet)
-  (req-package init-flycheck)
-  (req-package init-autocomplete)
-  (req-package init-tex)  ;; loading tex.el before can reset TeX-PDF-mode setting
-  ;;(req-package auto-complete-yasnippet)
-  (req-package init-capture)
-  (req-package init-f5)
-  (req-package init-scala)
-  (req-package init-bookmarks)
-  (req-package init-python)
-  (req-package init-gettext)
-  (req-package init-db)
+(require 'init-tramp)
+(require 'init-xiki)
+(require 'init-git)
+(require 'init-os-misc)          ; "notify" function and so on...
+(require 'init-css-sass-scss)
+(require 'init-js-coffee)
+(require 'init-web-mode)
+(require 'init-navigation)
+(require 'init-cedet)
+(require 'init-flycheck)
+(require 'init-autocomplete)
+(require 'init-tex)  ;; loading tex.el before can reset TeX-PDF-mode setting
+;;;;(req-package auto-complete-yasnippet)
+(require 'init-capture)
+(require 'init-f5)
+(require 'init-scala)
+(require 'init-bookmarks)
+(require 'init-python)
+(require 'init-gettext)
+;;(req-package init-db)
+(require 'init-navigation)        ; move to variables, functions, classes
+(require 'init-search)            ; search text: in buffers, files, dirs
+(require 'init-tab)               ; TAB key
 
-  (req-package init-smarttabs)
-  (req-package init-yasnippet)
-  )
+;;)
 
 ;;(when (display-graphic-p)
-;;(require 'init-workgroups nil 'noerror)
-(req-package init-workgroups)
+(require 'init-workgroups nil 'noerror)
+;;(req-package init-workgroups)
+;; (workgroups-mode 0)
 
 (req-package-finish)
 

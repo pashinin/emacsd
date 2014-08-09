@@ -3,6 +3,7 @@
 ;; install "dired-details+" using MELPA (hide file info browsing dir using "(")
 ;;; Code:
 
+(require 'req-package)
 (req-package dired
   :init
   (progn
@@ -115,18 +116,14 @@ Rename into the same dir or to the dir of other dired-window."
 (defun goto-random-line ()
   "Go to a random line in this buffer."
   (interactive)
-  (goto-line (1+ (random (buffer-line-count)))))
-
-(defun buffer-line-count ()
-  "Return the number of lines in this buffer."
-  (count-lines (point-min) (point-max)))
+  (goto-char (point-min))
+  (forward-line (1+ (random (count-lines (point-min) (point-max))))))
 
 (defun dired-point-to-random-file ()
   "Move the cursor to a random file in `dired-mode'."
   (interactive)
-  (dired-next-line 1)
-  (goto-random-line)
-  )
+  ;;(dired-next-line 1)
+  (goto-random-line))
 
 
 ;; Make dired show directories first, then files

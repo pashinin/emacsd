@@ -1,7 +1,5 @@
 ;;; (>>FILE<<) ---
 ;;; Commentary:
-;; Copyright (C) Sergey Pashinin
-;; Author: Sergey Pashinin <sergey@pashinin.com>
 ;;; Code:
 
 

@@ -7,9 +7,11 @@
 ;;
 ;;; Code:
 
+(require 'req-package)
+
 (req-package flycheck
-  :commands global-flycheck-mode
-  :config
+  :commands global-flycheck-mode flymake-goto-prev-error flymake-goto-next-error
+  :init
   (progn
     ;; Highlight whole line with error
     (setq flycheck-highlighting-mode 'lines

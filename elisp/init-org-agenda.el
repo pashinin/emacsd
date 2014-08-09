@@ -1,8 +1,5 @@
 ;;; init-org-agenda --- description
 ;;; Commentary:
-
-;; Restoring Agenda buffer can be done using workgroups2 extension
-
 ;;; Code:
 
 (require 'org-agenda)

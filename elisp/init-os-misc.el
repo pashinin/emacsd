@@ -210,5 +210,16 @@ That ends with .jpg or .png."
           (add-to-list 'res el))))))
 ;; (get-files-by-extension (list "asd" "asd.jpg" "aasd.ogG" "aa.ogg") "ogg")
 
+(req-package butler
+  :bind ("<s-f9>" . butler-status)
+  :config
+  (progn
+    (add-to-list 'butler-server-list
+                 '(jenkins "SERVER-NAME"
+                           (server-address . "http://127.0.0.1:8080")
+                           (server-user . "user")
+                           (server-password . "pass")))))
+
+
 (provide 'init-os-misc)
 ;;; init-os-misc.el ends here

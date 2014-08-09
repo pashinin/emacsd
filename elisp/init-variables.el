@@ -69,11 +69,8 @@ Or write GOOD to the `internet-ok' var."
 ;                              (lambda (res)
                                         ;                                (write-internet-status res))))))
 
-(defcustom travis (string= (getenv "CI") "true")
-  "If the code is run within a Travis build."
-  :type 'boolean
-  :group 'my-vars)
-
+(defvar in-travis (string= (getenv "CI") "true")
+  "If the code is run within a Travis build.")
 
 (provide 'init-variables)
 ;;; init-variables.el ends here

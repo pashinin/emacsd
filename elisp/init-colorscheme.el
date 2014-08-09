@@ -2,15 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
+(require 'req-package)
+
 (req-package color-theme-sanityinc-solarized
   :init
   (load-theme 'sanityinc-solarized-dark))
-
-;; terminal colors
-;; #268bd2 - directory
-(setq ansi-term-color-vector
-	  [unspecified "black" "red3" "green3" "yellow3" "#268bd2"
-				   "magenta3" "cyan3" "white"])
 
 ;; Cursor
 (blink-cursor-mode -1)
@@ -18,7 +14,6 @@
 (set-border-color "dark orange")
 (set-mouse-color "dark orange")
 (set-default 'cursor-type 'bar)  ;; box bar
-
 ;; (set-face-background 'fringe "red")
 
 (defun frame-colors (frame)

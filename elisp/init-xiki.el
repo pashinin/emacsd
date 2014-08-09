@@ -26,7 +26,7 @@
 (add-to-list 'load-path "/var/lib/gems/1.9.1/gems/trogdoro-el4r-1.0.7/data/emacs/site-lisp")
 ;;(require 'el4r)  ; EmacsLisp for Ruby - EmacsRuby engine
 
-
+(require 'req-package)
 (req-package el4r
   :commands el4r-boot)
 

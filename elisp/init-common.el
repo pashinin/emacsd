@@ -3,22 +3,20 @@
 ;;; Code:
 
 (require 'init-variables)
+(require 'req-package)
 
 ;; Save history of minibuffer commands
-(req-package savehist
-  :init
-  (progn
-    (setq savehist-file (concat my-emacs-files-dir "savehist"))  ; before activating mode
-    (savehist-mode 1)))
+(require 'savehist)
+(setq savehist-file (concat my-emacs-files-dir "savehist"))  ; before activating mode
+(savehist-mode 1)
 
 
 (req-package init-os-misc
+  :commands my-restart-emacs
   :bind ("<s-pause>" . my-restart-emacs))
-  ;;:config
-  ;;(global-set-key (kbd "<s-pause>") 'my-restart-emacs))
 
 (require 'init-common-windows)     ; change some variables for fucking Windows
-(require 'init-colorscheme)
+
 
 ;;--------------------------------------------------------------------
 ;; Common
@@ -125,26 +123,19 @@
 ;;(global-set-key (kbd "<C-menu>") 'my-insert-shell-output)
 
 
-;; ack - search in your sources
-;; full-ack - better color support
-(autoload 'ack-same "full-ack" nil t)
-(autoload 'ack "full-ack" nil t)
-(autoload 'ack-find-same-file "full-ack" nil t)
-(autoload 'ack-find-file "full-ack" nil t)
-(setq ack-executable (executable-find "ack-grep"))
 
+(horizontal-scroll-bar-mode 0)
 
 ;; Make buffer names unique
 (require 'uniquify)
-(setq
- uniquify-buffer-name-style 'post-forward     ;; filename:dirname
- uniquify-separator ":")
+(setq uniquify-buffer-name-style 'post-forward     ;; filename:dirname
+      uniquify-separator ":")
 
 ;; http://www.gnu.org/software/emacs/manual/html_node/emacs/Backup-Copying.html
-(setq make-backup-files nil)  ;; nil - do not make backup garbage files (file.txt~)
-(setq backup-directory-alist '(("." . (concat my-emacs-files-dir "file_backups"))))
-(setq backup-by-copying nil)
-(setq backup-by-copying-when-mismatch t)
+(setq make-backup-files nil   ;; nil - do not make backup garbage files (file.txt~)
+      backup-directory-alist '(("." . (concat my-emacs-files-dir "file_backups")))
+      backup-by-copying nil
+      backup-by-copying-when-mismatch t)
 
 ;; This snippet will temporarily make Emacs believes that there is no
 ;; active process when you kill it, and therefore you won't get the
@@ -155,13 +146,13 @@
 
 ;; Unicode
 ;;(setq default-buffer-file-coding-system 'utf-8-unix)
-(setq buffer-file-coding-system 'utf-8-unix)
-(setq default-file-name-coding-system 'utf-8-unix)
-(setq default-keyboard-coding-system 'utf-8-unix)
-(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+(setq buffer-file-coding-system 'utf-8-unix
+      default-file-name-coding-system 'utf-8-unix
+      default-keyboard-coding-system 'utf-8-unix
+      default-process-coding-system '(utf-8-unix . utf-8-unix))
 
-(set-language-environment 'UTF-8)
 ;;(setenv "LC_ALL"     "en_US.UTF-8")
+(set-language-environment 'UTF-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -367,6 +358,27 @@
 ;;(define-key global-map (kbd "C-s") 'isearch-forward)
 ;;(define-key global-map (kbd "C-S-s") 'ace-jump-mode)
 ;; isearch-forward
+
+
+;; sudo add-apt-repository ppa:jerzy-kozera/zeal-ppa
+;; sudo apt-get update
+;; sudo apt-get install zeal
+(req-package zeal-at-point
+  :commands zeal-at-point
+  :bind ("<s-f1>" . zeal-at-point)
+  :config
+  (add-to-list 'zeal-at-point-mode-alist '(python-mode . "python")))
+
+
+(setq byte-compile-warnings '(not nresolved
+                                  free-vars
+                                  callargs
+                                  redefine
+                                  obsolete
+                                  noruntime
+                                  cl-functions
+                                  interactive-only
+                                  ))
 
 (provide 'init-common)
 ;;; init-common.el ends here

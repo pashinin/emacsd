@@ -20,6 +20,7 @@
         hash-table
         window-configuration
         buffer
+        marker
         ;;frame
         ;;window
         ;;process
@@ -36,6 +37,7 @@
         (window-configuration   . wg-pickel-window-configuration-serializer)
         ;;(window-configuration   . identity)
         (buffer     . wg-pickel-buffer-serializer)
+        (marker     . wg-pickel-marker-serializer)
         (frame      . wg-pickel-frame-serializer)
         (window     . identity)
         (process    . identity)))
@@ -46,7 +48,18 @@
         (v . wg-pickel-deserialize-vector)
         (h . wg-pickel-deserialize-hash-table)
         (b . wg-pickel-deserialize-buffer)
+        (m . wg-pickel-deserialize-marker)
         (f . wg-pickel-deserialize-frame)))
+
+
+
+;; (wg-pickel (selected-window))
+;; (wg-pickel (window-prev-buffers (selected-window)))
+;; (wg-pickel (car (window-prev-buffers (selected-window))))
+;; (wg-unpickel (wg-pickel (car (window-prev-buffers (selected-window)))))
+
+;; (window-next-buffers (selected-window))
+;; (window-prev-buffers (selected-window))
 
 ;; (wg-pickel (current-buffer))
 ;; (wg-unpickel (wg-pickel (current-buffer)))
@@ -56,25 +69,10 @@
 ;; (wg-unpickel (wg-pickel (current-window-configuration)))
 ;; (wg-pickel (ecb-current-window-configuration))
 ;; (wg-unpickel (wg-pickel (ecb-current-window-configuration)))
-
-;; (wg-pickel "as")
-;; (wg-unpickel (wg-pickel "as"))
-;; (wg-pickel (current-frame-configuration))
-;; (wg-pickel (selected-frame))
 ;; (wg-unpickel (wg-pickel (current-frame-configuration)))
-;; (wg-pickel "s")
-;; (wg-unpickel (wg-pickel "s"))
-;; (wg-unpickel (wg-pickel 1))
-;; (wg-unpickel (wg-pickel (current-buffer)))
-;; (wg-unpickel (wg-pickel "as"))
 ;; (wg-pickel (current-frame-configuration))
-;; (wg-pickel (selected-frame))
-;; (wg-unpickel (wg-pickel (current-frame-configuration)))
 ;; (wg-pickel (selected-frame))
 ;; (wg-unpickel (wg-pickel (selected-frame)))
-;; (wg-restore-frames)
-;; (frame-list)
-;; (wg-pickelable-or-error "Asd")
 ;; (mapcar 'wg-pickel-frame-serializer (frame-list))
 ;; (wg-unpickel (wg-pickel (current-buffer)))
 ;; (wg-buffer-uid (current-buffer))
@@ -122,72 +120,77 @@
 ;; ==================================================
 ;; ==================================================
 
-(req-package workgroups2
-  :commands workgroups-mode wg-reload-session wg-save-session
-  wg-switch-to-workgroup wg-switch-to-previous-workgroup
-  :bind (("<pause>" . wg-reload-session)
-         ("C-S-<pause>" . wg-save-session)
-         ("s-z" . wg-switch-to-workgroup)
-         ("s-/" . wg-switch-to-previous-workgroup))
-  :init
-  (progn
+(require 'workgroups2)
+;;  :commands workgroups-mode wg-reload-session wg-save-session
+;;  wg-switch-to-workgroup wg-switch-to-previous-workgroup
+;;  :bind (("<pause>" . wg-reload-session)
+;;         ("C-S-<pause>" . wg-save-session)
+;;         ("s-z" . wg-switch-to-workgroup)
+;;         ("s-/" . wg-switch-to-previous-workgroup))
     ;; WG file:
-    (setq
-     wg-default-session-file (concat my-emacs-files-dir "workgroups")
-     wg-open-this-wg nil
-     wg-use-default-session-file t
-     wg-mode-line-decor-left-brace "["
-     wg-mode-line-decor-right-brace "]"
-     wg-mode-line-only-name t           ; show only current WG name
-     wg-display-nowg nil                ; if no workgroups - display nothing
-     wg-mode-line-use-faces t           ; colorize mode line
-     wg-use-faces t                     ; colorize messages
-     )
+(setq
+ wg-session-file (concat my-emacs-files-dir "workgroups")
+ wg-open-this-wg nil
+ wg-use-default-session-file nil
+ wg-mode-line-decor-left-brace "["
+ wg-mode-line-decor-right-brace "]"
+ wg-mode-line-only-name t           ; show only current WG name
+ wg-display-nowg nil                ; if no workgroups - display nothing
+ wg-mode-line-use-faces t           ; colorize mode line
+ wg-use-faces t                     ; colorize messages
+ ;;wg-restore-associated-buffers nil
+ wg-fill-next-buffers t
+ wg-emacs-exit-save-behavior           nil
+ wg-workgroups-mode-exit-save-behavior nil
+ wg-mess-with-buffer-list t
+ )
+;; (window-next-buffers (selected-window))
+;; next-buffer
 
-    (global-set-key (kbd "<pause>")     'wg-reload-session)
-    (global-set-key (kbd "C-S-<pause>") 'wg-save-session)
-    (global-set-key (kbd "s-z")         'wg-switch-to-workgroup)
-    (global-set-key (kbd "s-/")         'wg-switch-to-previous-workgroup)
+(global-set-key (kbd "<pause>")     'wg-reload-session)
+(global-set-key (kbd "C-S-<pause>") 'wg-save-session)
+(global-set-key (kbd "s-z")         'wg-switch-to-workgroup)
+(global-set-key (kbd "s-/")         'wg-switch-to-previous-workgroup)
 
-    ;; Keyboard shortcuts - load, save, switch
-    ;;(global-set-key (kbd "<pause>")     'wg-reload-session)
-    ;;(global-set-key (kbd "C-S-<pause>") 'wg-save-session)
-    ;;(global-set-key (kbd "s-z")         'wg-switch-to-workgroup)
-    ;;(global-set-key (kbd "s-/")         'wg-switch-to-previous-workgroup)
+;; Keyboard shortcuts - load, save, switch
+;;(global-set-key (kbd "<pause>")     'wg-reload-session)
+;;(global-set-key (kbd "C-S-<pause>") 'wg-save-session)
+;;(global-set-key (kbd "s-z")         'wg-switch-to-workgroup)
+;;(global-set-key (kbd "s-/")         'wg-switch-to-previous-workgroup)
     ;;;;(global-set-key (kbd "<s-f1>") (lambda () (interactive) (my-switch-wg-to "mail" )))
     ;;;;(global-set-key (kbd "<s-f2>") (lambda () (interactive) (my-switch-wg-to "music")))
 
 
-    ;; Define my functions
-    (defun my-switch-wg-to (workgroup)
-      "Switch to WORKGROUP (name) or return to previous one."
-      (interactive)
-      (if (equal (wg-workgroup-name (wg-current-workgroup)) workgroup)
-          (wg-switch-to-previous-workgroup)
-        (wg-switch-to-workgroup workgroup))
-      (message (wg-workgroup-name (wg-current-workgroup))))
+;; Define my functions
+(defun my-switch-wg-to (workgroup)
+  "Switch to WORKGROUP (name) or return to previous one."
+  (interactive)
+  (if (equal (wg-workgroup-name (wg-current-workgroup)) workgroup)
+      (wg-switch-to-previous-workgroup)
+    (wg-switch-to-workgroup workgroup))
+  (message (wg-workgroup-name (wg-current-workgroup))))
 
-    (defun test-and-load-workgroups ()
-      "Load workgroups if it's not a Capture frame."
-      (interactive)
-      (workgroups-mode 1)
-      (with-selected-frame (selected-frame)
-        (when (not (equal "capture" (frame-parameter nil 'name)))
-          (wg-reload-session)
-          (select-frame-set-input-focus (selected-frame)))
-        (select-frame-set-input-focus (selected-frame))))
+(defun test-and-load-workgroups ()
+  "Load workgroups if it's not a Capture frame."
+  (interactive)
+  (workgroups-mode 1)
+  (with-selected-frame (selected-frame)
+    (when (not (equal "capture" (frame-parameter nil 'name)))
+      (wg-reload-session)
+      (select-frame-set-input-focus (selected-frame)))
+    (select-frame-set-input-focus (selected-frame))))
 
-    (defun load-workgroups-if-needed()
-      (run-with-idle-timer 0.5 nil 'test-and-load-workgroups))
+(defun load-workgroups-if-needed()
+  (run-with-idle-timer 0.5 nil 'test-and-load-workgroups))
 
-    (defun set-my-frame-title (frame)
-      "Set FRAME title format."
-      (interactive)
-      (setq frame-title-format '("" "%b - Emacs " emacs-version)))
+(defun set-my-frame-title (frame)
+  "Set FRAME title format."
+  (interactive)
+  (setq frame-title-format '("" "%b - Emacs " emacs-version)))
 
-    (add-hook 'after-make-frame-functions 'set-my-frame-title)
-    (workgroups-mode 1)
-    ))
+(add-hook 'after-make-frame-functions 'set-my-frame-title)
+(workgroups-mode 1)
+
 
 
 (provide 'init-workgroups)

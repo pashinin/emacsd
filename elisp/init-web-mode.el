@@ -5,7 +5,7 @@
 ;; 2. https://github.com/fxbois/web-mode
 ;;; Code:
 
-(require 'init-firefox)
+(require 'init-browser)
 
 ;; emmet-mode
 ;; Just write something like "a.x>span" and press C-<RET>
