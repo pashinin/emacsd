@@ -151,13 +151,6 @@
           (smart-tab)
         (yas-expand)))
 
-
-    ;; `global-set-key' will NOT work for this, so:
-    ;;(define-key yas-minor-mode-map (kbd "<tab>") 'my-smart-tab)
-    ;;(define-key yas-minor-mode-map (kbd "TAB") 'my-smart-tab)
-    ;;(define-key yas-minor-mode-map (kbd "<tab>") 'yas-expand)
-    ;;(define-key yas-minor-mode-map (kbd "TAB") 'yas-expand)
-    ;;(define-key yas-minor-mode-map (kbd "<the new key>") 'yas-expand)
     (global-set-key (kbd "TAB") 'my-smart-tab)
     ))
 
