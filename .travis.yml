@@ -18,3 +18,6 @@ install:
   - ln -s `pwd` ~/.emacs.d
 script:
   $EMACS --version && make test EMACS=${EMACS}
+
+notifications:
+  email: false
