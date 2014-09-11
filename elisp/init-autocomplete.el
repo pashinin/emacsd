@@ -6,7 +6,7 @@
 (require 'init-common)
 (require 'req-package)
 
-(req-package auto-complete-config
+(req-package auto-complete
   :commands ac-complete ac-config-default
   :init
   (progn

@@ -139,7 +139,7 @@
 (require 'init-navigation)
 (require 'init-cedet)
 (require 'init-flycheck)
-(require 'init-autocomplete)
+
 (require 'init-tex)  ;; loading tex.el before can reset TeX-PDF-mode setting
 ;;;;(req-package auto-complete-yasnippet)
 (require 'init-capture)
@@ -151,7 +151,9 @@
 ;;(req-package init-db)
 (require 'init-navigation)        ; move to variables, functions, classes
 (require 'init-search)            ; search text: in buffers, files, dirs
+(require 'init-autocomplete)
 (require 'init-tab)               ; TAB key
+(require 'init-yaml)
 
 ;;)
 

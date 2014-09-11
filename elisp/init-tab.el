@@ -52,6 +52,8 @@
   (local-set-key (kbd "RET") 'newline-and-indent))
 
 
+(add-hook 'css-mode-hook    'myHtmlStyle)
+
 ;; Automatically indent pasted lines in these modes
 (dolist (command '(yank yank-pop))
   (eval `(defadvice ,command (after indent-region activate)
@@ -111,8 +113,6 @@
 ;; http://stackoverflow.com/questions/22287201/wrong-indentation-in-python-mode-with-yasnippet-emacs
 ;;
 ;;; Code:
-
-(require 'req-package)
 
 (req-package yasnippet
   :commands yas-global-mode

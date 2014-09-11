@@ -118,7 +118,6 @@
   (add-hook 'python-mode-hook 'my-python-hook))
 
 
-
 ;; https://github.com/davidmiller/pony-mode
 (req-package pony-mode)
 ;; (when (not (eq system-type 'windows-nt))

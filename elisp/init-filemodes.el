@@ -20,10 +20,10 @@
 (setq large-file-warning-threshold nil)
 
 
+;; auto-mode-alist
 (add-to-list 'auto-mode-alist '("cron\\(tab\\)?"             . crontab-mode))
 (add-to-list 'auto-mode-alist '("/etc/nginx/\.*"             . nginx-mode))
 (add-to-list 'auto-mode-alist '("\\.nginx"                   . nginx-mode))
-(add-to-list 'auto-mode-alist '("\\nginx.conf.j2"            . nginx-mode))
 (add-to-list 'auto-mode-alist '("\\.uwsgi"                   . conf-unix-mode))
 (add-to-list 'auto-mode-alist '("requirements\\.txt"         . conf-unix-mode))
 (add-to-list 'auto-mode-alist '("\.*/etc/network/interfaces" . shell-script-mode))
@@ -31,9 +31,11 @@
 (add-to-list 'auto-mode-alist '("\.*/etc/tor/torrc"          . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\.*/etc/apt/sources"        . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\.*/etc/amavis/conf.d\.*"   . shell-script-mode))
-(add-to-list 'auto-mode-alist '("\\.py\\.sample"             . python-mode))
-(add-to-list 'auto-mode-alist '("\\.py\\.j2"             . python-mode))
 (add-to-list 'auto-mode-alist '("\\.j2"             . jinja2-mode))
+(add-to-list 'auto-mode-alist '("\\.py\\.sample"             . python-mode))
+(add-to-list 'auto-mode-alist '("\\.py\\.j2"                 . python-mode))
+(add-to-list 'auto-mode-alist '("\\nginx.conf.j2"            . nginx-mode))
+(add-to-list 'auto-mode-alist '("\\.conf.j2"                 . conf-unix-mode))
 
 
 ;; vimrc-mode

@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
+(require 'req-package)
 (require 'dired)
 
 (defun toggle-maximize ()

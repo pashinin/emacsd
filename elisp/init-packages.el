@@ -83,6 +83,7 @@
 ;;(when (require 'auto-install nil 'noerror)
 ;;  (setq auto-install-directory "~/.emacs.d/auto-install/"))
 
+;;(req-package epl)
 
 ;; Compile all changed .el files
 (req-package auto-compile

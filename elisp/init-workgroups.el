@@ -139,7 +139,6 @@
  wg-mode-line-use-faces t           ; colorize mode line
  wg-use-faces t                     ; colorize messages
  ;;wg-restore-associated-buffers nil
- wg-fill-next-buffers t
  wg-emacs-exit-save-behavior           nil
  wg-workgroups-mode-exit-save-behavior nil
  wg-mess-with-buffer-list t

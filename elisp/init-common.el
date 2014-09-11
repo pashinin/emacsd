@@ -11,10 +11,6 @@
 (savehist-mode 1)
 
 
-(req-package init-os-misc
-  :commands my-restart-emacs
-  :bind ("<s-pause>" . my-restart-emacs))
-
 (require 'init-common-windows)     ; change some variables for fucking Windows
 
 
@@ -46,6 +42,11 @@
 (setq linum-format "%4d")
 (global-linum-mode 0)
 ;;(global-linum-mode 1)       ;; slow down org-mode
+(req-package nlinum
+  :init
+  (progn
+    (global-nlinum-mode 0)
+    (setq nlinum-format "%d ")))
 
 ;; some settings
 (setq inhibit-startup-message t)        ; Prevent the startup message
@@ -349,6 +350,11 @@
 
 (electric-pair-mode 1)
 
+(req-package undo-tree
+  :commands global-undo-tree-mode
+  :init
+  (global-undo-tree-mode 1))
+
 (require 'ace-jump-mode)
 (autoload
   'ace-jump-mode
@@ -379,6 +385,17 @@
                                   cl-functions
                                   interactive-only
                                   ))
+
+(req-package init-os-misc
+  :commands my-restart-emacs
+  :bind ("<s-pause>" . my-restart-emacs))
+
+(require 'ert)
+
+
+(req-package dash
+  :init
+  (dash-enable-font-lock))
 
 (provide 'init-common)
 ;;; init-common.el ends here

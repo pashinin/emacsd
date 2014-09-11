@@ -75,23 +75,6 @@
 ))
 
 
-
-
-
-
-;; Enable autocomplete in scss-mode
-;;(req-package auto-complete-config
-;;  :commands ac-complete
-;;  :config
-;;  (if (boundp 'ac-modes)
-;;      (add-to-list 'ac-modes 'scss-mode)))
-
-(req-package init-smarttabs
-  :config
-  ;; scss indent is based on `css-mode'
-  (add-hook 'css-mode-hook    'myHtmlStyle))
-
-
 (req-package helm-css-scss
   :require helm
   :init
@@ -109,10 +92,8 @@
        $hook (lambda ()
                (local-set-key (kbd "s-i") 'helm-css-scss)
                (local-set-key (kbd "s-I") 'helm-css-scss-back-to-last-point))))
-
     ;;(define-key isearch-mode-map (kbd "s-i") 'helm-css-scss-from-isearch)
     ;;(define-key helm-css-scss-map (kbd "s-i") 'helm-css-scss-multi-from-helm-css-scss)
-
     ))
 
 
