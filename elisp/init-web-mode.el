@@ -29,8 +29,8 @@
 (add-hook 'web-mode-hook 'whitespace-turn-off)
 (add-hook 'web-mode-hook (lambda () (whitespace-mode -1)))
 
-(setq web-mode-markup-indent-offset 2)
-(setq web-mode-code-indent-offset   2)    ; indentation for js, Java, PHP, etc.
+(setq web-mode-markup-indent-offset 4)
+(setq web-mode-code-indent-offset   4)    ; indentation for js, Java, PHP, etc.
 ;;(setq web-mode-disable-autocompletion t)
 
 (defun jump-tag-end ()
@@ -45,7 +45,7 @@
 (define-key web-mode-map (kbd "<C-up>")   'jump-tag-begin)
 
 
-(when (require 'init-smarttabs nil 'noerror)
+(when (require 'init-tab nil 'noerror)
   (add-hook 'html-mode-hook   'myHtmlStyle)
   (add-hook 'nxhtml-mode-hook 'myHtmlStyle)
   (add-hook 'nxml-mode        'myHtmlStyle)

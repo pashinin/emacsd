@@ -32,3 +32,6 @@ nohup.out
 /ede-projects.el
 .edbi-ds-history
 recentf
+/.cask/
+/.python-environments/
+/test

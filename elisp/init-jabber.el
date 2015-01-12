@@ -3,15 +3,9 @@
 ;; Get it here:
 ;; 1. http://emacs-jabber.sourceforge.net/
 ;; 2. git://git.code.sf.net/p/emacs-jabber/git
-
 ;;; Code:
 
-;; Jabber
-;;(require 'hexrgb)     ; dependency
-;;;(add-to-list 'load-path "~/.emacs.d/elisp/extensions/jabber-0.8.92")
-;;;(add-to-list 'load-path "~/.emacs.d/elisp/extensions/emacs-jabber")
-;;(require 'jabber-autoloads)     ; For 0.7.90 and above
-;;(load-file "~/.emacs_files/jabberaccs.el")
+(require 'req-package)
 (req-package jabber
   :bind ("C-M-s-j" . jabber-connect-all)
   :config

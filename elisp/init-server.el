@@ -29,7 +29,8 @@
       (setq start (= (shell-command (concat "icacls " d " /setowner " (user-login-name) " /T /C"))
                      0))
       ))
-  (if start (unless (server-running-p) (server-start))))
+  ;;(if start (unless (server-running-p) (server-start)))
+  )
 
 (provide 'init-server)
 ;;; init-server.el ends here

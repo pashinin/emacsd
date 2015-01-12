@@ -3,7 +3,6 @@
 ;;; Code:
 
 ;; Ido mode with fuzzy matching
-;;(require 'ido)
 (require 'req-package)
 (require 'ido)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching

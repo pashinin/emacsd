@@ -222,5 +222,8 @@ That ends with .jpg or .png."
                            (server-password . "pass")))))
 
 
+(req-package twittering-mode)
+
+
 (provide 'init-os-misc)
 ;;; init-os-misc.el ends here

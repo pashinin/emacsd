@@ -1,6 +1,11 @@
 ;;; init-irc --- IRC config
 ;;; Commentary:
-;; erc-services ?
+;;
+;; Consider these IRC clients: Weechat, Irssi
+;; http://www.reddit.com/r/linux/comments/1ade43/good_irc_client/
+;;
+;; Register new nickname:
+;;
 ;;; Code:
 
 (require 'erc)

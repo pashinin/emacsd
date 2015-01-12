@@ -60,7 +60,7 @@
       )
 
     (add-hook 'dired-mode-hook 'my-dired-options-enable)
-    (define-key dired-mode-map (kbd "s-r") 'dired-point-to-random-file)
+    (define-key dired-mode-map (kbd "M-r") 'dired-point-to-random-file)
     ))
 (req-package dired-extension)
 (req-package dired-x          ; omitting files possibility
@@ -81,6 +81,7 @@ Rename into the same dir or to the dir of other dired-window."
 
 (req-package dired-details
   :commands dired-details-hide)
+(setq-default dired-details-hidden-string "---")
 (if (eq system-type 'windows-nt)
     (req-package dired-details+))         ; for Windows
 ;;(req-package dired+)
@@ -89,6 +90,15 @@ Rename into the same dir or to the dir of other dired-window."
 (req-package init-dired-marks)
 (req-package init-image-dired)
 (req-package init-dired-z)
+
+
+;; Reload dired after making changes
+(--each '(dired-do-rename
+          dired-do-copy
+          dired-create-directory
+          wdired-abort-changes)
+  (eval `(defadvice ,it (after revert-buffer activate)
+           (revert-buffer))))
 
 
 ;;
@@ -142,6 +152,17 @@ Rename into the same dir or to the dir of other dired-window."
     (mydired-sort)))
 
 (require 'dired-async)
+
+;;(req-package dirtree)
+
+;;(req-package direx-grep)
+
+;;(req-package direx)
+;;(require 'direx)
+
+;; http://ranger.nongnu.org/
+(req-package direx-ranger)
+
 
 (provide 'init-dired)
 ;;; init-dired.el ends here

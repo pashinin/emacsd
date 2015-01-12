@@ -11,19 +11,15 @@
 
 (require 'req-package)
 
+;; A way to reload current tab in Firefox on css change: `moz-minor-mode'
 (req-package css-mode
   :require init-browser
   :bind ("s-r" . firefox-reload)
-  :config
-  (add-hook 'css-mode-hook 'moz-minor-mode-enable))
+  ;;:config
+  ;;(add-hook 'css-mode-hook 'moz-minor-mode-enable)
+  )
 
-;;(req-package init-firefox
-;;  :commands firefox-reload
-;;  :init
-;;  (define-key css-mode-map (kbd "s-r") 'firefox-reload))
-
-
-(req-package scss-mode
+(req-package sass-mode
   ;;(require 'flymake-sass)
   :require s
   ;;:bind ("s-r" . my-scss-compile-file)
@@ -62,15 +58,15 @@
 
     (defun sass/scss-save-hook()
       "My function on saving sass/scss."
-      (when (eq major-mode 'scss-mode)
-        (let ((s (buffer-substring-no-properties (point-min) (+ (point-min) 10))))
-          (with-temp-message s
-            (when (or (string= s "// compile")
-                      (s-starts-with? "_" (buffer-name)))
-              (my-scss-compile-file))
-            (firefox-reload)))))
+      ;;(when (eq major-mode 'scss-mode)
+      ;;  (let ((s (buffer-substring-no-properties (point-min) (+ (point-min) 10))))
+      ;;    (with-temp-message s
+      ;;      (when (or (string= s "// compile")
+      ;;                (s-starts-with? "_" (buffer-name)))
+      ;;        (my-scss-compile-file))
+      ;;      (firefox-reload))))
+      )
     (add-hook 'after-save-hook 'sass/scss-save-hook)
-
     ;;(define-key scss-mode-map (kbd "s-r") 'my-scss-compile-file)
 ))
 

@@ -36,5 +36,10 @@
   (("C-c C-g" . helm-ls-git-ls)
    ("s-]" . helm-ls-git-ls)))
 
+
+;(req-package helm-git-grep
+;  :init
+;  (global-set-key (kbd "C-c g") 'helm-git-grep))
+
 (provide 'init-git)
 ;;; init-git.el ends here

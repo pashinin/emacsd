@@ -9,6 +9,9 @@
 ;;; Code:
 
 (require 'req-package)
+(require 'eieio)  ; fix https://github.com/emacs-helm/helm/issues/815
+(defun class-slot-initarg (class-name slot)
+  (eieio--class-slot-initarg (eieio--class-v class-name) slot))
 
 ;; Helm - search anything
 ;; To configure colors: M-x customize-group <RET> helm <RET>
@@ -17,8 +20,11 @@
   (progn
     (setq helm-idle-delay 0.1
           helm-input-idle-delay 0.1
+          helm-quick-update t
+          helm-M-x-requires-pattern nil
           helm-ff-transformer-show-only-basename nil     ;; show full path, need for helm-ls-git
-          )
+          helm-ff-skip-boring-files t)
+    ;;(helm-set-sources)
     (global-set-key (kbd "C-x C-b") 'helm-mini)   ; usual Helm
     (global-set-key (kbd "s-[") 'helm-mini)
     (global-set-key (kbd "<S-s-insert>") 'helm-show-kill-ring)
@@ -29,6 +35,7 @@
             ;;(split-window-horizontally)
             ;;(other-window 1)
             (switch-to-buffer buf)))
+    ;;(helm-configuration)
     ))
 
 
@@ -58,6 +65,7 @@
 ;;
 ;; C-S-f3     `helm-for-files'
 ;;
+;;(require 'helm-files)
 (req-package helm-files
   :require helm
   :commands helm-do-grep-1 my-helm-do-grep helm-for-files
@@ -78,6 +86,8 @@
             ;;helm-source-file-cache
             helm-source-files-in-current-dir
             helm-source-locate
+            ;;helm-locate-source
+            ;;(eieio--class-p helm-locate-source)
             )
           helm-locate-command "locate %s -e -A -i %s")
     ))

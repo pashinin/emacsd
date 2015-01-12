@@ -46,6 +46,20 @@ FLAG1 - is to do more fun.  Is set when <C-f5>."
           ;;(do-magic-with-file (buffer-file-name)))
           (do-magic-with-file (file-truename (buffer-file-name))))
 
+         ;; Markdown
+         ;; 1. https://github.com/joeyespo/grip
+         ((eq major-mode 'markdown-mode)
+          (let ((cmd (executable-find "mdown")))
+            (unless cmd
+              (error "Install Github's markdown - https://github.com/joeyespo/grip
+sudo pip install grip")
+              )
+            (let ((markdown-command "mdown"))
+              (shell-command (format "grip %s --export /tmp/md.html" (buffer-file-name)))
+              (browse-url-of-file "/tmp/md.html")
+              ;;(markdown-preview)
+              )))
+
          ;; lisp
          ((eq major-mode 'emacs-lisp-mode)
           (byte-compile-file (buffer-file-name)))

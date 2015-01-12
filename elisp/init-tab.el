@@ -47,8 +47,9 @@
   (smart-tabs-mode-enable)
   (setq indent-tabs-mode t)
   (make-local-variable 'tab-width)
-  (setq tab-width 2)
-  (setq css-indent-offset 2)
+  (setq tab-width 4)
+  ;;(setq css-indent-offset 2)
+  (setq css-indent-offset 4)
   (local-set-key (kbd "RET") 'newline-and-indent))
 
 
@@ -66,7 +67,7 @@
                                           scss-mode       css-mode
                                           ;;c-mode          c++-mode
                                           objc-mode       latex-mode
-                                          plain-tex-mode  js3-mode))
+                                          plain-tex-mode  js3-mode js2-mode))
                 (let ((mark-even-if-inactive transient-mark-mode))
                   (indent-region (region-beginning) (region-end) nil))))))
 
@@ -123,23 +124,22 @@
     (setq yas-wrap-around-region nil
           yas-fallback-behavior 'call-other-command            ; call-other-command nil
           )
-    (setq yas-indent-line nil)
+    (setq yas-indent-line t)
     ;;(yas-global-mode 1)
 
     (req-package hippie-exp
       :init
       (progn
-        (add-to-list 'hippie-expand-try-functions-list
-                     'yas/hippie-try-expand)))
+        ;;(add-to-list 'hippie-expand-try-functions-list 'yas/hippie-try-expand)
+        (setq hippie-expand-try-functions-list
+              '(;;smart-tab
+                yas/hippie-try-expand
+                try-expand-dabbrev
+                try-expand-dabbrev-all-buffers
+                try-expand-dabbrev-from-kill
+                try-complete-file-name
+                try-complete-lisp-symbol))))
 
-    (setq hippie-expand-try-functions-list
-          '(;;smart-tab
-            yas/hippie-try-expand
-            try-expand-dabbrev
-            try-expand-dabbrev-all-buffers
-            try-expand-dabbrev-from-kill
-            try-complete-file-name
-            try-complete-lisp-symbol))
 
     ;;(yas-reload-all)
 
@@ -151,7 +151,7 @@
           (smart-tab)
         (yas-expand)))
 
-    (global-set-key (kbd "TAB") 'my-smart-tab)
+    ;;(global-set-key (kbd "TAB") 'my-smart-tab)
     ))
 
 (yas-global-mode 1)

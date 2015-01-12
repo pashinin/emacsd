@@ -27,9 +27,8 @@
   (wrap-region-global-mode t))                     ; for all buffers
 
 ;; move cursor from buffer to buffer - super + arrows
-(require 'windmove)
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings 's))
+(require 'windmove)  ; part of Emacs
+(windmove-default-keybindings 's)
 
 ;;; Scroll buffer by 1 line - M-f, M-b
 (global-set-key "\M-b" (lambda () (interactive) (scroll-down 1)))
@@ -41,7 +40,7 @@
 (require 'linum)
 (setq linum-format "%4d")
 (global-linum-mode 0)
-;;(global-linum-mode 1)       ;; slow down org-mode
+;;(global-linum-mode 1)       ;; slows down org-mode
 (req-package nlinum
   :init
   (progn
@@ -346,7 +345,10 @@
   (progn
     (smex-initialize)
     (global-set-key (kbd "M-x") 'smex)
-    (global-set-key (kbd "<menu>") 'smex)))
+    (global-set-key (kbd "<menu>") 'smex)
+    (global-set-key (kbd "M-x") 'helm-M-x)
+    (global-set-key (kbd "<menu>") 'helm-M-x)
+    ))
 
 (electric-pair-mode 1)
 
@@ -369,11 +371,11 @@
 ;; sudo add-apt-repository ppa:jerzy-kozera/zeal-ppa
 ;; sudo apt-get update
 ;; sudo apt-get install zeal
-(req-package zeal-at-point
-  :commands zeal-at-point
-  :bind ("<s-f1>" . zeal-at-point)
-  :config
-  (add-to-list 'zeal-at-point-mode-alist '(python-mode . "python")))
+;;(req-package zeal-at-point
+;;  :commands zeal-at-bind
+;;  :point ("<s-f1>" . zeal-at-point)
+;;  :config
+;;  (add-to-list 'zeal-at-point-mode-alist '(python-mode . "python")))
 
 
 (setq byte-compile-warnings '(not nresolved
@@ -396,6 +398,29 @@
 (req-package dash
   :init
   (dash-enable-font-lock))
+
+(req-package evil
+  :init
+  (progn
+    ;;(setq evil-)
+    ))
+
+;; https://github.com/remyferre/comment-dwim-2
+(req-package comment-dwim-2
+  :init
+  (global-set-key (kbd "M-;") 'comment-dwim-2))
+
+(req-package markdown-mode
+  :init
+  (global-set-key (kbd "M-;") 'comment-dwim-2)
+  (define-key markdown-mode-map (kbd "C-b") 'markdown-insert-bold))
+
+(req-package find-file-in-repository
+  :init
+  ;;(global-set-key (kbd "C-x C-f") 'find-file-in-repository)
+  ;;(global-unset-key (kbd "C-x C-f"))
+  (global-set-key (kbd "C-x C-f") 'ido-find-file)
+  )
 
 (provide 'init-common)
 ;;; init-common.el ends here

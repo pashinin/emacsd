@@ -1,7 +1,13 @@
 ;;; init-python --- Python config
 ;;; Commentary:
+;; See:
+;; https://github.com/jorgenschaefer/elpy
+;; http://stackoverflow.com/questions/tagged/emacs-jedi
 ;; https://github.com/jorgenschaefer/elpy/wiki/Configuration
 ;;; Code:
+
+;; pip install rope  # and/or
+;; pip install jedi
 
 (require 'req-package)
 (require 'python)
@@ -126,6 +132,21 @@
 
 (req-package python-django)
 ;;python-django-open-project
+
+;; M-x elpy-config
+(req-package elpy
+  :init
+  (progn
+    ;;(elpy-default-minor-modes)
+    (setq elpy-modules
+          (delete 'elpy-module-highlight-indentation elpy-modules))
+    (elpy-enable)))
+;;(highlight-indentation-mode 0)
+
+;;(req-package jedi-direx
+;;  :require (direx jedi)
+;;  :init
+;;  (define-key python-mode-map "\C-cx" 'jedi-direx:pop-to-buffer))
 
 (provide 'init-python)
 ;;; init-python.el ends here

@@ -11,6 +11,7 @@
 ;;; Code:
 
 ;;(add-to-list 'load-path (concat my-emacs-ext-dir "ecb"))
+(require 'req-package)
 (req-package ecb
   :commands ecb-activate
   :config
@@ -71,9 +72,22 @@
 ;; Enable EDE (Project Management) features
 ;;(global-ede-mode 1)
 
+;; 24.4 fix for (require 'sr-speedbar)
+(defun ad-advised-definition-p (definition)
+  "Return non-nil if DEFINITION was generated from advice information."
+  (if (or (ad-lambda-p definition)
+          (macrop definition)
+          (ad-compiled-p definition))
+      (let ((docstring (ad-docstring definition)))
+        (and (stringp docstring)
+             (get-text-property 0 'dynamic-docstring-function docstring)))))
 ;; speedbar
 ;; http://www.emacswiki.org/emacs/SrSpeedbar
-;;(require 'sr-speedbar)
+(require 'sr-speedbar)
+;;sr-speedbar-toggle
+;;(ad-disable-advice 'delete-other-windows 'around 'sr-speedbar-delete-other-window-advice)
+;;(ad-disable-advice 'delete-window 'before 'sr-speedbar-delete-window-advice)
+;;(unload-feature 'sr-speedbar)
 ;;(setq sr-speedbar-right-side nil)
 ;;(setq speedbar-mode-hook '(lambda ()
 ;;                            (interactive)

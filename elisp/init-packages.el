@@ -87,10 +87,22 @@
 
 ;; Compile all changed .el files
 (req-package auto-compile
-  :config
+  :init
   (progn
     (auto-compile-on-load-mode 1)
     (auto-compile-on-save-mode 1)))
+
+(req-package markdown-mode
+  :config
+  (define-key markdown-mode-map (kbd "RET") 'comment-indent-new-line))
+
+;; https://github.com/immerrr/lua-mode
+(req-package lua-mode
+  :init
+  (progn
+    (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+    (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+    (setq lua-indent-level 4)))
 
 (provide 'init-packages)
 ;;; init-packages.el ends here
