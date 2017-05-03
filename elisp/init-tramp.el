@@ -1,7 +1,7 @@
 ;;; init-tramp --- description
 ;;; Commentary:
 ;;; Code:
-
+(require 'req-package)
 (req-package tramp
   :commands tramp-read-passwd
   :config
@@ -12,6 +12,7 @@
     ;; tramp-verbose 10
     ;; tramp-debug-buffer t)
     ;;(setq debug-on-error t)
+    ;; (setq tramp-debug-buffer t)
 
     (add-to-list 'backup-directory-alist
                  (cons tramp-file-name-regexp nil))
@@ -47,7 +48,6 @@
     ;;(setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>→] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
     ;; TODO: check if current user uses zsh
     ;;(setq tramp-shell-prompt-pattern "^[^$>→]*[#$%>→] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
-
     ))
 
 (provide 'init-tramp)

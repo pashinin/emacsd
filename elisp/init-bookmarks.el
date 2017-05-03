@@ -4,7 +4,6 @@
 
 (require 'init-variables)
 (require 'bm)
-;;(require 'bookmark+-1)
 
 (setq bmkp-last-as-first-bookmark-file (concat my-emacs-files-dir "bookmarks"))
 ;; bookmarks
@@ -18,6 +17,8 @@
 (global-set-key (kbd "<s-return>") 'bm-toggle)
 (global-set-key (kbd "<s-next>")   'bm-next)
 (global-set-key (kbd "<s-prior>")  'bm-previous)
+
+(require 'bookmark+)
 
 (provide 'init-bookmarks)
 ;;; init-bookmarks.el ends here

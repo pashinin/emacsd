@@ -36,7 +36,7 @@ STATUS CODE MSG"
       (if (> (length files) 0) (setq resfile (car files)))
 
       (setq compilation-exit-message-function 'after-compilation)
-      (compile (concat gcc filename " -o " base ".exe " (if resfile resfile)
+      (compile (concat gcc "\"" filename "\"" " -o " base ".exe " (if resfile resfile)
                        ;;" -lcurl -lwsock32 -lidn -lwldap32"
                        ;;" -lssh2 -lrtmp -lcrypto -lz -lws2_32 -lwinmm -lssl"
                        ;;" -lboost_filesystem -lboost_system"
@@ -44,8 +44,8 @@ STATUS CODE MSG"
                        ))
       )
     (when (eq system-type 'gnu/linux)
-      (setq gcc "g++ ")
-      (compile (concat gcc filename " -o " base " "))
+      (setq gcc "g++ -std=c++11 ")
+      (compile (concat gcc "\"" filename "\"" " -o " base " "))
       )
     ))
 

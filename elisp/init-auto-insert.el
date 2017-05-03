@@ -10,6 +10,7 @@
 
 (setq auto-insert-alist '(("\\.sh$" . ["insert.sh" my-auto-update-defaults])
                           ("\\.el$" . ["insert.el" my-auto-update-defaults])
+                          ("models\\.py$" . ["insert-python.py" my-auto-update-defaults])
                           ("\\.py$" . ["insert-python.py" my-auto-update-defaults])
                           ("\\.tex$" . ["insert-tex.tex" my-auto-update-defaults])
                           ))

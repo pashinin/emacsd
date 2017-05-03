@@ -22,7 +22,7 @@
       (local-set-key (kbd "* -")    'my-dired-unmark-all-current-ext)
       (local-set-key (kbd "* 0")    'dired-unmark-all-marks)
       (local-set-key (kbd "* RET")  'my-dired-mark-all)
-      (local-set-key (kbd "s-h")    'dired-omit-mode)
+      (local-set-key (kbd "M-h")    'dired-omit-mode)
 
       (local-set-key (kbd "q")      'dired-jump)
       ;;(if (eq system-type 'windows-nt)
@@ -35,6 +35,8 @@
       (local-set-key (kbd "<kp-6>") 'right-char)
 
       (local-set-key (kbd "Z") 'my-dired-compress)
+
+      ;; (define-key dired-mode-map (kbd "M-<up>") nil)
 
 
       ;; move buffer up/down
@@ -49,18 +51,22 @@
             (concat dired-omit-files "\\|^session\.\\([^.]\\{9,10\\}[^.].+\\)?$"))
       (setq dired-omit-files
             (concat dired-omit-files "\\|^__pycache__$"))
+      (setq dired-omit-files
+            (concat dired-omit-files "\\|,cover$"))
+
       ;;(setq dired-omit-files
       ;;      (concat dired-omit-files "\\|^.+.js$"))
       (setq dired-omit-files
             (concat dired-omit-files "\\|^.+.map$"))
       (dired-omit-mode 1)
-      (if (not (eq system-type 'windows-nt))
-          (if (fboundp 'dired-hide-details-mode)
-              (dired-hide-details-mode)))  ; hide all info, only filenames
+      ;; (if (not (eq system-type 'windows-nt))
+      ;;     (if (fboundp 'dired-hide-details-mode)
+      ;;         (dired-hide-details-mode)))  ; hide all info, only filenames
       )
 
     (add-hook 'dired-mode-hook 'my-dired-options-enable)
     (define-key dired-mode-map (kbd "M-r") 'dired-point-to-random-file)
+    (define-key dired-mode-map (kbd "<backspace>") 'dired-up-directory)
     ))
 (req-package dired-extension)
 (req-package dired-x          ; omitting files possibility
@@ -89,7 +95,7 @@ Rename into the same dir or to the dir of other dired-window."
 (req-package init-openwith)
 (req-package init-dired-marks)
 (req-package init-image-dired)
-(req-package init-dired-z)
+;(req-package init-dired-z)
 
 
 ;; Reload dired after making changes
@@ -151,7 +157,7 @@ Rename into the same dir or to the dir of other dired-window."
     "Sort dired listings with directories first before adding mark."
     (mydired-sort)))
 
-(require 'dired-async)
+;; (require 'dired-async)
 
 ;;(req-package dirtree)
 
@@ -161,8 +167,6 @@ Rename into the same dir or to the dir of other dired-window."
 ;;(require 'direx)
 
 ;; http://ranger.nongnu.org/
-(req-package direx-ranger)
-
 
 (provide 'init-dired)
 ;;; init-dired.el ends here

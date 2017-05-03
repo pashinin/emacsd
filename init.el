@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+(package-initialize)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -10,9 +12,11 @@
  '(ac-auto-start nil)
  '(ac-trigger-key "TAB")
  '(ac-use-menu-map t)
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "/home/xdev/.emacs.d/bookmarks")
  '(coffee-tab-width 2)
  '(column-number-mode t)
+ '(company-idle-delay 0.1)
+ '(company-minimum-prefix-length 1)
  '(cua-rectangle-mark-key (kbd "<C-S-return>"))
  '(custom-safe-themes
    (quote
@@ -28,12 +32,18 @@
      ("arial" "DejaVu Sans")
      ("verdana" "DejaVu Sans"))))
  '(inhibit-startup-screen t)
+ '(magit-commit-arguments (quote ("--gpg-sign=3C0D84EA2D933E47")))
+ '(markdown-indent-on-enter t)
+ '(package-selected-packages
+   (quote
+    (cmake-mode csharp-mode cargo dockerfile-mode racer toml-mode flycheck-rust rust-mode ac-html helm-ack ag auctex helm-dash god-mode restart-emacs ggtags helm-gtags neotree helm-bm xah-elisp-mode zencoding-mode zenburn-theme zeal-at-point yari yaml-mode wrap-region windsize web-mode w3m w3 volatile-highlights virtualenv twittering-mode sr-speedbar sourcemap soundklaus soundcloud sos sml-mode smex smeargle smart-tabs-mode smart-tab sass-mode sage-shell-mode req-package pyvirtualenv python-django pysmell pymacs puppet-mode pony-mode persp-projectile paxedit openwith notmuch nose nlinum nginx-mode mustache-mode multi-term moz-controller markdown-mode+ magit lua-mode logstash-conf kite json-mode js3-mode js2-refactor jquery-doc jinja2-mode jedi-direx jabber ipython image-dired+ iedit idomenu ido-vertical-mode helm-swoop helm-projectile-all helm-projectile helm-package helm-ls-git helm-git-grep helm-git helm-css-scss helm-ag gitignore-mode github-browse-file geiser fuzzy full-ack frame-cmds flymake-yaml flymake-shell flymake-python-pyflakes flymake-puppet flymake-coffee flycheck find-file-in-repository f expand-region evil esup ess ensime emmet-mode elpy elisp-slime-nav elfeed ecb dirtree dired-ranger dired-narrow dired-filter dired-details+ dart-mode ctags crontab-mode comment-dwim-2 color-theme-sanityinc-solarized color-theme coffee-mode butler buffer-move bookmark+ bm bbdb bash-completion auto-compile apache-mode anaphora ack-and-a-half ack ace-window ace-jump-buffer ac-js2 ac-helm)))
  '(preview-gs-options
    (quote
     ("-q" "-dNOPAUSE" "-DNOPLATFONTS" "-dPrinted" "-dTextAlphaBits=4" "-dGraphicsAlphaBits=4")))
  '(safe-local-variable-values
    (quote
-    ((eval when
+    ((c-noise-macro-with-parens-names "IF_LINT")
+     (eval when
            (and
             (buffer-file-name)
             (file-regular-p
@@ -50,6 +60,7 @@
                (require
                 (quote package-build))))
            (package-build-minor-mode)))))
+ '(send-mail-function nil)
  '(term-default-bg-color "#000000")
  '(term-default-fg-color "#dddd00")
  '(tool-bar-mode nil)
@@ -66,7 +77,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ace-jump-face-foreground ((t (:background "dim gray" :foreground "white"))))
- '(bm-face ((t (:background "dark green" :foreground "gray59"))))
+ '(bm-face ((t (:background "dark slate blue" :foreground "gray59"))))
  '(bold ((t (:weight bold))))
  '(dired-symlink ((t (:inherit font-lock-keyword-face :weight normal))))
  '(ediff-current-diff-C ((t (:background "#888833" :foreground "black"))))
@@ -85,7 +96,7 @@
  '(mode-line-buffer-id ((t (:foreground "coral" :weight bold))))
  '(mode-line-highlight ((t (:foreground "navajo white" :box nil :weight bold))))
  '(mode-line-inactive ((t (:inherit mode-line :background "#073642" :foreground "#586e75" :weight normal))))
- '(org-agenda-date-today ((t (:inherit org-agenda-date :foreground "lawn green" :slant normal :weight bold))) t)
+ '(org-agenda-date-today ((t (:inherit org-agenda-date :foreground "lawn green" :slant normal :weight bold))))
  '(region ((t (foreground: "black" :background "dim gray" :inverse-video t))))
  '(vertical-border ((((type tty)) (:inherit mode-line-inactive))))
  '(web-mode-html-attr-name-face ((t (:foreground "medium sea green"))))
@@ -101,54 +112,54 @@
 
 (setq load-path (cons "~/.emacs.d/elisp" load-path))
 (add-to-list 'load-path "~/.emacs.d/elisp/")
+(add-to-list 'load-path "~/.emacs.d/elisp/extensions/")
 ;;(setq bbdb-file "~/bbdb")    ; "~/.bbdb"
 (require 'init-variables)
 (require 'init-packages)
-(require 'init-colorscheme)
-
-(require 'init-server)
+;(require 'init-server)
 (require 'init-common)
+
+(require 'init-colorscheme)
 ;;(if (eq system-type 'windows-nt) (toggle-fullscreen))
 
 (require 'init-windows-buffers)
-(require 'init-bbdb)
-(require 'init-auto-insert)
+;(require 'init-bbdb)
+;(require 'init-auto-insert)
 (require 'init-org)
-(require 'init-jabber)
+;(require 'init-jabber)
 (require 'init-dired)
-(require 'init-shell)
-(require 'init-emms)
+;(require 'init-shell)
+;(require 'init-emms)
 (require 'init-filemodes)
 
 ;;(when nil ;; (not travis)
-  ;;(when (and (require 'init-gpg nil 'noerror) internet-ok)
-  ;;  (require 'init-irc)
-  ;;  (require 'init-mail-gnus)
-  ;;  ;;(require 'init-mail-wl)
-  ;;  ;; Please set `wl-message-id-domain' to get valid Message-ID string
-  ;;  )
-(require 'init-lisp)
+;; (when (and (require 'init-gpg nil 'noerror))
+;; ;;  (require 'init-irc))
+;;   ;;  (require 'init-mail-gnus)
+;;   ;;  ;;(require 'init-mail-wl)
+;;   ;;  ;; Please set `wl-message-id-domain' to get valid Message-ID string
+;;   )
 
+(require 'init-lisp)
 (require 'init-tramp)
-(require 'init-xiki)
+;(require 'init-xiki)
 (require 'init-git)
-(require 'init-os-misc)          ; "notify" function and so on...
+;(require 'init-os-misc)          ; "notify" function and so on...
 (require 'init-css-sass-scss)
 (require 'init-js-coffee)
 (require 'init-web-mode)
+(require 'init-cpp)
 (require 'init-navigation)
-(require 'init-cedet)
-(require 'init-flycheck)
-
+;(require 'init-cedet)
+;(require 'init-flycheck)
 (require 'init-tex)  ;; loading tex.el before can reset TeX-PDF-mode setting
 ;;;;(req-package auto-complete-yasnippet)
-(require 'init-capture)
+;(require 'init-capture)
 (require 'init-f5)
-(require 'init-scala)
+;(require 'init-scala)
 (require 'init-bookmarks)
 (require 'init-python)
 (require 'init-gettext)
-;;(req-package init-db)
 (require 'init-navigation)        ; move to variables, functions, classes
 (require 'init-search)            ; search text: in buffers, files, dirs
 (require 'init-autocomplete)
@@ -158,11 +169,10 @@
 ;;)
 
 ;;(when (display-graphic-p)
-(require 'init-workgroups nil 'noerror)
+;; (require 'init-workgroups nil 'noerror)
 ;;(req-package init-workgroups)
 ;; (workgroups-mode 0)
 
 (req-package-finish)
-
 (provide 'init)
 ;;; init.el ends here

@@ -2,13 +2,17 @@
 ;;; Commentary:
 ;; Copyright (C) Sergey Pashinin
 ;; Author: Sergey Pashinin <sergey@pashinin.com>
+;;
+;; apt-get install global
+;;
 ;;; Code:
 
-(require 'init-smarttabs)
+;; (require 'init-smarttabs)
 ;;-----------------------------------------------------
 ;; C++
 (require 'cc-vars)
 (require 'cc-mode)
+(require 'my-cpp)
 
 (setq-default c-indent-tabs-mode t     ; Pressing TAB should cause indentation
               c-indent-level 4         ; A TAB is equivilent to four spaces
@@ -39,9 +43,12 @@
   (define-key c-mode-base-map "/" 'self-insert-command)  ;; do not break tabs when comment
   (define-key c-mode-base-map "*" 'self-insert-command)
   (local-set-key (kbd "RET") 'newline-and-indent)
+
   (c-set-offset 'arglist-intro '+)
   (c-toggle-auto-newline 1)
   )
+
+(define-key c-mode-map (kbd "M-s-s") 'helm-gtags-find-tag)
 
 ;;(add-hook 'c-mode-hook        'my-smarttabs-spaces-autoinednt)
 ;;(add-hook 'c++-mode-hook      'my-smarttabs-spaces-autoinednt)

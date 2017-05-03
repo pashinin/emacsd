@@ -8,6 +8,7 @@
 (req-package coffee-mode)
 (req-package my-cpp)
 (req-package my-audio)
+(req-package f)
 
 (defun file-under-path (path &optional filename)
   "Return t if PATH has a FILENAME in any folder under it."
@@ -33,14 +34,37 @@
     (python-shell-send-buffer t))
    ))
 
+(defun git-nothing-to-commit (dir)
+  (let* ((default-directory dir))
+    ;; (call-process "/bin/bash" nil "*scratch*" nil "-c" "echo working dir is $PWD")
+    (string-equal
+     ""
+     (shell-command-to-string
+      "git status | grep -q \"nothing to commit\" || echo -n \"fail\""))
+    ))
+
+(defun git-is-dirty (dir)
+  (not (git-nothing-to-commit dir)))
+
+(defun git-is-modified (filename)
+  (not (git-nothing-to-commit dir)))
+
 (defun do-magic-with-file (&optional filename flag1)
   "Do something useful with a given FILENAME.
 If not given - use current buffer file or file under the cursor.
 FLAG1 - is to do more fun.  Is set when <C-f5>."
   (interactive)
   (if (not filename)
-      (let ((f (buffer-file-name)))
+      (let* ((f (buffer-file-name))
+             (pashinin "/usr/data/local2/src/xdev/src/pashinin/"))
         (cond
+         ((file-under-path pashinin)
+          (if (yes-or-no-p "Publish pashinin.com?")
+              (if (git-nothing-to-commit pashinin)
+                  (message "nothing")
+                (message "pashinin.com is dirty! Commit!"))
+            (message "fu then")))
+
          ;; fundamental
          ((eq major-mode 'fundamental-mode)
           ;;(do-magic-with-file (buffer-file-name)))
@@ -92,7 +116,7 @@ sudo pip install grip")
                 (files (dired-get-marked-files))
                 ext ext1)
             (save-window-excursion
-              ;; TODO: analyze - what is selected
+              ;; TODO: analyze - what is selected in dired-mode
               (cond
                ((and f (= (length files) 1))  ; only 1 file
                 (do-magic-with-file f))
@@ -126,7 +150,24 @@ sudo pip install grip")
           (my-tex-run-tex))
 
          ;; C++
-         ((eq major-mode 'c++-mode) (my-magic-cpp f))
+         ((or (eq major-mode 'c++-mode)
+              (eq major-mode 'c-mode)) (my-magic-cpp f))
+
+         ;; Rust
+         ((or
+           (eq major-mode 'rust-mode)
+           ;; (eq major-mode 'c-mode)
+           )
+
+          (save-window-excursion
+            (compile "cargo build")
+            )
+          ;; (f-traverse-upwards
+          ;;  (lambda (path)
+          ;;    (f-exists? (f-expand ".git" path)))
+          ;;  (f-dirname f))
+          ;; (message "asd")
+          )
 
          ;; Python
          ((eq major-mode 'python-mode) (my-magic-python f))
@@ -148,20 +189,36 @@ sudo pip install grip")
               (save-excursion
                 (forward-line 1)
                 (emms-insert-file resfile)
-              ))))
+                ))))
+
+         ;; .rst - ReStructured docs
+         ;;
+         ;; Run "make html" to generate documentation
+         ((eq major-mode 'rst-mode)
+          (let* ((d (file-name-directory (expand-file-name (buffer-file-name))))
+                 (makefile (concat d "Makefile")))
+            (if (file-exists-p makefile)
+                (shell-command-to-string (concat "make -C " d " html")))))
 
          ;; - Unknown mode -
          (t (message "Don't know what to do in this mode!"))
          ))
 
-    ;; if filename provided:
+
+    ;; The following part of code executes when this function gets a
+    ;; specific `filename' to work with.
+    ;;
+    ;; But just in case if `filename' is not good enough - take
+    ;; `buffer-file-name'
     (let* ((f (or filename (buffer-file-name)))
-           (ffull (or filename (buffer-file-name)))
+           ;; (ffull (or filename (buffer-file-name)))
            (d (file-name-directory  (expand-file-name f)))
            (ext (downcase (or (file-name-extension f) ""))))
+
       ;; Remove garbage: thumbs.db files
       (if (file-exists-p (concat d "desktop.ini"))
           (shell-command-to-string (concat "rm \"" d "desktop.ini\"")))
+
       (if (file-directory-p f)
           (progn
             ;;(setq ext-regexp (make-regex-of-extensions (list ext)))
@@ -178,40 +235,63 @@ sudo pip install grip")
               (message f))
              )
             )
-        (progn
-          (cond ((or (string= ext "cpp")
-                     (string= ext "c")) (my-magic-cpp f))
-                ((is-archive-ext f)     (message "archive"))
-                ((string= ext "iso")    (mount-iso f))
-                ((string= ext "rc")     (my-magic-rc-file f))
-                ((string= ext "el")     (byte-compile-file f))
-                ((string= ext "sh")
-                 ;;(byte-compile-file f)
-                 (capture-run-daemonized-command-no-buf
-                  (concat "gnome-terminal --geometry=125x35+575+222 "
-                          "--working-directory=" d))
-                 ;;(message d)
-                 )
 
-                ;; mp3 TODO:
-                ;; if filename contains backtick - error happens
-                ((or (string= ext "mp3")
-                     (string= ext "m4a")) (convert-mp3-ogg f))
-                ((or (string= ext "doc")
-                     (string= ext "docx"))
-                 (libreoffice-convert f "odt"))
-                (t
-                 (cond
-                  ((file-under-path "~/.emacs.d/snippets")
-                   (message "Reloading Emacs snippets...")
-                   (yas-reload-all))
-                  ((string= "reload" f)
-                   (message "Reloading...")
-                   (if (file-exists-p "reload")
-                       (shell-command "touch reload")))
-                  (t
-                   (message (concat "Don't know what to do with this file(s): " ext)))
-                  ))))))))
+        ;; At this step we know that "f" variable is not a directory
+        (progn
+
+          (cond
+           ;; if .cpp or .c - compile it with `my-magic-cpp'
+           ((or (string= ext "cpp")
+                (string= ext "c")) (my-magic-cpp f))
+
+           ;; (7z, zip, rar) - as defined in `is-archive-ext'
+           ((is-archive-ext f)     (message "archive"))
+
+           ((string= ext "iso")    (mount-iso f))
+           ((string= ext "rc")     (my-magic-rc-file f))
+           ((string= ext "el")     (byte-compile-file f))
+
+           ;; .sh
+           ((string= ext "sh")
+            ;;(byte-compile-file f)
+            (capture-run-daemonized-command-no-buf
+             (concat "gnome-terminal --geometry=125x35+575+222 "
+                     "--working-directory=" d))
+            ;;(message d)
+            )
+
+           ;; mp3 TODO:
+           ;; if filename contains backtick - error happens
+           ((or (string= ext "mp3")
+                (string= ext "m4a")) (convert-mp3-ogg f))
+           ((or (string= ext "doc")
+                (string= ext "docx"))
+            (libreoffice-convert f "odt"))
+
+           ;; Makefile
+           ((string= f "Makefile")
+            (message "makefile stuff")
+            )
+
+           ;; ((or (string= ext "")
+           ;;      (string= ext "m4a")) (convert-mp3-ogg f))
+           ;; (shell-command (concat "make -C " d " html")))))
+
+           (t
+            (cond
+             ((file-under-path "~/.emacs.d/snippets")
+              (message "Reloading Emacs snippets...")
+              (yas-reload-all))
+             ((string= "reload" f)
+              (message "Reloading...")
+              (if (file-exists-p "reload")
+                  (shell-command "touch reload")))
+             (t
+              (message (concat
+                        "Don't know what to do with this file(s): "
+                        f
+                        ext)))
+             ))))))))
 ;;(mapconcat nil '("" "home" "alex " "elisp" "erc") "/")
 
 (defun do-magic-current-dir (&optional dir recursive child)

@@ -86,7 +86,6 @@
             ;;helm-source-file-cache
             helm-source-files-in-current-dir
             helm-source-locate
-            ;;helm-locate-source
             ;;(eieio--class-p helm-locate-source)
             )
           helm-locate-command "locate %s -e -A -i %s")

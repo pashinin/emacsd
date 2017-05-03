@@ -30,10 +30,14 @@
         w32-rwindow-modifier 'super ; Right Windows key
         w32-apps-modifier 'nil)     ; Menu key
 
-  (global-set-key (kbd "C-<up>")    'windmove-up)
-  (global-set-key (kbd "C-<left>")  'windmove-left)
-  (global-set-key (kbd "C-<down>")  'windmove-down)
-  (global-set-key (kbd "C-<right>") 'windmove-right)
+  (global-set-key (kbd "s-<up>")    'windmove-up)
+  (global-set-key (kbd "s-<left>")  'windmove-left)
+  (global-set-key (kbd "s-<down>")  'windmove-down)
+  (global-set-key (kbd "s-<right>") 'windmove-right)
+  ;; (global-set-key (kbd "C-<up>")    'windmove-up)
+  ;; (global-set-key (kbd "C-<left>")  'windmove-left)
+  ;; (global-set-key (kbd "C-<down>")  'windmove-down)
+  ;; (global-set-key (kbd "C-<right>") 'windmove-right)
   (global-set-key (kbd "<apps>") (lookup-key global-map (kbd "M-x")))
 
   (setq coding-system-for-read 'cp1251)

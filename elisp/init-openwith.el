@@ -29,7 +29,7 @@
             "deadbeef" '(file))
       (list (openwith-make-extension-regexp
              '("mpeg" "avi" "wmv" "flv" "mkv" "ts" "mp4" "webm" "ogv" "m4v" "pls" "vob" "mov"))
-            "vlc" '(file))
+            "mpv" '(file))
       (list (openwith-make-extension-regexp
              '("jpg" "jpeg" "png" "gif" "jpeg" "bmp"))
             "shotwell" '(file))))
@@ -63,7 +63,7 @@
                 (let ((process-connection-type nil))
                   (start-process "" nil "open" fPath)))  myFileList))
        ((eq system-type 'gnu/linux)
-        (openwith-open-unix "vlc" myFileList)
+        (openwith-open-unix "mpv" myFileList)
         )))))
 
 (defun my-dired-smart-open ()

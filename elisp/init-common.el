@@ -29,6 +29,7 @@
 ;; move cursor from buffer to buffer - super + arrows
 (require 'windmove)  ; part of Emacs
 (windmove-default-keybindings 's)
+;; (windmove-default-keybindings 'M)
 
 ;;; Scroll buffer by 1 line - M-f, M-b
 (global-set-key "\M-b" (lambda () (interactive) (scroll-down 1)))
@@ -357,12 +358,12 @@
   :init
   (global-undo-tree-mode 1))
 
-(require 'ace-jump-mode)
-(autoload
-  'ace-jump-mode
-  "ace-jump-mode"
-  "Emacs quick move minor mode"
-  t)
+;(require 'ace-jump-mode)
+;(autoload
+;  'ace-jump-mode
+;  "ace-jump-mode"
+;  "Emacs quick move minor mode"
+;  t)
 ;;(define-key global-map (kbd "C-s") 'isearch-forward)
 ;;(define-key global-map (kbd "C-S-s") 'ace-jump-mode)
 ;; isearch-forward
@@ -411,9 +412,10 @@
   (global-set-key (kbd "M-;") 'comment-dwim-2))
 
 (req-package markdown-mode
-  :init
+  :config
   (global-set-key (kbd "M-;") 'comment-dwim-2)
-  (define-key markdown-mode-map (kbd "C-b") 'markdown-insert-bold))
+  (define-key markdown-mode-map (kbd "C-b") 'markdown-insert-bold)
+  (define-key markdown-mode-map (kbd "RET") 'newline-and-indent))
 
 (req-package find-file-in-repository
   :init
@@ -421,6 +423,16 @@
   ;;(global-unset-key (kbd "C-x C-f"))
   (global-set-key (kbd "C-x C-f") 'ido-find-file)
   )
+
+(add-hook 'cfengine3-mode-hook (lambda ()
+                                 (interactive)
+                                 (flycheck-mode -1)))
+
+(setq helm-dash-docsets-path "/usr/data/local2/.docsets")
+;; (setq helm-dash-docsets)
+
+
+(add-hook 'rust-mode-hook 'cargo-minor-mode)
 
 (provide 'init-common)
 ;;; init-common.el ends here

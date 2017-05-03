@@ -4,6 +4,7 @@
 ;; Mailing list: https://lists.gnu.org/mailman/listinfo/emacs-orgmode
 ;;; Code:
 
+(require 'req-package)
 (req-package init-variables)
 (req-package org
   :commands org-mode
@@ -13,16 +14,16 @@
     ;; org files directory:
     (setq org-directory (if (eq system-type 'windows-nt)
                             "//SERVER/disk_3/MY/ORG"  ;; on Windows
-                          "/usr/data/disk_3/MY/org"))
+                          "~/org/"))
     (setq org-log-done t
           org-support-shift-select  t  ; select with "shift + arrows"
           )
     (setq org-agenda-files
           (list
-           (concat org-directory "/work.org")
-           (concat org-directory "/my.org")
-           (concat org-directory "/site.org")
-           (concat org-directory "/coursera.org")))
+           (concat org-directory "work.org")
+           (concat org-directory "my.org")
+           ;; (concat org-directory "/site.org")
+           (concat org-directory "coursera.org")))
     (setq org-default-notes-file (concat org-directory "/notes.org"))
 
     (setq org-todo-keyword-faces

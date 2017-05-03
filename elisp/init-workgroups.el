@@ -5,8 +5,9 @@
 (require 'init-variables)
 ;; (update-file-autoloads (concat my-emacs-ext-dir "workgroups2/src/workgroups2.el"))
 (add-to-list 'load-path (concat my-emacs-ext-dir "workgroups2/src"))
+(add-to-list 'load-path (concat my-emacs-ext-dir "workgroups2/tests"))
 ;;(update-directory-autoloads (concat my-emacs-ext-dir "workgroups2/src"))
-
+(require 'ert-my-utils)
 ;; (desktop-save-mode 1)   ; may have issues with workgroups
 
 ;; TEST
@@ -25,6 +26,8 @@
         ;;window
         ;;process
         ))
+
+;;(delq 'wg-serialize-speedbar-buffer wg-special-buffer-serdes-functions)
 
 (setq wg-pickel-object-serializers
       '((integer    . identity)
@@ -135,13 +138,16 @@
  wg-mode-line-decor-left-brace "["
  wg-mode-line-decor-right-brace "]"
  wg-mode-line-only-name t           ; show only current WG name
- wg-display-nowg nil                ; if no workgroups - display nothing
+ wg-display-nowg t                ; if no workgroups - display nothing
  wg-mode-line-use-faces t           ; colorize mode line
  wg-use-faces t                     ; colorize messages
+ ;;wg-mode-line-only-name nil
  ;;wg-restore-associated-buffers nil
+
+ wg-flag-modified nil
  wg-emacs-exit-save-behavior           nil
  wg-workgroups-mode-exit-save-behavior nil
- wg-mess-with-buffer-list t
+ wg-mess-with-buffer-list nil
  )
 ;; (window-next-buffers (selected-window))
 ;; next-buffer
@@ -185,10 +191,19 @@
 (defun set-my-frame-title (frame)
   "Set FRAME title format."
   (interactive)
-  (setq frame-title-format '("" "%b - Emacs " emacs-version)))
+  (setq frame-title-format '("" "%b - Emacs " emacs-version))
+
+  ;; sudo apt-get install ttf-anonymous-pro
+  ;;(set-frame-font "Anonymous pro-12")
+  ;;(set-frame-font "Ubuntu mono-12")
+  ;;(set-frame-font "LiberationMono-11")
+  ;;(set-frame-font "Inconsolata")
+  ;;(set-frame-font "DejaVu Sans Mono")
+  ;;(set-frame-parameter frame 'font "Monospace-11")
+  )
 
 (add-hook 'after-make-frame-functions 'set-my-frame-title)
-(workgroups-mode 1)
+;; (workgroups-mode 1)
 
 
 

@@ -20,11 +20,11 @@
 (add-hook 'ido-setup-hook 'my-ido-setup-hook)
 (ido-mode 1)
 
-(req-package ido-vertical-mode
-  :require ido
-  :config
-  (progn
-    (ido-vertical-mode 1)))
+;(req-package ido-vertical-mode
+;  :require ido
+;  :config
+;  (progn
+;    (ido-vertical-mode 0)))
 
 
 

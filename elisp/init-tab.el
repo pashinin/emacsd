@@ -12,14 +12,40 @@
 (setq-default indent-tabs-mode nil)  ; spaces are better
 (setq-default tab-width 4)
 
-(req-package smart-tab
-  :bind ("TAB" . smart-tab)
-  :config
-  (progn
-    (setq smart-tab-using-hippie-expand t)
-    (global-smart-tab-mode t)
-    (setq smart-tab-using-hippie-expand t)))
+;; (req-package smart-tab
+;;   :bind ("TAB" . smart-tab)
+;;   :config
+;;   (progn
+;;     (setq smart-tab-using-hippie-expand t)
+;;     ;; (add-to-list 'smart-tab-disabled-major-modes 'markdown-mode)
+;;     (global-smart-tab-mode t)
+;;     ;; (delete 'markdown-mode 'smart-tab-disabled-major-modes)
+;;     (setq smart-tab-using-hippie-expand t)))
 
+(defun markdown-indent-line ()
+  "Indent the current line using some heuristics.
+If the _previous_ command was either `markdown-enter-key' or
+`markdown-cycle', then we should cycle to the next
+reasonable indentation position.  Otherwise, we could have been
+called directly by `markdown-enter-key', by an initial call of
+`markdown-cycle', or indirectly by `auto-fill-mode'.  In
+these cases, indent to the default position.
+Positions are calculated by `markdown-calc-indents'."
+  (interactive)
+  (let ((positions (markdown-calc-indents))
+        (cur-pos (current-column)))
+    (if (equal this-command 'newline-and-indent)
+        (progn
+          (indent-line-to (markdown-cur-line-indent))
+          ;; (indent-line-to 4)
+          )
+      (if (not (equal this-command 'markdown-cycle))
+          (indent-line-to (car positions))
+        (setq positions (sort (delete-dups positions) '<))
+        (indent-line-to
+         (markdown-indent-find-next-position cur-pos positions))))))
+
+;; (markdown-indent-find-next-position (current-column) (markdown-calc-indents))
 ;; Exceptions:
 ;;(add-to-list 'smart-tab-disabled-major-modes 'shell-mode)
 ;;(add-to-list 'smart-tab-disabled-major-modes 'eshell-mode)
@@ -51,6 +77,7 @@
   ;;(setq css-indent-offset 2)
   (setq css-indent-offset 4)
   (local-set-key (kbd "RET") 'newline-and-indent))
+
 
 
 (add-hook 'css-mode-hook    'myHtmlStyle)

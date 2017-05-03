@@ -33,8 +33,8 @@ The regexp should not contain a starting \"\\`\" or a trailing
   (interactive)
   (if (eq system-type 'windows-nt)
 	nil
-	(or (= 0 (call-process "curl" nil nil nil "--connect-timeout" "2" "-f" "facebook.com"))
-      (= 0 (call-process "curl" nil nil nil "--connect-timeout" "2" "-f" "google.com")))))
+	(or (= 0 (call-process "curl" nil nil nil "--connect-timeout" "1" "-f" "facebook.com"))
+      (= 0 (call-process "curl" nil nil nil "--connect-timeout" "1" "-f" "google.com")))))
 ;; (have-internet)
 
 (defcustom internet-ok nil

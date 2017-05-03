@@ -1,7 +1,7 @@
 ;;; init-packages --- Packages system for Emacs 24
 ;;; Commentary:
 ;;; Code:
-;;
+
 (require 'init-variables)
 
 (require 'package)
@@ -9,36 +9,11 @@
                          ;;("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa"     . "http://melpa.milkbox.net/packages/")))
 ;;(setq package-load-list '((org nil) all))  ; do not load ORG-mode
-;;(when (display-graphic-p)
-;;(setq package-load-list '((color-theme-sanityinc-solarized nil) all))
-;; loads all packages, or those defined in "package-load-list" variable
 (package-initialize)
-;;)
 
 ;; auto install Melpa packages
 (defvar my-packages)
 (setq my-packages '(req-package))
-;;  '(ack-and-a-half ack apache-mode async auto-compile auto-complete auctex
-;;                   bash-completion bm bookmark+ buffer-move bbdb
-;;                   color-theme ctags crontab-mode color-theme-sanityinc-solarized
-;;                   dash dired-details dired-details+
-;;                   emmet-mode emms expand-region
-;;                   frame-fns frame-cmds flycheck flymake full-ack
-;;                   gitignore-mode
-;;                   helm helm-git helm-projectile
-;;                   image-dired+
-;;                   jedi js2-mode js3-mode
-;;                   magit markdown-mode markdown-mode+ multi-term multiple-cursors
-;;                   nginx-mode
-;;                   openwith org
-;;                   projectile pymacs pysmell pyvirtualenv paredit projectile pony-mode
-;;                   req-package use-package
-;;                   s skewer-mode smart-tab smart-tabs-mode smex
-;;                   volatile-highlights
-;;                   web-mode wrap-region windsize
-;;                   yaml-mode yari yasnippet
-;;                   zenburn-theme)
-;;  "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()
   (loop for p in my-packages
@@ -86,23 +61,19 @@
 ;;(req-package epl)
 
 ;; Compile all changed .el files
-(req-package auto-compile
-  :init
-  (progn
-    (auto-compile-on-load-mode 1)
-    (auto-compile-on-save-mode 1)))
+;(require 'auto-compile)
+;(auto-compile-on-load-mode 1)
+;(auto-compile-on-save-mode 1)
 
-(req-package markdown-mode
-  :config
-  (define-key markdown-mode-map (kbd "RET") 'comment-indent-new-line))
+;(require 'markdown-mode)
+;(define-key markdown-mode-map (kbd "RET") 'comment-indent-new-line)
 
+;; Emacs major mode for editing Lua
 ;; https://github.com/immerrr/lua-mode
-(req-package lua-mode
-  :init
-  (progn
-    (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
-    (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
-    (setq lua-indent-level 4)))
+;(require 'lua-mode)
+;(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+;(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+;(setq lua-indent-level 4)
 
 (provide 'init-packages)
 ;;; init-packages.el ends here

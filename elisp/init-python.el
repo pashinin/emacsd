@@ -135,7 +135,7 @@
 
 ;; M-x elpy-config
 (req-package elpy
-  :init
+  :config  ;; TODO: try init
   (progn
     ;;(elpy-default-minor-modes)
     (setq elpy-modules
