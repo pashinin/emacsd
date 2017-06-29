@@ -17,8 +17,10 @@
 (setq magit-auto-revert-mode nil)
 (req-package magit
   :bind ("C-s-g" . magit-status)
+  :config (if nil (add-to-list 'magit-commit-arguments "--gpg-sign=3C0D84EA2D933E47"))
   :init
   (progn
+    ;; TODO: check if key is in system
     (setq
      magit-push-always-verify    nil
      magit-auto-revert-mode      nil

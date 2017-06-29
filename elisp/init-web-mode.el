@@ -9,14 +9,19 @@
 
 ;; emmet-mode
 ;; Just write something like "a.x>span" and press C-<RET>
-(require 'emmet-mode)
+(req-package emmet-mode
+:init
+(progn
 (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
 (add-hook 'html-mode-hook 'emmet-mode)
 (add-hook 'web-mode-hook  'emmet-mode)
+))
 
-(require 'web-mode)
+(req-package web-mode
+:init
+(progn
 (add-hook 'web-mode-hook 'moz-minor-mode-enable)
-(define-key web-mode-map (kbd "s-r") 'firefox-reload)
+;;(define-key web-mode-map (kbd "s-r") 'firefox-reload)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsp\\'"       . web-mode))
@@ -29,9 +34,12 @@
 (add-hook 'web-mode-hook 'whitespace-turn-off)
 (add-hook 'web-mode-hook (lambda () (whitespace-mode -1)))
 
+
 (setq web-mode-markup-indent-offset 4)
 (setq web-mode-code-indent-offset   4)    ; indentation for js, Java, PHP, etc.
 ;;(setq web-mode-disable-autocompletion t)
+
+
 
 (defun jump-tag-end ()
   (interactive)
@@ -41,9 +49,9 @@
   (interactive)
   (web-mode-element-beginning)
   (forward-char 2))
-(define-key web-mode-map (kbd "<C-down>") 'jump-tag-end)
-(define-key web-mode-map (kbd "<C-up>")   'jump-tag-begin)
-
+;;(define-key web-mode-map (kbd "<C-down>") 'jump-tag-end)
+;;(define-key web-mode-map (kbd "<C-up>")   'jump-tag-begin)
+))
 
 (when (require 'init-tab nil 'noerror)
   (add-hook 'html-mode-hook   'myHtmlStyle)

@@ -80,7 +80,7 @@
 ;;
 ;; Coffee
 ;;
-(require 'flymake-coffee)
+;;(require 'flymake-coffee)
 ;;(require 'flymake-coffeelint)
 
 (req-package coffee-mode

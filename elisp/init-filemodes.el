@@ -2,8 +2,16 @@
 ;;; Commentary:
 ;;; Code:
 
-(require 'nginx-mode)
-(require 'crontab-mode)
+(req-package nginx-mode
+  :init
+  (progn
+(add-to-list 'auto-mode-alist '("/etc/nginx/\.*"             . nginx-mode))
+(add-to-list 'auto-mode-alist '("\\.nginx"                   . nginx-mode))
+    ))
+
+(req-package crontab-mode
+:init
+(add-to-list 'auto-mode-alist '("cron\\(tab\\)?"             . crontab-mode)))
 
 ;; big files
 (defun my-find-file-check-make-large-file-read-only-hook ()
@@ -21,9 +29,6 @@
 
 
 ;; auto-mode-alist
-(add-to-list 'auto-mode-alist '("cron\\(tab\\)?"             . crontab-mode))
-(add-to-list 'auto-mode-alist '("/etc/nginx/\.*"             . nginx-mode))
-(add-to-list 'auto-mode-alist '("\\.nginx"                   . nginx-mode))
 (add-to-list 'auto-mode-alist '("\\.uwsgi"                   . conf-unix-mode))
 (add-to-list 'auto-mode-alist '("requirements\\.txt"         . conf-unix-mode))
 ;; (add-to-list 'auto-mode-alist '("\.*logstsh/conf.d/\.*\\.conf" . logstash-conf-mode))

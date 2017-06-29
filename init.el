@@ -32,7 +32,6 @@
      ("arial" "DejaVu Sans")
      ("verdana" "DejaVu Sans"))))
  '(inhibit-startup-screen t)
- '(magit-commit-arguments (quote ("--gpg-sign=3C0D84EA2D933E47")))
  '(markdown-indent-on-enter t)
  '(package-selected-packages
    (quote

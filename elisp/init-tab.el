@@ -179,9 +179,10 @@ Positions are calculated by `markdown-calc-indents'."
         (yas-expand)))
 
     ;;(global-set-key (kbd "TAB") 'my-smart-tab)
+    (yas-global-mode 1)
     ))
 
-(yas-global-mode 1)
+;;(yas-global-mode 1)
 
 
 (provide 'init-tab)

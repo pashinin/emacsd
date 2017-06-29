@@ -4,7 +4,9 @@
 
 (require 'init-variables)
 (require 'image-dired)
-(require 'image-dired+)
+(req-package image-dired+
+:init
+(progn
 (autoload 'eimp-mode "eimp" "Emacs Image Manipulation Package." t)
 (add-hook 'image-mode-hook 'eimp-mode)
 
@@ -71,6 +73,7 @@
 ;;                    (cons ?o (expand-file-name "/filename"))
 ;;                    (cons ?t image-dired-temp-rotate-image-file))))
 ;;    (message command)))
+))
 
 (provide 'init-image-dired)
 ;;; init-image-dired.el ends here

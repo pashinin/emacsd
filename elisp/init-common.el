@@ -124,8 +124,8 @@
 ;;(global-set-key (kbd "<C-menu>") 'my-insert-shell-output)
 
 
-
-(horizontal-scroll-bar-mode 0)
+(if (fboundp 'horizontal-scroll-bar-mode)
+  (horizontal-scroll-bar-mode 0))
 
 ;; Make buffer names unique
 (require 'uniquify)
