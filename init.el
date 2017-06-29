@@ -12,7 +12,7 @@
  '(ac-auto-start nil)
  '(ac-trigger-key "TAB")
  '(ac-use-menu-map t)
- '(bmkp-last-as-first-bookmark-file "/home/xdev/.emacs.d/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(coffee-tab-width 2)
  '(column-number-mode t)
  '(company-idle-delay 0.1)
@@ -164,7 +164,8 @@
 (require 'init-search)            ; search text: in buffers, files, dirs
 (require 'init-autocomplete)
 (require 'init-tab)               ; TAB key
-(require 'init-yaml)
+;;(require 'init-yaml)
+(require 'init-rust)
 
 ;;)
 
