@@ -2,10 +2,15 @@
 
 (require 'req-package)
 
+(req-package cargo)
+;; (require 'cargo)
 
 (req-package rust-mode
+  ;; :require cargo
   :mode "\\.rs\\'"
-  :config (progn (defun rust-mode-indent-line ()
+  :config (progn
+            ;; (add-hook 'rust-mode-hook 'cargo-minor-mode)
+            (defun rust-mode-indent-line ()
              (interactive)
              (let ((indent
                     (save-excursion

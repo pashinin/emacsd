@@ -432,7 +432,5 @@
 ;; (setq helm-dash-docsets)
 
 
-(add-hook 'rust-mode-hook 'cargo-minor-mode)
-
 (provide 'init-common)
 ;;; init-common.el ends here
