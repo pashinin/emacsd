@@ -2,12 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-
-(add-hook 'yaml-mode-hook
-          '(lambda ()
-             (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+(require 'req-package)
 
 ;;yaml-indent-line
 (defun yaml-indent-line ()
@@ -30,6 +25,19 @@ back-dent the line by `yaml-indent-offset' spaces.  On reaching column
     (if (< (current-column) (current-indentation))
         (forward-to-indentation 0))
     ))
+
+
+(req-package yaml-mode
+init:
+(progn
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+(add-hook 'yaml-mode-hook
+          '(lambda ()
+             (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+
+
+))
 
 (provide 'init-yaml)
 ;;; init-yaml.el ends here

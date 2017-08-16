@@ -124,8 +124,8 @@
 ;;(global-set-key (kbd "<C-menu>") 'my-insert-shell-output)
 
 
-
-(horizontal-scroll-bar-mode 0)
+(if (fboundp 'horizontal-scroll-bar-mode)
+  (horizontal-scroll-bar-mode 0))
 
 ;; Make buffer names unique
 (require 'uniquify)
@@ -431,8 +431,6 @@
 (setq helm-dash-docsets-path "/usr/data/local2/.docsets")
 ;; (setq helm-dash-docsets)
 
-
-(add-hook 'rust-mode-hook 'cargo-minor-mode)
 
 (provide 'init-common)
 ;;; init-common.el ends here

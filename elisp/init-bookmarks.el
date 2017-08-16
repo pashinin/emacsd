@@ -3,7 +3,13 @@
 ;;; Code:
 
 (require 'init-variables)
-(require 'bm)
+(req-package bm
+:init
+(progn
+(global-set-key (kbd "<s-return>") 'bm-toggle)
+(global-set-key (kbd "<s-next>")   'bm-next)
+(global-set-key (kbd "<s-prior>")  'bm-previous)
+))
 
 (setq bmkp-last-as-first-bookmark-file (concat my-emacs-files-dir "bookmarks"))
 ;; bookmarks
@@ -14,11 +20,8 @@
   (switch-to-buffer "*Bookmark List*"))
 (global-set-key (kbd "s-b") 'my-bookmarks-list-same-buffer)
 
-(global-set-key (kbd "<s-return>") 'bm-toggle)
-(global-set-key (kbd "<s-next>")   'bm-next)
-(global-set-key (kbd "<s-prior>")  'bm-previous)
 
-(require 'bookmark+)
+(req-package bookmark+)
 
 (provide 'init-bookmarks)
 ;;; init-bookmarks.el ends here

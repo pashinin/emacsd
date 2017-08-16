@@ -12,9 +12,13 @@
 (require 'init-common)
 (require 'req-package)
 
-;;(req-package company)
-;;(setq company-auto-complete t)
+(req-package company
+:init
+(progn
 (global-company-mode 0)
+))
+;;(setq company-auto-complete t)
+
 
 
 (req-package auto-complete
@@ -31,7 +35,9 @@
      ac-quick-help-delay 0.1
      ;;ac-source-yasnippet nil
      ;;ac-source-yasnippet t
-     ))
+     )
+    (ac-config-default)
+)
   :config
   (progn
     ;;(add-to-list 'ac-dictionary-directories (concat epy-install-dir "elpa-to-submit/auto-complete/dict/"))
@@ -65,7 +71,7 @@
 ;    (global-set-key (kbd "C-:") 'ac-complete-with-helm)
 ;    (define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)))
 
-(ac-config-default)
+
 
 ;;(add-hook 'css-mode-hook
 ;;          (lambda ()
