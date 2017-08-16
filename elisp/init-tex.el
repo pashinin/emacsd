@@ -18,6 +18,8 @@
                                         ; 4th argument - "t" to give
                                         ; user a chance to edit a
                                         ; command
+    (eval-after-load 'latex '(add-to-list 'LaTeX-verbatim-environments "minted"))
+
     (setq-default TeX-master t)
     (setq TeX-PDF-mode t
           TeX-auto-save t
