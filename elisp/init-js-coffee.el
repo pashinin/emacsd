@@ -33,12 +33,29 @@
     ))
 
 ;; js2
+;; https://emacs.stackexchange.com/questions/26949/can-i-turn-off-or-switch-the-syntax-checker-for-js2-mode
 (req-package js2-mode
   :init
   (progn
     (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-    (setq js2-highlight-level 3)
+    (setq
+     js2-highlight-level 3
+     js2-basic-offset 2
+     js2-mode-show-parse-errors nil
+     js2-mode-show-strict-warnings nil
+     )
+
+    (add-hook 'js2-mode-hook
+              (lambda ()
+                (flycheck-mode t)
+                (setq
+                 indent-tabs-mode nil
+                 js2-basic-offset 2
+                 js2-mode-show-parse-errors nil
+                 js2-mode-show-strict-warnings nil)
+                ))
     ))
+
 ;;
 (req-package js2-refactor)
 (req-package ac-js2
@@ -52,8 +69,8 @@
   :init
   (progn
     ;;(add-hook 'js2-mode-hook    'my-smarttabs-tabs-autoinednt)
-    (add-hook 'js3-mode-hook    'myHtmlStyle)
-    (add-hook 'js2-mode-hook    'myHtmlStyle)
+    ;; (add-hook 'js3-mode-hook    'myHtmlStyle)
+    ;; (add-hook 'js2-mode-hook    'myHtmlStyle)
     (add-hook 'coffee-mode-hook 'my-coffee-hook)
     ;;(add-hook 'coffee-mode-hook 'myHtmlStyle)
     ;;(remove-hook 'coffee-mode-hook 'myHtmlStyle)
@@ -61,6 +78,9 @@
     ;;(remove-hook 'coffee-mode-hook 'my-coffee-hook)
     ;;coffee
     ))
+
+;; (require 'indium)
+;; (add-hook 'js-mode-hook #'indium-interaction-mode)
 
 
 ;;(require 'flymake-jslint)
@@ -75,65 +95,6 @@
 
 ;;(req-package swank-js)
 
-
-
-;;
-;; Coffee
-;;
-;;(require 'flymake-coffee)
-;;(require 'flymake-coffeelint)
-
-(req-package coffee-mode
-  :init
-  (add-hook 'coffee-mode-hook 'flymake-coffee-load)
-  :config
-  (progn
-    (setq coffee-tab-width 2
-          coffee-indent-tabs-mode t
-          coffee-args-compile '("-c" "-b")
-      )))
-
-;; hook
-(defun my-coffee-hook ()
-  "Run when in coffee-mode."
-  (interactive)
-  (my-smarttabs-spaces-autoinednt)
-
-  (smart-tabs-mode-enable)
-  (setq coffee-tab-width 2
-        coffee-indent-tabs-mode nil
-        coffee-args-compile '("-c" "-b" "--map")
-        )
-  ;;coffee-compile-file
-  ;;(smart-tabs-advice  coffee-indent-line     coffee-indent-line)
-  ;;(smart-tabs-advice  py-indent-line         py-indent-offset)
-  ;;(smart-tabs-advice  py-newline-and-indent  python-indent-line-1)
-  ;;(smart-tabs-advice  py-indent-region       py-indent-offset)
-  ;;py-indent-offset
-  )
-
-(req-package init-tab
-  :init
-  (progn
-    ;;(add-hook 'js2-mode-hook    'my-smarttabs-tabs-autoinednt)
-    (add-hook 'js3-mode-hook    'myHtmlStyle)
-    (add-hook 'js2-mode-hook    'myHtmlStyle)
-    (add-hook 'coffee-mode-hook 'my-coffee-hook)
-    ;;(add-hook 'coffee-mode-hook 'myHtmlStyle)
-    ;;(remove-hook 'coffee-mode-hook 'myHtmlStyle)
-    ;;(add-hook 'coffee-mode-hook 'my-coffee-hook)
-    ;;(remove-hook 'coffee-mode-hook 'my-coffee-hook)
-    ;;coffee
-  ))
-
-
-(defun coffee-on-save()
-  "My function on saving coffee."
-  (when (eq major-mode 'coffee-mode)
-    ;;(coffee-compile-file)
-    ;;(firefox-reload)
-    ))
-(add-hook 'after-save-hook 'coffee-on-save)
 
 ;; Enable autocomplete in scss-mode
 ;;(req-package init-autocomplete

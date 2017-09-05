@@ -150,7 +150,7 @@
 (require 'init-cpp)
 (require 'init-navigation)
 ;(require 'init-cedet)
-;(require 'init-flycheck)
+(require 'init-flycheck)
 (require 'init-tex)  ;; loading tex.el before can reset TeX-PDF-mode setting
 ;;;;(req-package auto-complete-yasnippet)
 ;(require 'init-capture)

@@ -41,6 +41,7 @@
 (add-to-list 'auto-mode-alist '("\\.tex"             . latex-mode))
 (add-to-list 'auto-mode-alist '("\\.jinja"             . jinja2-mode))
 (add-to-list 'auto-mode-alist '("\\.ts"             . typescript-mode))
+(add-to-list 'auto-mode-alist '("\\.js"             . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.zsh"             . conf-space-mode))
 (add-to-list 'auto-mode-alist '("\\.py\\.sample"             . python-mode))
 (add-to-list 'auto-mode-alist '("\\.py\\.j2"                 . python-mode))

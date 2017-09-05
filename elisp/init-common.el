@@ -172,7 +172,7 @@
 (global-set-key "\C-l" 'goto-line)   ; Goto-line key
 
 ;; lines wrapping
-(setq truncate-lines t)  ;; disable line wrap
+(setq truncate-lines nil)  ;; disable line wrap
 (setq truncate-partial-width-windows t)
 (global-set-key [f12] 'toggle-truncate-lines) ; F12 to toggle line wrap
 
