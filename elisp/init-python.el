@@ -87,12 +87,13 @@
       ad-do-it
       (py-reload-file buf))))
 
-(req-package jedi
-  :init
-  (progn
-    (add-hook 'python-mode-hook 'jedi:setup)
-    (setq jedi:complete-on-dot t)
-    ))
+;; Causes periodic errors and wants to run M-x jedi:install-server
+;; (req-package jedi
+;;   :init
+;;   (progn
+;;     (add-hook 'python-mode-hook 'jedi:setup)
+;;     (setq jedi:complete-on-dot t)
+;;     ))
 
 
 
@@ -143,10 +144,11 @@
     (elpy-enable)))
 ;;(highlight-indentation-mode 0)
 
-;;(req-package jedi-direx
-;;  :require (direx jedi)
-;;  :init
-;;  (define-key python-mode-map "\C-cx" 'jedi-direx:pop-to-buffer))
+
+(defun my/python-mode-hook ()
+  (add-to-list 'company-backends 'company-jedi))
+
+(add-hook 'python-mode-hook 'my/python-mode-hook)
 
 (provide 'init-python)
 ;;; init-python.el ends here

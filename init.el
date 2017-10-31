@@ -32,10 +32,11 @@
      ("arial" "DejaVu Sans")
      ("verdana" "DejaVu Sans"))))
  '(inhibit-startup-screen t)
+ '(magit-commit-arguments (quote ("--gpg-sign=3C0D84EA2D933E47")))
  '(markdown-indent-on-enter t)
  '(package-selected-packages
    (quote
-    (cmake-mode csharp-mode cargo dockerfile-mode racer toml-mode flycheck-rust rust-mode ac-html helm-ack ag auctex helm-dash god-mode restart-emacs ggtags helm-gtags neotree helm-bm xah-elisp-mode zencoding-mode zenburn-theme zeal-at-point yari yaml-mode wrap-region windsize web-mode w3m w3 volatile-highlights virtualenv twittering-mode sr-speedbar sourcemap soundklaus soundcloud sos sml-mode smex smeargle smart-tabs-mode smart-tab sass-mode sage-shell-mode req-package pyvirtualenv python-django pysmell pymacs puppet-mode pony-mode persp-projectile paxedit openwith notmuch nose nlinum nginx-mode mustache-mode multi-term moz-controller markdown-mode+ magit lua-mode logstash-conf kite json-mode js3-mode js2-refactor jquery-doc jinja2-mode jedi-direx jabber ipython image-dired+ iedit idomenu ido-vertical-mode helm-swoop helm-projectile-all helm-projectile helm-package helm-ls-git helm-git-grep helm-git helm-css-scss helm-ag gitignore-mode github-browse-file geiser fuzzy full-ack frame-cmds flymake-yaml flymake-shell flymake-python-pyflakes flymake-puppet flymake-coffee flycheck find-file-in-repository f expand-region evil esup ess ensime emmet-mode elpy elisp-slime-nav elfeed ecb dirtree dired-ranger dired-narrow dired-filter dired-details+ dart-mode ctags crontab-mode comment-dwim-2 color-theme-sanityinc-solarized color-theme coffee-mode butler buffer-move bookmark+ bm bbdb bash-completion auto-compile apache-mode anaphora ack-and-a-half ack ace-window ace-jump-buffer ac-js2 ac-helm)))
+    (company-jedi company-racer company ediprolog js-doc helm-flycheck indium tide cmake-mode csharp-mode cargo dockerfile-mode racer toml-mode flycheck-rust rust-mode ac-html helm-ack ag auctex helm-dash god-mode restart-emacs ggtags helm-gtags neotree helm-bm xah-elisp-mode zencoding-mode zenburn-theme zeal-at-point yari yaml-mode wrap-region windsize web-mode w3m w3 volatile-highlights virtualenv twittering-mode sr-speedbar sourcemap soundklaus soundcloud sos sml-mode smex smeargle smart-tabs-mode smart-tab sass-mode sage-shell-mode req-package pyvirtualenv python-django pysmell pymacs puppet-mode pony-mode persp-projectile paxedit openwith notmuch nose nlinum nginx-mode mustache-mode multi-term moz-controller markdown-mode+ magit lua-mode logstash-conf kite json-mode js3-mode js2-refactor jquery-doc jinja2-mode jedi-direx jabber ipython image-dired+ iedit idomenu ido-vertical-mode helm-swoop helm-projectile-all helm-projectile helm-package helm-ls-git helm-git-grep helm-git helm-css-scss helm-ag gitignore-mode github-browse-file geiser fuzzy full-ack frame-cmds flymake-yaml flymake-shell flymake-python-pyflakes flymake-puppet flymake-coffee flycheck find-file-in-repository f expand-region evil esup ess ensime emmet-mode elpy elisp-slime-nav elfeed ecb dirtree dired-ranger dired-narrow dired-filter dired-details+ dart-mode ctags crontab-mode comment-dwim-2 color-theme-sanityinc-solarized color-theme coffee-mode butler buffer-move bookmark+ bm bbdb bash-completion auto-compile apache-mode anaphora ack-and-a-half ack ace-window ace-jump-buffer ac-js2 ac-helm)))
  '(preview-gs-options
    (quote
     ("-q" "-dNOPAUSE" "-DNOPLATFONTS" "-dPrinted" "-dTextAlphaBits=4" "-dGraphicsAlphaBits=4")))
@@ -165,6 +166,7 @@
 (require 'init-tab)               ; TAB key
 ;;(require 'init-yaml)
 (require 'init-rust)
+;; (require 'init-typescript)
 
 ;;)
 
