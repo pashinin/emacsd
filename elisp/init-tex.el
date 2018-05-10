@@ -20,6 +20,9 @@
                                         ; command
     (eval-after-load 'latex '(add-to-list 'LaTeX-verbatim-environments "minted"))
 
+    (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+    (setq reftex-plug-into-AUCTeX t)
+
     (setq-default TeX-master t)
     (setq TeX-PDF-mode t
           TeX-auto-save t
@@ -60,14 +63,16 @@
 
     (add-hook 'LaTeX-mode-hook 'visual-line-mode)
     ;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-    (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+
+    ;; (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+    ;; (setq reftex-plug-into-AUCTeX t)
     (add-hook 'LaTeX-mode-hook 'turn-on-outline-minor-mode)
     ))
 
 
 
 
-;;(setq reftex-plug-into-AUCTeX t)
+
 
 
 

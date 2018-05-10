@@ -71,11 +71,11 @@ Positions are calculated by `markdown-calc-indents'."
 (defun myHtmlStyle ()
   "Set smarttabs for HTML / js / css."
   (smart-tabs-mode-enable)
-  (setq indent-tabs-mode t)
+  (setq indent-tabs-mode nil)
   (make-local-variable 'tab-width)
-  (setq tab-width 4)
+  (setq tab-width 2)
   ;;(setq css-indent-offset 2)
-  (setq css-indent-offset 4)
+  (setq css-indent-offset 2)
   (local-set-key (kbd "RET") 'newline-and-indent))
 
 

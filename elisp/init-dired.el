@@ -85,6 +85,7 @@ Rename into the same dir or to the dir of other dired-window."
       (setq dired-dwim-target (not dired-dwim-target)))
     ))
 
+
 (req-package dired-details
   :commands dired-details-hide)
 (setq-default dired-details-hidden-string "---")
@@ -158,6 +159,8 @@ Rename into the same dir or to the dir of other dired-window."
     (mydired-sort)))
 
 ;; (require 'dired-async)
+(autoload 'dired-async-mode "dired-async.el" nil t)
+(dired-async-mode 1)
 
 ;;(req-package dirtree)
 

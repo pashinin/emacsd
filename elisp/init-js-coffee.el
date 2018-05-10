@@ -40,6 +40,7 @@
     (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
     (setq
      js2-highlight-level 3
+     js-indent-level 2
      js2-basic-offset 2
      js2-mode-show-parse-errors nil
      js2-mode-show-strict-warnings nil
@@ -50,6 +51,7 @@
                 (flycheck-mode t)
                 (setq
                  indent-tabs-mode nil
+                 js-indent-level 2
                  js2-basic-offset 2
                  js2-mode-show-parse-errors nil
                  js2-mode-show-strict-warnings nil)

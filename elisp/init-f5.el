@@ -197,8 +197,13 @@ sudo pip install grip")
          ((eq major-mode 'rst-mode)
           (let* ((d (file-name-directory (expand-file-name (buffer-file-name))))
                  (makefile (concat d "Makefile")))
+            ;; sphinx-build
+            ;; (if (not (executable-find "sphinx-build"))
+            ;;     (error "Run sudo -H pip install sphinx sphinx_rtd_theme"))
             (if (file-exists-p makefile)
-                (shell-command-to-string (concat "make -C " d " html")))))
+                (shell-command-to-string (concat "make -C " d " html"))
+              (error "Can't find Makefile for RST project!"))
+            ))
 
          ;; - Unknown mode -
          (t (message "Don't know what to do in this mode!"))

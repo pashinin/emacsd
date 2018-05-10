@@ -35,8 +35,8 @@
 (add-hook 'web-mode-hook (lambda () (whitespace-mode -1)))
 
 
-(setq web-mode-markup-indent-offset 4)
-(setq web-mode-code-indent-offset   4)    ; indentation for js, Java, PHP, etc.
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-code-indent-offset   2)    ; indentation for js, Java, PHP, etc.
 ;;(setq web-mode-disable-autocompletion t)
 
 

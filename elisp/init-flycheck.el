@@ -48,16 +48,16 @@
 
 
 
-    (require 'flymake-python-pyflakes)
-    (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
+    ;; (require 'flymake-python-pyflakes)
+    ;; (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
     ;; flycheck-flake8rc is a variable defined in `flycheck.el'.
     ;; Its value is ".flake8rc"
 
-    (require 'flymake-shell)
-    (add-hook 'sh-set-shell-hook 'flymake-shell-load)
+    ;; (require 'flymake-shell)
+    ;; (add-hook 'sh-set-shell-hook 'flymake-shell-load)
 
-    (require 'flymake-yaml)
-    (add-hook 'yaml-mode-hook 'flymake-yaml-load)
+    ;; (require 'flymake-yaml)
+    ;; (add-hook 'yaml-mode-hook 'flymake-yaml-load)
 
     (global-set-key (kbd "s-<") 'flycheck-next-error)
     (global-set-key (kbd "s->") 'flycheck-previous-error)
@@ -75,6 +75,7 @@
                                   ))
 
     ;;(set-face-background 'flymake-warnline "dark slate blue")
+    (global-flycheck-mode)
 ))
 
 

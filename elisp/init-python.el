@@ -119,6 +119,10 @@
   ;;(set 'yas-fallback-behavior '(apply ,newline-and-indent))
   (setq python-indent-trigger-commands nil)
   ;;(setq python-indent-trigger-commands '(indent-for-tab-command yas-expand yas/expand))
+
+  (flycheck-mode t)
+  (setq flycheck-pylintrc "/usr/data/local2/src/pashinin.com/.pylintrc")
+  (flycheck-select-checker 'python-pylint)
   )
 
 (when (require 'init-smarttabs nil 'noerror)
@@ -126,7 +130,7 @@
 
 
 ;; https://github.com/davidmiller/pony-mode
-(req-package pony-mode)
+;; (req-package pony-mode)
 ;; (when (not (eq system-type 'windows-nt))
 
 (req-package rope)
@@ -135,18 +139,26 @@
 ;;python-django-open-project
 
 ;; M-x elpy-config
-(req-package elpy
-  :config  ;; TODO: try init
-  (progn
-    ;;(elpy-default-minor-modes)
-    (setq elpy-modules
-          (delete 'elpy-module-highlight-indentation elpy-modules))
-    (elpy-enable)))
+;; (req-package elpy
+;;   :config  ;; TODO: try init
+;;   (progn
+;;     ;;(elpy-default-minor-modes)
+;;     (setq elpy-modules
+;;           (delete 'elpy-module-highlight-indentation elpy-modules))
+;;     (elpy-enable)))
+
 ;;(highlight-indentation-mode 0)
 
 
 (defun my/python-mode-hook ()
-  (add-to-list 'company-backends 'company-jedi))
+  (add-to-list 'company-backends 'company-jedi)
+  (flycheck-mode t)
+  (setq
+   flycheck-pylintrc "/usr/data/local2/src/pashinin.com/.pylintrc"
+   flycheck-python-pylint-executable "/usr/data/local2/src/pashinin.com/tmp/ve/bin/pylint"
+   )
+  (flycheck-select-checker 'python-pylint)
+  )
 
 (add-hook 'python-mode-hook 'my/python-mode-hook)
 

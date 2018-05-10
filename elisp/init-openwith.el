@@ -14,7 +14,9 @@
             "libreoffice" '(file))
       (list (openwith-make-extension-regexp
              '("pdf" "dvi" "djvu"))
-            "evince" '(file))
+            ;; "evince" '(file)
+            "okular" '(file)
+            )
       (list (openwith-make-extension-regexp
              '("rar" "gz" "7z"))
             "file-roller" '(file))
@@ -26,7 +28,7 @@
             "gnome-disk-image-mounter" '(file))
       (list (openwith-make-extension-regexp
              '("mp3" "ogg" "wav" "m4a" "flac"))
-            "deadbeef" '(file))
+            "mpv" '(file))
       (list (openwith-make-extension-regexp
              '("mpeg" "avi" "wmv" "flv" "mkv" "mp4" "webm" "ogv" "m4v" "pls" "vob" "mov"))
             "mpv" '(file))
@@ -90,7 +92,8 @@
   (interactive)
   (define-key dired-mode-map (kbd "<return>") 'my-dired-smart-open)
   (define-key dired-mode-map (kbd "<kp-enter>") 'my-dired-smart-open))
-(add-hook 'dired-mode-hook 'my-dired-external-open-hook)
+;; (add-hook 'dired-mode-hook 'my-dired-external-open-hook)
+;; (remove-hook 'dired-mode-hook 'my-dired-external-open-hook)
 
 (provide 'init-openwith)
 ;;; init-openwith.el ends here
