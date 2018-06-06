@@ -22,6 +22,7 @@
 (setq-default fill-column 72)  ; 80-char margin
 
 (req-package wrap-region
+:ensure t
   ;;(add-hook 'ruby-mode-hook 'wrap-region-mode)   ; for specific mode
   :init
   (wrap-region-global-mode t))                     ; for all buffers
@@ -43,6 +44,7 @@
 (global-linum-mode 0)
 ;;(global-linum-mode 1)       ;; slows down org-mode
 (req-package nlinum
+:ensure t
   :init
   (progn
     (global-nlinum-mode 0)
@@ -57,6 +59,7 @@
 
 ;;(when (require 'multiple-cursors nil 'noerror)
 (req-package multiple-cursors
+:ensure t
   :commands set-rectangular-region-anchor mc/edit-lines
   :bind (("C-S-c C-S-c" . mc/edit-lines)
          ("C-<" . mc/mark-previous-like-this)
@@ -65,6 +68,7 @@
          ("s-SPC" . set-rectangular-region-anchor)))
 
 (req-package expand-region
+:ensure t
   :bind ("C-=" . er/expand-region))
 ;;(global-set-key (kbd "C-=") 'er/expand-region))  ;; select next logical block
 
@@ -341,6 +345,7 @@
 ;; https://github.com/nonsequitur/smex
 ;; IDO to your recently and most frequently used "M-x" commands
 (req-package smex
+:ensure t
   :commands smex
   :init
   (progn
@@ -354,6 +359,7 @@
 (electric-pair-mode 1)
 
 (req-package undo-tree
+:ensure t
   :commands global-undo-tree-mode
   :init
   (global-undo-tree-mode 1))
@@ -397,10 +403,12 @@
 
 
 (req-package dash
+:ensure t
   :init
   (dash-enable-font-lock))
 
 (req-package evil
+:ensure t
   :init
   (progn
     ;;(setq evil-)
@@ -408,16 +416,19 @@
 
 ;; https://github.com/remyferre/comment-dwim-2
 (req-package comment-dwim-2
+:ensure t
   :init
   (global-set-key (kbd "M-;") 'comment-dwim-2))
 
 (req-package markdown-mode
+:ensure t
   :config
   (global-set-key (kbd "M-;") 'comment-dwim-2)
   (define-key markdown-mode-map (kbd "C-b") 'markdown-insert-bold)
   (define-key markdown-mode-map (kbd "RET") 'newline-and-indent))
 
 (req-package find-file-in-repository
+:ensure t
   :init
   ;;(global-set-key (kbd "C-x C-f") 'find-file-in-repository)
   ;;(global-unset-key (kbd "C-x C-f"))

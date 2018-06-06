@@ -3,6 +3,7 @@
 ;;; Code:
 (require 'req-package)
 (req-package tramp
+:ensure t
   :commands tramp-read-passwd
   :config
   (progn

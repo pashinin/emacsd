@@ -3,15 +3,17 @@
 ;;; Code:
 
 (req-package nginx-mode
+  :ensure t
   :init
   (progn
 (add-to-list 'auto-mode-alist '("/etc/nginx/\.*"             . nginx-mode))
 (add-to-list 'auto-mode-alist '("\\.nginx"                   . nginx-mode))
     ))
 
-(req-package crontab-mode
-:init
-(add-to-list 'auto-mode-alist '("cron\\(tab\\)?"             . crontab-mode)))
+;(req-package crontab-mode
+;  :ensure t
+;:init
+;(add-to-list 'auto-mode-alist '("cron\\(tab\\)?"             . crontab-mode)))
 
 ;; big files
 (defun my-find-file-check-make-large-file-read-only-hook ()

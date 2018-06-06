@@ -5,6 +5,7 @@
 
 (require 'req-package)
 (req-package dired
+;:ensure t
   :init
   (progn
     (setq dired-listing-switches "-alh")   ; human readable size (Kb, Mb, Gb)
@@ -69,7 +70,7 @@
     (define-key dired-mode-map (kbd "<backspace>") 'dired-up-directory)
     ))
 (req-package dired-extension)
-(req-package dired-x          ; omitting files possibility
+(use-package dired-x          ; omitting files possibility
   :commands dired-jump
   ;;(global-set-key (kbd "s-\\") 'dired-jump) ;; Jump to parent dir or dir from file
   ;;:bind ("s-\\" . dired-jump)
@@ -86,7 +87,8 @@ Rename into the same dir or to the dir of other dired-window."
     ))
 
 
-(req-package dired-details
+(use-package dired-details
+;:ensure t
   :commands dired-details-hide)
 (setq-default dired-details-hidden-string "---")
 (if (eq system-type 'windows-nt)
@@ -159,8 +161,8 @@ Rename into the same dir or to the dir of other dired-window."
     (mydired-sort)))
 
 ;; (require 'dired-async)
-(autoload 'dired-async-mode "dired-async.el" nil t)
-(dired-async-mode 1)
+;(autoload 'dired-async-mode "dired-async.el" nil t)
+;(dired-async-mode 1)
 
 ;;(req-package dirtree)
 

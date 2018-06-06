@@ -2,12 +2,16 @@
 
 (require 'req-package)
 
-(req-package cargo)
+(req-package cargo
+:ensure t)
 ;; (require 'cargo)
 
 (req-package rust-mode
+  :ensure t
   ;; :require cargo
-  :mode "\\.rs\\'"
+  :mode "\\.rs\\'"s
+  :init (progn
+          (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common))
   :config (progn
             ;; (add-hook 'rust-mode-hook 'cargo-minor-mode)
             (defun rust-mode-indent-line ()
@@ -208,8 +212,8 @@
 
 (add-hook 'racer-mode-hook #'company-mode)
 
-(require 'rust-mode)
-(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+;(require 'rust-mode)
+;(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
 (setq company-tooltip-align-annotations t)
 
 

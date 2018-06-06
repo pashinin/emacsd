@@ -13,6 +13,7 @@
 (require 'req-package)
 
 (req-package company
+  :ensure t
   :init
   (progn
     (global-company-mode)

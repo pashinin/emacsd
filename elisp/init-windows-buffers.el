@@ -32,6 +32,7 @@
 ;; Resize buffers
 ;; Resizes by 8 columns or 4 rows by default. Change that by setting
 (req-package windsize
+:ensure t
   :config
   (progn
     (setq windsize-rows 1
@@ -47,6 +48,7 @@
 
 
 (req-package buffer-move
+:ensure t
   :bind (("<C-S-s-up>" . buf-move-up)
 	 ("<C-S-s-down>" . buf-move-down)
 	 ("<C-S-s-left>" . buf-move-left)

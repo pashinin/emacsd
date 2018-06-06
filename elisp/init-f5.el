@@ -5,10 +5,11 @@
 
 (req-package init-dired-z)
 (req-package init-os-misc)
-(req-package coffee-mode)
+;(req-package coffee-mode)
 (req-package my-cpp)
 (req-package my-audio)
-(req-package f)
+(req-package f
+  :ensure t)
 
 (defun file-under-path (path &optional filename)
   "Return t if PATH has a FILENAME in any folder under it."
@@ -93,17 +94,17 @@ sudo pip install grip")
               (comint-send-string (inferior-moz-process)
                                   "BrowserReload();")))
 
-         ((eq major-mode 'coffee-mode)
+         ;; ((eq major-mode 'coffee-mode)
 
-          (if flag1
-              (let ((cmd (format "uglifyjs - -o %s"
-                                 (concat (file-name-sans-extension buffer-file-name) ".min.js"))))
-                (coffee-compile-buffer)
-                (with-current-buffer coffee-compiled-buffer-name
-                  (shell-command-on-region (point-min) (point-max) cmd)))
-            ;; uglifyjs pkg.name.js --screw-ie8 --output pkg.name.min.js
-            (if (fboundp 'coffee-compile-buffer)
-                (coffee-compile-buffer))))
+         ;;  (if flag1
+         ;;      (let ((cmd (format "uglifyjs - -o %s"
+         ;;                         (concat (file-name-sans-extension buffer-file-name) ".min.js"))))
+         ;;        (coffee-compile-buffer)
+         ;;        (with-current-buffer coffee-compiled-buffer-name
+         ;;          (shell-command-on-region (point-min) (point-max) cmd)))
+         ;;    ;; uglifyjs pkg.name.js --screw-ie8 --output pkg.name.min.js
+         ;;    (if (fboundp 'coffee-compile-buffer)
+         ;;        (coffee-compile-buffer))))
 
          ((eq major-mode 'sass-mode)
           (save-window-excursion

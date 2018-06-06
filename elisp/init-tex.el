@@ -7,7 +7,9 @@
 ;;TEX
 ;;(add-to-list 'load-path "~/.emacs.d/elpa/auctex-11.86")
 (require 'req-package)
+
 (req-package tex    ;; == auctex
+  :ensure auctex
   :config
   (progn
     ;;(setq TeX-engine 'xetex)
@@ -31,12 +33,16 @@
 ))
 
 (req-package tex-buf
+;:ensure t
   :config
   (setq TeX-save-query nil))
-(req-package tex-site)
-(req-package tex-mik)
+(req-package tex-site
+  :ensure auctex)
+(req-package tex-mik
+  :ensure auctex)
 
 (req-package preview-latex
+;:ensure t
   :require tex-mode
   :config
   (progn
@@ -44,13 +50,15 @@
 
 ;;(require 'auto-complete-latex)
 ;;(require 'ac-math)
-(req-package auto-complete-config
-  ;; :require auto-complete
-  :init
-  (add-to-list 'ac-modes 'latex-mode))
+;; (req-package auto-complete-config
+;; ;:ensure t
+;;   ;; :require auto-complete
+;;   :init
+;;   (add-to-list 'ac-modes 'latex-mode))
 
 
 (req-package tex-mode
+;:ensure t
   :require flycheck
   :config
   (progn
@@ -106,7 +114,8 @@
 
 
 (req-package latex
-  :require init-smarttabs
+;:ensure t
+  ;; :require init-smarttabs
   :config
   (add-hook 'LaTeX-mode-hook      'my-smarttabs-spaces-autoinednt))
 
@@ -123,9 +132,10 @@
 ;;
 ;;
 (add-to-list 'load-path "/usr/lib/sagemath/local/share/emacs")
-(req-package sage
-  :config
-  (setq sage-command "/usr/lib/sagemath/sage"))
+;; (req-package sage
+;; ;:ensure t
+;;   :config
+;;   (setq sage-command "/usr/lib/sagemath/sage"))
 
 (provide 'init-tex)
 ;;; init-tex.el ends here

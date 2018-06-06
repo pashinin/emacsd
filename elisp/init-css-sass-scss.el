@@ -20,6 +20,7 @@
   )
 
 (req-package sass-mode
+  :ensure t
   ;;(require 'flymake-sass)
   :require s
   ;;:bind ("s-r" . my-scss-compile-file)
@@ -72,6 +73,7 @@
 
 
 (req-package helm-css-scss
+  :ensure t
   :require helm
   :init
   (progn

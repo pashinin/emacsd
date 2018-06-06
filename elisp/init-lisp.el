@@ -16,6 +16,7 @@
 ;;(add-to-list 'load-path "~/.slime") ; your SLIME directory
 
 (req-package paxedit
+:ensure t
   :init
   (progn
     (add-hook 'emacs-lisp-mode-hook 'paxedit-mode)

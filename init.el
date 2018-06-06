@@ -12,7 +12,7 @@
  '(ac-auto-start nil)
  '(ac-trigger-key "TAB")
  '(ac-use-menu-map t)
- '(bmkp-last-as-first-bookmark-file "/home/xdev/.emacs.d/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "/home/xdev/.emacs.d/bookmarks" t)
  '(coffee-tab-width 2)
  '(column-number-mode t)
  '(company-idle-delay 0.1)
@@ -33,11 +33,11 @@
      ("verdana" "DejaVu Sans"))))
  '(flycheck-python-pycompile-executable "python3.6")
  '(inhibit-startup-screen t)
- '(magit-commit-arguments (quote ("--gpg-sign=3C0D84EA2D933E47")))
+ ;; '(magit-commit-arguments (quote ("--gpg-sign=3C0D84EA2D933E47")))
  '(markdown-indent-on-enter t)
  '(package-selected-packages
    (quote
-    (vue-mode matlab-mode hcl-mode keychain-environment company-jedi company-racer company ediprolog js-doc helm-flycheck indium tide cmake-mode csharp-mode cargo dockerfile-mode racer toml-mode flycheck-rust rust-mode ac-html helm-ack ag auctex helm-dash god-mode restart-emacs ggtags helm-gtags neotree helm-bm xah-elisp-mode zencoding-mode zenburn-theme zeal-at-point yari yaml-mode wrap-region windsize web-mode w3m w3 volatile-highlights virtualenv twittering-mode sr-speedbar sourcemap soundklaus soundcloud sos sml-mode smex smeargle smart-tabs-mode smart-tab sass-mode sage-shell-mode req-package pyvirtualenv python-django pysmell pymacs puppet-mode pony-mode persp-projectile paxedit openwith notmuch nose nlinum nginx-mode mustache-mode multi-term moz-controller markdown-mode+ magit lua-mode logstash-conf kite json-mode js3-mode js2-refactor jquery-doc jinja2-mode jedi-direx jabber ipython image-dired+ iedit idomenu ido-vertical-mode helm-swoop helm-projectile-all helm-projectile helm-package helm-ls-git helm-git-grep helm-git helm-css-scss helm-ag gitignore-mode github-browse-file geiser fuzzy full-ack frame-cmds flymake-yaml flymake-shell flymake-python-pyflakes flymake-puppet flymake-coffee flycheck find-file-in-repository f expand-region evil esup ess ensime emmet-mode elpy elisp-slime-nav elfeed ecb dirtree dired-ranger dired-narrow dired-filter dired-details+ dart-mode ctags crontab-mode comment-dwim-2 color-theme-sanityinc-solarized color-theme coffee-mode butler buffer-move bookmark+ bm bbdb bash-completion auto-compile apache-mode anaphora ack-and-a-half ack ace-window ace-jump-buffer ac-js2 ac-helm)))
+    (rope sage auto-complete-config tex-mik tex-site tex-buf tex js2-mode yasnippet dired-details dired-x dired-extension dired helm-files helm vue-mode matlab-mode hcl-mode keychain-environment company-jedi company-racer company ediprolog js-doc helm-flycheck indium tide cmake-mode csharp-mode cargo dockerfile-mode racer toml-mode flycheck-rust rust-mode ac-html helm-ack ag auctex helm-dash god-mode restart-emacs ggtags helm-gtags neotree helm-bm xah-elisp-mode zencoding-mode zenburn-theme zeal-at-point yari yaml-mode wrap-region windsize web-mode w3m w3 volatile-highlights virtualenv twittering-mode sr-speedbar sourcemap soundklaus soundcloud sos sml-mode smex smeargle smart-tabs-mode smart-tab sass-mode sage-shell-mode req-package pyvirtualenv python-django pysmell pymacs puppet-mode pony-mode persp-projectile paxedit openwith notmuch nose nlinum nginx-mode mustache-mode multi-term moz-controller markdown-mode+ magit lua-mode logstash-conf kite json-mode js3-mode js2-refactor jquery-doc jinja2-mode jedi-direx jabber ipython image-dired+ iedit idomenu ido-vertical-mode helm-swoop helm-projectile-all helm-projectile helm-package helm-ls-git helm-git-grep helm-git helm-css-scss helm-ag gitignore-mode github-browse-file geiser fuzzy full-ack frame-cmds flymake-yaml flymake-shell flymake-python-pyflakes flymake-puppet flymake-coffee flycheck find-file-in-repository f expand-region evil esup ess ensime emmet-mode elpy elisp-slime-nav elfeed ecb dirtree dired-ranger dired-narrow dired-filter dired-details+ dart-mode ctags crontab-mode comment-dwim-2 color-theme-sanityinc-solarized color-theme coffee-mode butler buffer-move bookmark+ bm bbdb bash-completion auto-compile apache-mode anaphora ack-and-a-half ack ace-window ace-jump-buffer ac-js2 ac-helm)))
  '(preview-gs-options
    (quote
     ("-q" "-dNOPAUSE" "-DNOPLATFONTS" "-dPrinted" "-dTextAlphaBits=4" "-dGraphicsAlphaBits=4")))
@@ -98,7 +98,7 @@
  '(mode-line-buffer-id ((t (:foreground "coral" :weight bold))))
  '(mode-line-highlight ((t (:foreground "navajo white" :box nil :weight bold))))
  '(mode-line-inactive ((t (:inherit mode-line :background "#073642" :foreground "#586e75" :weight normal))))
- '(org-agenda-date-today ((t (:inherit org-agenda-date :foreground "lawn green" :slant normal :weight bold))))
+ '(org-agenda-date-today ((t (:inherit org-agenda-date :foreground "lawn green" :slant normal :weight bold))) t)
  '(region ((t (foreground: "black" :background "dim gray" :inverse-video t))))
  '(vertical-border ((((type tty)) (:inherit mode-line-inactive))))
  '(web-mode-html-attr-name-face ((t (:foreground "medium sea green"))))
@@ -162,12 +162,12 @@
 (require 'init-bookmarks)
 (require 'init-python)
 (require 'init-gettext)
-(require 'init-navigation)        ; move to variables, functions, classes
-(require 'init-search)            ; search text: in buffers, files, dirs
+;(require 'init-navigation)        ; move to variables, functions, classes
+;(require 'init-search)            ; search text: in buffers, files, dirs
 (require 'init-autocomplete)
 (require 'init-tab)               ; TAB key
 ;;(require 'init-yaml)
-(require 'init-rust)
+;; (require 'init-rust)
 ;; (require 'init-typescript)
 
 ;;)

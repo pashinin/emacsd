@@ -4,6 +4,7 @@
 
 (require 'init-variables)
 (req-package bm
+:ensure t
 :init
 (progn
 (global-set-key (kbd "<s-return>") 'bm-toggle)
@@ -21,7 +22,7 @@
 (global-set-key (kbd "s-b") 'my-bookmarks-list-same-buffer)
 
 
-(req-package bookmark+)
+;(req-package bookmark+ :ensure t)
 
 (provide 'init-bookmarks)
 ;;; init-bookmarks.el ends here

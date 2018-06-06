@@ -5,6 +5,7 @@
 (require 'req-package)
 
 (req-package color-theme-sanityinc-solarized
+  :ensure t
   :init
   (load-theme 'sanityinc-solarized-dark)
   (set-cursor-color "coral")

@@ -14,10 +14,12 @@
 (require 'req-package)
 (require 'init-variables)
 
-(req-package jquery-doc)
+(req-package jquery-doc
+:ensure t)
 
 ;; js3
 (req-package js3-mode
+:ensure t
   :commands js3-mode js3-mode-toggle-element
   :bind ("s-h" . js3-mode-toggle-element)
   :init
@@ -35,6 +37,7 @@
 ;; js2
 ;; https://emacs.stackexchange.com/questions/26949/can-i-turn-off-or-switch-the-syntax-checker-for-js2-mode
 (req-package js2-mode
+:ensure t
   :init
   (progn
     (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -59,8 +62,10 @@
     ))
 
 ;;
-(req-package js2-refactor)
+(req-package js2-refactor
+:ensure t)
 (req-package ac-js2
+:ensure t
   :init
   (add-hook 'js2-mode-hook 'ac-js2-mode))
 

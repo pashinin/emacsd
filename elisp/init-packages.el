@@ -13,7 +13,7 @@
 
 ;; auto install Melpa packages
 (defvar my-packages)
-(setq my-packages '(req-package))
+(setq my-packages '(req-package use-package))
 
 (defun prelude-packages-installed-p ()
   (loop for p in my-packages

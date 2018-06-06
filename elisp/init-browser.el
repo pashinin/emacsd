@@ -57,7 +57,8 @@
 ;;
 ;; Edit .desktop file on Ubuntu:
 ;;  ~/.local/share/applications/chromium-browser-my.desktop
-(req-package kite)
+(req-package kite
+  :ensure t)
 
 (provide 'init-browser)
 ;;; init-browser.el ends here

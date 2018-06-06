@@ -33,6 +33,7 @@
 ;; (add-to-list 'load-path "~/ensime/elisp/")
 (require 'req-package)
 (req-package ensime
+:ensure t
   :commands ensime-scala-mode-hook
   :require scala-mode2
   :config

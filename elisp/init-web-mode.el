@@ -10,6 +10,7 @@
 ;; emmet-mode
 ;; Just write something like "a.x>span" and press C-<RET>
 (req-package emmet-mode
+:ensure t
 :init
 (progn
 (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
@@ -18,6 +19,7 @@
 ))
 
 (req-package web-mode
+:ensure t
 :init
 (progn
 (add-hook 'web-mode-hook 'moz-minor-mode-enable)

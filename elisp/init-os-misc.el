@@ -222,7 +222,7 @@ That ends with .jpg or .png."
                            (server-password . "pass")))))
 
 
-(req-package twittering-mode)
+;; (req-package twittering-mode)
 
 
 (provide 'init-os-misc)

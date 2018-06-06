@@ -133,9 +133,10 @@
 ;; (req-package pony-mode)
 ;; (when (not (eq system-type 'windows-nt))
 
-(req-package rope)
+;(req-package rope :ensure t)
 
-(req-package python-django)
+(req-package python-django
+:ensure t)
 ;;python-django-open-project
 
 ;; M-x elpy-config

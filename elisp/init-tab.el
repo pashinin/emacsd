@@ -143,6 +143,7 @@ Positions are calculated by `markdown-calc-indents'."
 ;;; Code:
 
 (req-package yasnippet
+:ensure t
   :commands yas-global-mode
   :init
   (progn

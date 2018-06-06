@@ -4,6 +4,7 @@
 ;;; Code:
 
 (req-package openwith
+  :ensure t
   :config
   (progn
     (setq

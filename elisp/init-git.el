@@ -16,6 +16,7 @@
 
 (setq magit-auto-revert-mode nil)
 (req-package magit
+:ensure t
   :bind ("C-s-g" . magit-status)
   :config (if nil (add-to-list 'magit-commit-arguments "--gpg-sign=3C0D84EA2D933E47"))
   :init
@@ -54,6 +55,7 @@
 
 
 (req-package github-browse-file
+:ensure t
   :bind ("<s-home>" . github-browse-file))
 
 ;; `helm-ls-git' help
@@ -67,6 +69,7 @@
 
 
 (req-package helm-git-grep
+:ensure t
   :init
   ;; (global-set-key (kbd "C-c g") 'helm-git-grep)
   (global-set-key (kbd "C-c g") 'helm-git-grep-at-point)

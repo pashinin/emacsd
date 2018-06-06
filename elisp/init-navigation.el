@@ -11,12 +11,14 @@
 ;; For Elisp
 ;; https://github.com/purcell/elisp-slime-nav
 (req-package elisp-slime-nav
+:ensure t
   :init
   ;; elisp-slime-nav-mode-map
   (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
     (add-hook hook 'turn-on-elisp-slime-nav-mode)))
 
 (req-package ctags
+;;:ensure t
   :bind ("<f7>" . ctags-create-or-update-tags-table)
   :init
   (setq path-to-ctags my-emacs-files-dir  ;; <- your ctags path here
@@ -24,6 +26,7 @@
 ;;(global-set-key (kbd "<f7>") 'ctags-create-or-update-tags-table)
 
 (req-package etags
+:ensure t
   :bind (("C-." . find-tag)
          ("M-." . pop-tag-mark)))
 ;;(global-set-key (kbd "C-.") 'find-tag)
