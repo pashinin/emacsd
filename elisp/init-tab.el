@@ -99,34 +99,6 @@ Positions are calculated by `markdown-calc-indents'."
                   (indent-region (region-beginning) (region-end) nil))))))
 
 
-;;function to implement a smarter TAB (EmacsWiki)
-;;(defun smart-tab2 ()
-;;  "This smart tab is minibuffer compliant: it acts as usual in
-;;    the minibuffer. Else, if mark is active, indents region. Else if
-;;    point is at the end of a symbol, expands it. Else indents the
-;;    current line."
-;;  (interactive)
-;;  (if (minibufferp)
-;;      (unless (minibuffer-complete)
-;;        (hippie-expand nil))
-;;    (if mark-active
-;;        (indent-region (region-beginning)
-;;                       (region-end))
-;;      (if (looking-at "\\_>")
-;;          ;;(hippie-expand nil)
-;;          (yas-expand)
-;;        ;;(if (looking-back "[\n ]" 1)
-;;        (smart-tab-default)
-;;        ;;(yas-expand))
-;;        )))  ;; (indent-for-tab-command)
-;;  )
-;;(global-set-key (kbd "TAB") 'smart-tab)
-
-
-
-
-
-
 ;;; init-yasnippet --- description
 ;;; Commentary:
 ;; 1. https://github.com/capitaomorte/yasnippet
@@ -143,10 +115,12 @@ Positions are calculated by `markdown-calc-indents'."
 ;;; Code:
 
 (req-package yasnippet
-:ensure t
+  :ensure t
   :commands yas-global-mode
   :init
   (progn
+    ;; (push 'yas-installed-snippets-dir yas-snippet-dirs)
+    ;;yas-installed-snippets-dir
     (setq yas-prompt-functions '(yas/dropdown-prompt yas/ido-prompt yas/x-prompt))
     ;;(setq yas-wrap-around-region 'cua)
     (setq yas-wrap-around-region nil
@@ -154,6 +128,7 @@ Positions are calculated by `markdown-calc-indents'."
           )
     (setq yas-indent-line t)
     ;;(yas-global-mode 1)
+
 
     (req-package hippie-exp
       :init
@@ -168,9 +143,11 @@ Positions are calculated by `markdown-calc-indents'."
                 try-complete-file-name
                 try-complete-lisp-symbol))))
 
+    ;; Try to expand yasnippet snippets based on prefix
+    (push 'yas-hippie-try-expand hippie-expand-try-functions-list)
+
 
     ;;(yas-reload-all)
-
     ;; Fixing a problem
     (defun my-smart-tab ()
       "Do `yas-expand' only if on text, else - `smart-tab'."

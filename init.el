@@ -162,8 +162,8 @@
 (require 'init-bookmarks)
 (require 'init-python)
 (require 'init-gettext)
-;(require 'init-navigation)        ; move to variables, functions, classes
-;(require 'init-search)            ; search text: in buffers, files, dirs
+(require 'init-navigation)        ; move to variables, functions, classes
+(require 'init-search)            ; search text: in buffers, files, dirs
 (require 'init-autocomplete)
 (require 'init-tab)               ; TAB key
 ;;(require 'init-yaml)

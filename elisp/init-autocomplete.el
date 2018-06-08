@@ -17,10 +17,10 @@
   :init
   (progn
     (global-company-mode)
+    ;; (setq company-auto-complete t)
     ))
 
 ;;(setq company-auto-complete t)
-
 
 
 ;; (req-package auto-complete

@@ -21,7 +21,7 @@
   (switch-to-buffer "*Bookmark List*"))
 (global-set-key (kbd "s-b") 'my-bookmarks-list-same-buffer)
 
-
+;;(require 'bookmark+)
 ;(req-package bookmark+ :ensure t)
 
 (provide 'init-bookmarks)

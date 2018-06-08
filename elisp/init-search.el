@@ -16,7 +16,7 @@
 ;; Helm - search anything
 ;; To configure colors: M-x customize-group <RET> helm <RET>
 (req-package helm
-:ensure t
+  :ensure t
   :init
   (progn
     (setq helm-idle-delay 0.1
@@ -30,12 +30,14 @@
     (global-set-key (kbd "s-[") 'helm-mini)
     (global-set-key (kbd "<S-s-insert>") 'helm-show-kill-ring)
     (global-set-key [S-f3] 'helm-do-grep)
+
     ;; Open in the same buffer:
-    (setq helm-display-function
-          (lambda (buf)
-            ;;(split-window-horizontally)
-            ;;(other-window 1)
-            (switch-to-buffer buf)))
+    ;; (setq helm-display-function
+    ;;       (lambda (buf)
+    ;;         ;;(split-window-horizontally)
+    ;;         ;;(other-window 1)
+    ;;         (switch-to-buffer buf)))
+
     ;;(helm-configuration)
     ))
 
@@ -47,7 +49,7 @@
 ;; C-r      `isearch-backward'
 ;; C-S-s    `helm-swoop'           https://github.com/ShingoFukuyama/helm-swoop
 (req-package helm-swoop
-:ensure t
+  :ensure t
   :commands helm-swoop-from-isearch helm-multi-swoop-all-from-helm-swoop
   helm-multi-swoop helm-multi-swoop-all helm-swoop-back-to-last-point
   :require helm
@@ -69,7 +71,7 @@
 ;;
 ;;(require 'helm-files)
 (req-package helm-files
-:ensure t
+  :ensure helm
   :require helm
   :commands helm-do-grep-1 my-helm-do-grep helm-for-files
   :bind (;;("<s-f3>" . my-helm-do-grep)
@@ -95,18 +97,6 @@
     ))
 
 
-;; Just in case: ack, but silversearch is faster
-(req-package ack-and-a-half
-:ensure t
-  :commands ack ack-and-a-half ack-and-a-half-same ack-and-a-half-find-file ack-and-a-half-find-file-same
-  :config
-  (progn
-    (defalias 'ack 'ack-and-a-half)
-    (defalias 'ack-same 'ack-and-a-half-same)
-    (defalias 'ack-find-file 'ack-and-a-half-find-file)
-    (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)))
-
-
 ;; SilverSearch - https://github.com/ggreer/the_silver_searcher
 ;; Install:
 ;;   sudo apt-get install silversearcher-ag
@@ -114,7 +104,7 @@
 ;; Use:
 ;; s-f3       `helm-do-ag' - search text in all files' (under current dir) content
 (req-package helm-ag
-:ensure t
+  :ensure t
   :require helm
   :bind ("<s-f3>" . helm-do-ag)
   :config
